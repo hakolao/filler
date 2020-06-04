@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 18:22:18 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/04 16:50:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/04 22:41:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 
 int				handle_key_press(int key, void *param)
 {
-	t_scene		*scene;
-	int			ret;
+	t_app		*app;
 
-	scene = (t_scene *)param;
+	app = (t_app*)param;
 	if (key == KEY_G)
-		scene->show_guide = !scene->show_guide;
-	return ((scene->redraw = TRUE));
+	{
+		app->show_guide = !app->show_guide;
+		app->window->redraw = TRUE;
+	}
+	if (key == KEY_ESC)
+		handle_exit_event(app);
+	return (0);
 }
 
 int				handle_key_release(int key, void *param)
 {
-	t_scene		*scene;
+	t_app		*app;
 
-	scene = (t_scene *)param;
+	app = (t_app*)param;
 	(void)key;
 	return (0);
 }

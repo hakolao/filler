@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 17:08:46 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/04 16:50:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/04 22:38:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,10 @@
 
 int				handle_exit_event(void *params)
 {
-	t_scene		*scene;
-	t_scenes	*data;
-	int			i;
-	int			should_exit;
+	t_app		*app;
 
-	scene = (t_scene*)params;
-	data = scene->data;
-	mlx_destroy_window(scene->mlx, scene->mlx_wdw);
-	should_exit = TRUE;
-	i = -1;
-	while (++i < data->size)
-	{
-		if (i == scene->id && !(data->scenes[i] = NULL))
-			delete_scene(scene);
-		if (data->scenes[i] != NULL)
-			should_exit = FALSE;
-	}
-	if (should_exit)
-		exit(0);
+	app = (t_app*)params;
+	mlx_destroy_window(app->window->mlx, app->window->mlx_wdw);
+	exit(0);
 	return (0);
 }

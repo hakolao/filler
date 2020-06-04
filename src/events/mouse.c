@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 18:22:48 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/04 16:50:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/04 22:25:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,33 @@
 
 int				handle_mouse_button_press(int button, int x, int y, void *param)
 {
-	t_scene	*scene;
+	t_app	*app;
 
 	(void)x;
 	(void)y;
 	(void)button;
-	scene = (t_scene *)param;
+	app = (t_app*)param;
 	return (1);
 }
 
 int				handle_mouse_button_release(int button, int x, int y,
 				void *param)
 {
-	t_scene	*scene;
+	t_app	*app;
 
 	(void)x;
 	(void)y;
 	(void)button;
-	scene = (t_scene *)param;
+	app = (t_app*)param;
 	return (1);
 }
 
 int				handle_mouse_move(int x, int y, void *param)
 {
-	t_scene	*scene;
+	t_app	*app;
 
 	(void)x;
 	(void)y;
-	scene = (t_scene *)param;
+	app = (t_app*)param;
 	return (1);
 }

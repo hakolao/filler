@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 18:23:34 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/04 16:50:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/04 22:38:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,10 @@
 
 int				handle_loop(void *params)
 {
-	t_scenes		*data;
-	int				i;
+	t_app		*app;
 
-	data = (t_scenes*)params;
-	i = 0;
-	while (i < data->size)
-	{
-		if (data->scenes[i] &&
-			data->scenes[i]->redraw == TRUE)
-			draw(data->scenes[i]);
-		i++;
-	}
+	app = (t_app*)params;
+	if (app->window->redraw == TRUE)
+			draw(app);
 	return (0);
 }

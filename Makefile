@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:58:30 by ohakola           #+#    #+#              #
-#    Updated: 2020/06/04 16:57:03 by ohakola          ###   ########.fr        #
+#    Updated: 2020/06/04 22:37:52 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ THREADFLAGS = -lpthread
 SOURCES = main.c \
 			log.c \
 			thread.c \
+			window.c \
 			draw/pixel.c \
 			draw/draw.c \
 			events/keys.c \

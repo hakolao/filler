@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:12:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/04 17:09:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/04 22:38:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static t_pixel				**thread_pixels(int size)
 */
 
 static int					thread_render_params(t_thread_params
-							*params, t_scene *scene, int i)
+							*params, t_window *scene, int i)
 {
 	if (!(params->pixel_bounds = pixel_bounds(0,
 			scene->screen_width, i * (scene->screen_height / THREADS),
@@ -60,20 +60,20 @@ static int					thread_render_params(t_thread_params
 	return (TRUE);
 }
 
-t_thread_params				**thread_params(t_scene *scene)
+t_thread_params				**thread_params(t_app *app)
 {
 	t_thread_params			**params;
 	int						i;
 
 	if (!(params = malloc(sizeof(*params) * THREADS)) ||
-		(scene->screen_height % THREADS != 0 &&
+		(app->window->screen_height % THREADS != 0 &&
 			log_err("HEIGHT % THREADS != 0", "Headers")))
 		return (NULL);
 	i = 0;
 	while (i < THREADS)
 	{
 		if (!(params[i] = malloc(sizeof(**params))) ||
-			!thread_render_params(params[i], scene, i))
+			!thread_render_params(params[i], app->window, i))
 			return (NULL);
 		i++;
 	}

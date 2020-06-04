@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/04 17:06:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/04 22:38:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,40 +97,45 @@ typedef struct		s_thread_params
 ** Scene contains all data the application needs inside its loop
 */
 
-typedef struct		s_scene
+typedef struct		s_window
 {
 	int					id;
 	void				*mlx;
 	void				*mlx_wdw;
-	void				*screenshot;
-	char				*screenshot_buf;
 	int					screen_width;
 	int					screen_height;
 	int					pixel_bits;
 	int					line_bytes;
 	int					pixel_endian;
-	int					mouse_left_pressed;
 	int					redraw;
 	int					ui_color;
 	int					bg_color;
-	t_thread_params		thread_params;
-}					t_scene;
+}					t_window;
+
+typedef struct		s_app
+{
+	t_window			*window;
+	int					show_guide;
+	t_thread_params		**thread_params;
+}					t_app;
+
+t_window				*new_window(void *mlx);
 
 /*
 ** UI
 */
-void				draw_paragraph(t_scene *scene, char *text, int xpos,
+void				draw_paragraph(t_app *app, char *text, int xpos,
 					int ypos);
-void				draw_ui(t_scene *scene);
+void				draw_ui(t_app *app);
 char				*guide(void);
 
 /*
 ** Draw
 */
-int					draw(t_scene *scene);
-void				plot_pixel(t_scene *scene, int x, int y, int color);
+int					draw(t_app *app);
+void				plot_pixel(t_window *scene, int x, int y, int color);
 int					lerp_rgb(int start, int end, double gradient_mul);
-void				plot_threaded_pixels(t_scene *scene);
+void				plot_threaded_pixels(t_window *scene);
 void				set_pixel(t_pixel *pixel, int x, int y, int color);
 
 /*
@@ -158,6 +163,6 @@ int					log_guide(void);
 */
 void				work_parallel(int num_threads, void **thread_params,
 					void (*worker_f)(void *params));
-t_thread_params		**thread_params(t_scene *scene);
+t_thread_params		**thread_params(t_app *app);
 
 #endif
