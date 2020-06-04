@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 14:43:04 by ohakola           #+#    #+#              #
-#    Updated: 2020/02/20 16:06:08 by ohakola          ###   ########.fr        #
+#    Updated: 2020/04/23 18:44:07 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,9 @@ SOURCES = ft_atoi.c \
 		ft_putnbr.c \
 		ft_putnbr_fd.c \
 		ft_itoa_base.c \
+		ft_itoa_long_base.c \
+		ft_itoa_longl_base.c \
+		ft_itoa_intmax_base.c \
 		ft_itoa.c \
 		ft_putendl.c \
 		ft_putendl_fd.c \
@@ -92,10 +95,25 @@ SOURCES = ft_atoi.c \
 		ft_pow.c \
 		ft_ftoa.c \
 		ft_match.c \
-		ft_bzero.c
+		ft_strrev.c \
+		ft_capitalize.c \
+		ft_bzero.c \
+		ft_printf/ft_printf.c \
+		ft_printf/parse.c \
+		ft_printf/parse_specs.c \
+		ft_printf/parse_sub_specs.c \
+		ft_printf/parse_numbers.c \
+		ft_printf/parse_utils.c \
+		ft_printf/string_utils.c \
+		ft_printf/format.c \
+		ft_printf/format_precision.c \
+		ft_printf/format_padding.c \
+		ft_printf/format_utils.c \
+		ft_printf/validate.c
+
 SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
-HEADERS = ./
+INC=-I./incl/
 FLAGS = -Wall -Wextra -Werror
 
 all: $(DIR_OBJ) $(NAME)
@@ -105,9 +123,10 @@ $(NAME): $(OBJS)
 
 $(DIR_OBJ):
 	@mkdir -p temp
+	@mkdir -p temp/ft_printf
 
-$(DIR_OBJ)/%.o: $(DIR_SRC)/%.c $(HEADERS)/libft.h
-	@$(CC) $(FLAGS) -I $(HEADERS) -c -o $@ $<
+$(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
+	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
 
 clean:
 	@/bin/rm -f $(OBJS)

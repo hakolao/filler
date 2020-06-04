@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:58:30 by ohakola           #+#    #+#              #
-#    Updated: 2020/06/04 23:03:20 by ohakola          ###   ########.fr        #
+#    Updated: 2020/06/05 00:18:41 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ SOURCES = main.c \
 			thread.c \
 			window.c \
 			draw/draw.c \
+			draw/rectangle.c \
+			draw/triangle.c \
 			events/keys.c \
 			events/mouse.c \
 			events/loop.c \
@@ -35,7 +37,7 @@ SOURCES = main.c \
 
 SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
-INCLUDES = -I./incl/ -I$(LIBFT) -I$(LIBMLX)
+INCLUDES = -I./incl/ -I$(LIBFT)/incl -I$(LIBMLX)
 
 all: $(DIR_OBJ) $(NAME)
 

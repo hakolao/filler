@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 14:42:13 by ohakola           #+#    #+#             */
-/*   Updated: 2020/02/20 16:06:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/04/23 18:43:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdarg.h>
+# include "ft_printf.h"
+
+typedef enum { false, true } bool;
 
 typedef struct	s_list
 {
@@ -141,9 +145,25 @@ void			ft_pixel_foreach(t_pixel_bounds *limits,
 char			*ft_itoa_long(long int nb);
 void			ft_sort_int_tab(int *tab, unsigned int size, int dir);
 long double		ft_abs_long_double(long double nb);
-long double		ft_powl(double nb, int pow);
 char			*ft_ftoa(long double nb, int precision);
-void			ft_str_rev(char *str);
 int				ft_match(char *s1, char *s2);
+char			*ft_itoa_long_base(long int nb, long int base);
+char			*ft_itoa_longl_base(long long int nb, long long int base);
+char			*ft_itoa_uintmax_base(uintmax_t nb, uintmax_t base);
+char			*ft_itoa_intmax_base(intmax_t nb, intmax_t base);
+void			ft_strrev(char *str);
+size_t			get_num_len(long long unsigned int nb,
+				long long unsigned int base);
+void			ft_capitalize(char *str);
+void			ft_uncapitalize(char *str);
+char			*ft_itoa_u_base(unsigned int nb, unsigned int base);
+char			*ft_itoa_long_u_base(unsigned long int nb,
+				unsigned long int base);
+char			*ft_itoa_longl_u_base(unsigned long long int nb,
+				unsigned long long int base);
+long double		ft_powl(long double nb, int pow);
+int				ft_exp_base(long double nb, int base);
+char			*ft_strnjoin(char const *s1, char const *s2,
+				size_t len1, size_t len2);
 
 #endif

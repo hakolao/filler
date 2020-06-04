@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/04 23:04:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/05 00:46:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,9 @@
 # define UI_COLOR COLOR(0, 0, 0, 0)
 # define BACKGROUND_COLOR COLOR(0, 0, 0, 0)
 
-/*
-** Initial settings. (Choose Height that where
-** HEIGHT % THREAD == 0).
-** The screen has been split to horizontal
-** slices (crucial to be aware if changes are
-** planned)
-*/
 # define WIDTH 1280
 # define HEIGHT 768
+# define ASPECT_RATIO WIDTH / HEIGHT
 # define THREADS 8
 
 typedef struct		s_thread_params
@@ -114,6 +108,27 @@ typedef struct		s_app
 	t_thread_params		**thread_params;
 }					t_app;
 
+typedef struct		s_rect
+{
+	int				w;
+	int				h;
+	int				x;
+	int				y;
+}					t_rect;
+
+typedef struct		s_point
+{
+	double			x;
+	double			y;
+}					t_point;
+
+typedef struct		s_triangle
+{
+	t_point			a;
+	t_point			b;
+	t_point			c;
+}					t_triangle;
+
 t_window				*new_window(void *mlx);
 
 /*
@@ -128,6 +143,9 @@ char				*guide(void);
 ** Draw
 */
 int					draw(t_app *app);
+void				draw_rectangle(t_app *app, t_rect *rect, int color);
+void				draw_triangle(t_app *app, t_triangle *rect, int color);
+void				draw_game_piece(t_app *app, t_rect *rect, int color);
 
 /*
 ** Events

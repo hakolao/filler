@@ -6,43 +6,43 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 17:09:43 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/04 22:54:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/05 00:29:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-static int					scene_render_params(t_window *scene,
+static int					scene_render_params(t_window *window,
 							void *mlx, void *mlx_wdw)
 {
-	scene->mlx = mlx;
-	scene->mlx_wdw = mlx_wdw;
-	scene->pixel_bits = 32;
-	scene->line_bytes = scene->screen_width * 4;
-	scene->pixel_endian = TRUE;
-	scene->redraw = TRUE;
-	scene->ui_color = UI_COLOR;
-	if (!(scene->frame =
-		mlx_new_image(mlx, scene->screen_width, scene->screen_height)) ||
-		!(scene->frame_buf =
-		mlx_get_data_addr(scene->frame,
-			&scene->pixel_bits, &scene->line_bytes, &scene->pixel_endian)))
+	window->mlx = mlx;
+	window->mlx_wdw = mlx_wdw;
+	window->pixel_bits = 32;
+	window->line_bytes = window->screen_width * 4;
+	window->pixel_endian = TRUE;
+	window->redraw = TRUE;
+	window->ui_color = UI_COLOR;
+	if (!(window->frame =
+		mlx_new_image(mlx, window->screen_width, window->screen_height)) ||
+		!(window->frame_buf =
+		mlx_get_data_addr(window->frame,
+			&window->pixel_bits, &window->line_bytes, &window->pixel_endian)))
 		return (FALSE);
 	return (TRUE);
 }
 
 t_window					*new_window(void *mlx)
 {
-	t_window		*scene;
+	t_window		*window;
 
-	if (!(scene = (t_window*)malloc(sizeof(*scene))))
+	if (!(window = (t_window*)malloc(sizeof(*window))))
 		return (NULL);
-	scene->screen_width = WIDTH;
-	scene->screen_height = HEIGHT;
-	if (!(scene->mlx_wdw = mlx_new_window(mlx, scene->screen_width,
-			scene->screen_height, "Filler")) ||
-			!scene_render_params(scene, mlx, scene->mlx_wdw))
+	window->screen_width = WIDTH;
+	window->screen_height = HEIGHT;
+	if (!(window->mlx_wdw = mlx_new_window(mlx, window->screen_width,
+			window->screen_height, "Filler")) ||
+			!scene_render_params(window, mlx, window->mlx_wdw))
 		return (NULL);
-	scene->mlx = mlx;
-	return (scene);
+	window->mlx = mlx;
+	return (window);
 }

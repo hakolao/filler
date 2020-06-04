@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_itoa_long_base.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/22 15:21:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/03/13 15:42:47 by ohakola          ###   ########.fr       */
+/*   Created: 2020/02/27 15:31:31 by ohakola           #+#    #+#             */
+/*   Updated: 2020/03/13 15:42:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t				get_num_len(long long unsigned int nb,
-					long long unsigned int base)
-{
-	size_t	i;
-
-	if (nb == FALSE)
-		return (1);
-	i = 0;
-	while (nb != 0)
-	{
-		nb = nb / base;
-		i++;
-	}
-	return (i);
-}
-
-char				*ft_itoa_base(int nb, int base)
+char				*ft_itoa_long_base(long int nb, long int base)
 {
 	return (ft_itoa_intmax_base(nb, base));
 }
 
-char				*ft_itoa_u_base(unsigned int nb, unsigned int base)
+char				*ft_itoa_long_u_base(unsigned long int nb,
+					unsigned long int base)
 {
 	return (ft_itoa_uintmax_base(nb, base));
 }
