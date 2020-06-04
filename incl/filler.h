@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/04 22:38:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/04 23:04:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@
 # define B(b) CLAMP_0_255(b) & 255
 # define A(a) (CLAMP_0_255(a) & 255) << 24
 # define COLOR(r, g, b, a) A(a) | R(r) | G(g) | B(b)
-# define UI_COLOR COLOR(255, 255, 0, 255)
+# define UI_COLOR COLOR(0, 0, 0, 0)
 # define BACKGROUND_COLOR COLOR(0, 0, 0, 0)
 
 /*
@@ -77,19 +77,12 @@
 ** slices (crucial to be aware if changes are
 ** planned)
 */
-# define WIDTH 1024
-# define HEIGHT 1024
+# define WIDTH 1280
+# define HEIGHT 768
 # define THREADS 8
 
 typedef struct		s_thread_params
 {
-	t_pixel_bounds		*pixel_bounds;
-	t_pixel				**pixels;
-	int					size;
-	void				*frame;
-	char				*frame_buf;
-	int					width;
-	int					height;
 	int					thread_i;
 }					t_thread_params;
 
@@ -102,6 +95,8 @@ typedef struct		s_window
 	int					id;
 	void				*mlx;
 	void				*mlx_wdw;
+	void				*frame;
+	char				*frame_buf;
 	int					screen_width;
 	int					screen_height;
 	int					pixel_bits;
@@ -133,10 +128,6 @@ char				*guide(void);
 ** Draw
 */
 int					draw(t_app *app);
-void				plot_pixel(t_window *scene, int x, int y, int color);
-int					lerp_rgb(int start, int end, double gradient_mul);
-void				plot_threaded_pixels(t_window *scene);
-void				set_pixel(t_pixel *pixel, int x, int y, int color);
 
 /*
 ** Events

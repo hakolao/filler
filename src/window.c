@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 17:09:43 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/04 22:40:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/04 22:54:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ static int					scene_render_params(t_window *scene,
 	scene->pixel_endian = TRUE;
 	scene->redraw = TRUE;
 	scene->ui_color = UI_COLOR;
+	if (!(scene->frame =
+		mlx_new_image(mlx, scene->screen_width, scene->screen_height)) ||
+		!(scene->frame_buf =
+		mlx_get_data_addr(scene->frame,
+			&scene->pixel_bits, &scene->line_bytes, &scene->pixel_endian)))
+		return (FALSE);
 	return (TRUE);
 }
 

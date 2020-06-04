@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 18:23:34 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/04 22:38:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/04 22:43:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int				handle_loop(void *params)
 
 	app = (t_app*)params;
 	if (app->window->redraw == TRUE)
-			draw(app);
+		draw(app);
 	return (0);
 }
