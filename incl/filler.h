@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/05 00:46:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/05 13:47:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,30 @@ typedef struct		s_window
 	int					bg_color;
 }					t_window;
 
+typedef struct		s_cell
+{
+	int				x;
+	int				y;
+	int				color;
+	// t_cell			**neighbors;
+}					t_cell;
+
+typedef struct		s_piece
+{
+	int				pos_x;
+	int				pos_y;
+	int				width;
+	int				height;
+	t_cell			**parts;
+}					t_piece;
+
+typedef struct		s_board
+{
+	int				width;
+	int				height;
+	t_cell			**cells;
+}					t_board;
+
 typedef struct		s_app
 {
 	t_window			*window;
@@ -146,7 +170,7 @@ int					draw(t_app *app);
 void				draw_rectangle(t_app *app, t_rect *rect, int color);
 void				draw_triangle(t_app *app, t_triangle *rect, int color);
 void				draw_game_piece(t_app *app, t_rect *rect, int color);
-
+void				draw_grid(t_app *app, t_rect *bounds, int cols, int rows);
 /*
 ** Events
 */
