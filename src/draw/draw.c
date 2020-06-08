@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:03:22 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 12:07:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 14:54:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,10 @@ int					draw(t_app *app)
 			.y = 10});
 	draw_grid(app,
 		&(t_rect){
-			.w = app->window->screen_width * 3 / 4,
+			.w = app->window->screen_width * 3 / 4 - 10,
 			.h = app->window->screen_height * 3 / 4,
 			.x = 10,
-			.y = 10},
-		140, 70
-	);
+			.y = 10});
 	//
 	draw_frame(app);
 	draw_ui(app);

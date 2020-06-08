@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 12:05:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 14:54:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static int		init_filler()
 		return (0);
 	app->window->bg_color = COLOR(50, 50, 50, 0);
 	app->show_guide = FALSE;
+	app->rows = 20;
+	app->cols = 33;
 	hook_app(app);
 	return (1);
 }
