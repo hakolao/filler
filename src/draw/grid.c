@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:35:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 16:42:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 17:15:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,79 @@
 
 static void			draw_grid(t_app *app)
 {
-	int		y;
-	int		x;
 	int		cols;
 	int		rows;
 	t_rect	cell_bounds;
 
-	if (app->cols <= 0 || app->rows <= 0 ||
-		app->grid_bounds.y <= 0 || app->grid_bounds.x <= 0)
-		return (void)(log_err("Invalid grid draw input", strerror(5)));
-	y = app->grid_bounds.y;
-	rows = app->rows;
-	while (y < app->grid_bounds.y + app->grid_bounds.h - app->cell_size &&
-		y >=0 && y < app->window->screen_height && rows-- > 0)
+	rows = -1;
+	cell_bounds.y = app->grid_bounds.y;
+	while (++rows < app->rows)
 	{
-		x = app->grid_bounds.x;
-		cols = app->cols + 1;
-		while (x < app->grid_bounds.x + app->grid_bounds.w - app->cell_size &&
-			x >=0 && x < app->window->screen_width && --cols > 0)
+		cols = -1;
+		cell_bounds.x = app->grid_bounds.x - app->cell_size;
+		while (++cols < app->cols)
 		{
 			cell_bounds = (t_rect){.w = app->cell_size, .h = app->cell_size,
-				.x = x + 1, .y = y + 1};
+				.x = cell_bounds.x + app->cell_size + 1, .y = cell_bounds.y};
 			draw_rectangle(app, &cell_bounds, COLOR(100, 100, 100, 0));
-			x += cell_bounds.w + 1;
 		}
-		y += cell_bounds.h + 1;
+		cell_bounds.y += app->cell_size + 1;
+	}
+}
+
+static void			draw_player_cell(t_app *app,
+					t_rect *cell_bounds, int player_i)
+{
+	int		pixel;
+	int		cache_pixel;
+	int		y;
+	int		x;
+	int		cache_x;
+	int		cache_y;
+
+	y = cell_bounds->y;
+	cache_y = player_i == 0 ? app->player_1_cell_y : app->player_2_cell_y;
+	while (y < cell_bounds->y + cell_bounds->h &&
+			y >= 0 && y < app->window->screen_height)
+	{
+		x = cell_bounds->x;
+		cache_x = app->info_bounds.x + 10;
+		while (x < cell_bounds->x + cell_bounds->w &&
+				x >= 0 && x < app->window->screen_width)
+		{
+			pixel = y * app->window->line_bytes + x * 4;
+			cache_pixel = cache_y * app->window->line_bytes + cache_x * 4;
+			app->window->frame_buf[pixel] = app->window->frame_buf[cache_pixel];
+			app->window->frame_buf[pixel + 1] = app->window->frame_buf[cache_pixel + 1];
+			app->window->frame_buf[pixel + 2] = app->window->frame_buf[cache_pixel + 2];
+			app->window->frame_buf[pixel + 3] = app->window->frame_buf[cache_pixel + 3];
+			x++;
+			cache_x++;
+		}
+		y++;
+		cache_y++;
+	}
+}
+
+static void			draw_player_cells(t_app *app, int player_i)
+{
+	int		cols;
+	int		rows;
+	t_rect	cell_bounds;
+
+	rows = -1;
+	cell_bounds.y = app->grid_bounds.y;
+	while (++rows < app->rows)
+	{
+		cols = -1;
+		cell_bounds.x = app->grid_bounds.x - app->cell_size;
+		while (++cols < app->cols)
+		{
+			cell_bounds = (t_rect){.w = app->cell_size, .h = app->cell_size,
+				.x = cell_bounds.x + app->cell_size + 1, .y = cell_bounds.y};
+			draw_player_cell(app, &cell_bounds, player_i);
+		}
+		cell_bounds.y += app->cell_size + 1;
 	}
 }
 
@@ -50,11 +98,16 @@ static void				draw_player_cached_cell(t_app *app, int player_i)
 	t_rect	cell_bounds;
 
 	x = app->info_bounds.x + 10;
-	y = app->info_bounds.y + 50 + player_i * (app->cell_size + 1);
 	if (player_i == 0)
+	{
 		color = COLOR(255, 0, 0, 0);
+		y = app->player_1_cell_y;
+	}
 	else
+	{
 		color = COLOR(0, 255, 0, 0);
+		y = app->player_2_cell_y;
+	}
 	cell_bounds = (t_rect){.w = app->cell_size, .h = app->cell_size,
 		.x = x, .y = y};
 	draw_pyramid_shape(app, &cell_bounds, color);
@@ -64,11 +117,15 @@ void				draw_game(t_app *app)
 {
 	int		i;
 	
+	if (app->cols <= 0 || app->rows <= 0 ||
+		app->grid_bounds.y <= 0 || app->grid_bounds.x <= 0)
+		return (void)(log_err("Invalid grid draw input", strerror(5)));
 	draw_grid(app);
 	i = 0;
 	while (i < app->num_players)
 	{
 		draw_player_cached_cell(app, i);
+		draw_player_cells(app, i);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 15:29:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 17:14:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static int		init_filler()
 		app->grid_bounds.h / app->rows ?
 			app->grid_bounds.h / app->rows :
 				app->grid_bounds.w / app->cols) - 1;
+	app->player_1_cell_y = app->info_bounds.y + 100;
+	app->player_2_cell_y = app->info_bounds.y + 100 + app->cell_size + 1;
 	hook_app(app);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 16:34:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 17:11:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ typedef struct		s_app
 	int					cols;
 	int					cell_size;
 	int					num_players;
+	int					player_1_cell_y;
+	int					player_2_cell_y;
 	t_rect				grid_bounds;
 	t_rect				info_bounds;
 	t_thread_params		**thread_params;
