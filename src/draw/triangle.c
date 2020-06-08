@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 23:33:34 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/05 00:42:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 16:30:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,45 @@ void			draw_triangle(t_app *app, t_triangle *triangle, int color)
 				app->window->frame_buf[pixel + 1] = GREEN(color);
 				app->window->frame_buf[pixel + 2] = RED(color);
 				app->window->frame_buf[pixel + 3] = ALPHA(color);
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+void			draw_triangle_on_buf(char *buf, t_app *app,
+				t_triangle *triangle, int color)
+{
+	int		pixel;
+	int		y_min;
+	int		y_max;
+	int		x_min;
+	int		x_max;
+	int		y;
+	int		x;
+
+	y_min = ft_min_double((double[3]){triangle->a.y,
+		triangle->b.y, triangle->c.y}, 3);
+	y_max = ft_max_double((double[3]){triangle->a.y,
+		triangle->b.y, triangle->c.y}, 3);
+	x_min = ft_min_double((double[3]){triangle->a.x,
+			triangle->b.x, triangle->c.x}, 3);
+	x_max = ft_max_double((double[3]){triangle->a.x,
+		triangle->b.x, triangle->c.x}, 3);
+	y = y_min;
+	while (y < y_min + y_max && y >= 0 && y < app->cell_size)
+	{
+		x = x_min;
+		while (x < x_min + x_max && x >= 0 && x < app->cell_size)
+		{
+			if (point_in_triangle(&(t_point){.x = x, .y = y}, triangle))
+			{
+				pixel = y * app->window->line_bytes + x * 4;
+				buf[pixel] = BLUE(color);
+				buf[pixel + 1] = GREEN(color);
+				buf[pixel + 2] = RED(color);
+				buf[pixel + 3] = ALPHA(color);
 			}
 			x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 15:24:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 16:34:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,6 @@ typedef struct		s_window
 	void				*mlx_wdw;
 	void				*frame;
 	char				*frame_buf;
-	void				*cell;
-	char				*cell_buf;
-	int					cell_width;
-	int					cell_height;
 	int					screen_width;
 	int					screen_height;
 	int					pixel_bits;
@@ -144,6 +140,7 @@ typedef struct		s_app
 	int					rows;
 	int					cols;
 	int					cell_size;
+	int					num_players;
 	t_rect				grid_bounds;
 	t_rect				info_bounds;
 	t_thread_params		**thread_params;
@@ -179,9 +176,8 @@ int					draw(t_app *app);
 void				draw_rectangle(t_app *app, t_rect *rect, int color);
 void				draw_triangle(t_app *app, t_triangle *rect, int color);
 void				draw_pyramid_shape(t_app *app, t_rect *rect, int color);
-void				draw_grid(t_app *app);
 void				draw_info_panel(t_app *app);
-
+void				draw_game(t_app *app);
 /*
 ** Events
 */

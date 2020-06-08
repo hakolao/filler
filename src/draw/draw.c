@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:03:22 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 15:21:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 16:13:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int					draw(t_app *app)
 	clear_frame(app);
 	// Draw here
 	draw_info_panel(app);
-	draw_grid(app);
+	draw_game(app);
 	//
 	draw_frame(app);
 	draw_ui(app);

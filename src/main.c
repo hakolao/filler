@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 15:20:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 15:29:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int		init_filler()
 	app->show_guide = FALSE;
 	app->rows = 20;
 	app->cols = 33;
+	app->num_players = 2;
 	app->info_bounds = (t_rect){
 			.w = app->window->screen_width * 1 / 4 - 10,
 			.h = app->window->screen_height - 20,
