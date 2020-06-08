@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/04 23:23:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 12:05:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int		init_filler()
 		log_err("Failed to init app", strerror(5)))
 		return (0);
 	app->window->bg_color = COLOR(50, 50, 50, 0);
+	app->show_guide = FALSE;
 	hook_app(app);
 	return (1);
 }

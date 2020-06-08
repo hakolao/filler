@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:03:22 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 11:33:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 12:07:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,18 @@ int					draw(t_app *app)
 	mlx_clear_window(app->window->mlx, app->window->mlx_wdw);
 	clear_frame(app);
 	// Draw here
+	draw_info_panel(app,
+		&(t_rect){
+			.w = app->window->screen_width * 1 / 4 - 10,
+			.h = app->window->screen_height - 20,
+			.x = app->window->screen_width * 3 / 4,
+			.y = 10});
 	draw_grid(app,
 		&(t_rect){
 			.w = app->window->screen_width * 3 / 4,
 			.h = app->window->screen_height * 3 / 4,
-			.x = 100,
-			.y = 100},
+			.x = 10,
+			.y = 10},
 		140, 70
 	);
 	//
