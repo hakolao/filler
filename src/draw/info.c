@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 11:52:53 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 11:53:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 15:14:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	draw_info_panel(t_app *app, t_rect *bounds)
+void	draw_info_panel(t_app *app)
 {
-	draw_rectangle(app, bounds, COLOR(0, 0, 255, 0));
+	draw_rectangle(app, &app->info_bounds, COLOR(0, 0, 255, 0));
 }

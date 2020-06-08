@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 14:46:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 15:24:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ typedef struct		s_thread_params
 typedef struct		s_window
 {
 	int					id;
-	void				*mlx;
 	void				*mlx_wdw;
 	void				*frame;
 	char				*frame_buf;
@@ -129,15 +128,6 @@ typedef struct		s_board
 	t_cell			**cells;
 }					t_board;
 
-typedef struct		s_app
-{
-	t_window			*window;
-	int					show_guide;
-	int					rows;
-	int					cols;
-	t_thread_params		**thread_params;
-}					t_app;
-
 typedef struct		s_rect
 {
 	int				w;
@@ -145,6 +135,19 @@ typedef struct		s_rect
 	int				x;
 	int				y;
 }					t_rect;
+
+typedef struct		s_app
+{
+	t_window			*window;
+	void				*mlx;
+	int					show_guide;
+	int					rows;
+	int					cols;
+	int					cell_size;
+	t_rect				grid_bounds;
+	t_rect				info_bounds;
+	t_thread_params		**thread_params;
+}					t_app;
 
 typedef struct		s_point
 {
@@ -159,7 +162,7 @@ typedef struct		s_triangle
 	t_point			c;
 }					t_triangle;
 
-t_window				*new_window(void *mlx);
+t_window				*new_window(t_app *app);
 
 /*
 ** UI
@@ -175,9 +178,9 @@ char				*guide(void);
 int					draw(t_app *app);
 void				draw_rectangle(t_app *app, t_rect *rect, int color);
 void				draw_triangle(t_app *app, t_triangle *rect, int color);
-void				draw_game_cell(t_app *app, t_rect *rect, int color);
-void				draw_grid(t_app *app, t_rect *bounds);
-void				draw_info_panel(t_app *app, t_rect *bounds);
+void				draw_pyramid_shape(t_app *app, t_rect *rect, int color);
+void				draw_grid(t_app *app);
+void				draw_info_panel(t_app *app);
 
 /*
 ** Events

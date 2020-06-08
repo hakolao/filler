@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 14:54:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 15:20:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,17 @@ static void		hook_app(t_app *app)
 	mlx_hook(app->window->mlx_wdw, 5, 0, handle_mouse_button_release, app);
 	mlx_hook(app->window->mlx_wdw, 6, 0, handle_mouse_move, app);
 	mlx_hook(app->window->mlx_wdw, 17, 0, handle_exit_event, app);
-	mlx_loop_hook(app->window->mlx, handle_loop, app);
-	mlx_loop(app->window->mlx);
+	mlx_loop_hook(app->mlx, handle_loop, app);
+	mlx_loop(app->mlx);
 }
 
 static int		init_filler()
 {
 	t_app		*app;
-	void*		*mlx;
 
 	if ((!(app = malloc(sizeof(*app))) ||
-		!(mlx = mlx_init()) ||
-		!(app->window = new_window(mlx)) ||
+		!(app->mlx = mlx_init()) ||
+		!(app->window = new_window(app)) ||
 		!(app->thread_params = thread_params(app))) &&
 		log_err("Failed to init app", strerror(5)))
 		return (0);
@@ -39,6 +38,20 @@ static int		init_filler()
 	app->show_guide = FALSE;
 	app->rows = 20;
 	app->cols = 33;
+	app->info_bounds = (t_rect){
+			.w = app->window->screen_width * 1 / 4 - 10,
+			.h = app->window->screen_height - 20,
+			.x = app->window->screen_width * 3 / 4,
+			.y = 10};
+	app->grid_bounds = (t_rect){
+			.w = app->window->screen_width * 3 / 4 - 10,
+			.h = app->window->screen_height * 3 / 4,
+			.x = 10,
+			.y = 10};
+	app->cell_size = (app->grid_bounds.w / app->cols >
+		app->grid_bounds.h / app->rows ?
+			app->grid_bounds.h / app->rows :
+				app->grid_bounds.w / app->cols) - 1;
 	hook_app(app);
 	return (1);
 }

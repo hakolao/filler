@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 23:26:31 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 14:41:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 15:24:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		draw_rectangle(t_app *app, t_rect *rect, int color)
 	}
 }
 
-void		draw_game_cell(t_app *app, t_rect *rect, int color)
+void		draw_pyramid_shape(t_app *app, t_rect *rect, int color)
 {
 	t_point	center;
 
