@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:03:22 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/05 14:45:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/08 11:33:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int					draw(t_app *app)
 			.h = app->window->screen_height * 3 / 4,
 			.x = 100,
 			.y = 100},
-		100, 100
+		140, 70
 	);
 	//
 	draw_frame(app);
