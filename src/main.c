@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/09 15:43:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 16:25:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static int		init_filler(char *name)
 	app->show_guide = FALSE;
 	app->num_players = 2;
 	app->is_finished = FALSE;
+	app->player1_score = 0;
+	app->player2_score = 0;
 	app->info_bounds = (t_rect){
 			.w = app->window->screen_width * 1 / 4 - 10,
 			.h = app->window->screen_height - 20,
@@ -50,7 +52,7 @@ static int		init_filler(char *name)
 			.h = app->window->screen_height * 3 / 4,
 			.x = 10,
 			.y = 10};
-	if (!serialize_board(app))
+	if (!update_board(app))
 		return (FALSE);
 	app->cell_size = (app->grid_bounds.w / app->board->height >
 		app->grid_bounds.h / app->rows ?

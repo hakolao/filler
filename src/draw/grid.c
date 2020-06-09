@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:35:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/09 16:11:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 16:38:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void			draw_player_cell(t_app *app,
 	}
 }
 
-static void			draw_cells(t_app *app, int player_i)
+static void			draw_cells(t_app *app)
 {
 	int		x;
 	int		y;
@@ -107,5 +107,5 @@ void				draw_game(t_app *app)
 		draw_player_cached_cell(app, i);
 		i++;
 	}
-	draw_cells(app, i);
+	draw_cells(app);
 }

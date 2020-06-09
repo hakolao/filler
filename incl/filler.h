@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/09 16:10:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 16:38:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,8 @@ typedef struct		s_app
 	int					player_2_cell_y;
 	char				*player1_id;
 	char				*player2_id;
+	int					player1_score;
+	int					player2_score;
 	int					is_player1;
 	int					is_finished;
 	t_piece				*current_piece;
@@ -179,12 +181,12 @@ typedef struct		s_triangle
 /*
 **	Window
 */
-t_window				*new_window(t_app *app);
+t_window			*new_window(t_app *app);
 
 /*
 ** Read
 */
-int					*serialize_board(t_app *app);
+int					update_board(t_app *app);
 
 
 /*

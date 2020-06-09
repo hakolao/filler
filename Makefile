@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:58:30 by ohakola           #+#    #+#              #
-#    Updated: 2020/06/09 13:15:09 by ohakola          ###   ########.fr        #
+#    Updated: 2020/06/09 16:17:56 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,5 +73,8 @@ norm:
 	norminette $(HEADERS) $(LIBFT) $(DIR_SRC)
 
 re: fclean all
+
+run: all
+	bash test/filler_vm -f $(1) -p1 $(2) -p2 $(name)
 
 .PHONY: all, $(DIR_OBJ), clean, fclean, norm
