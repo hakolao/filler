@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/09 13:14:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 15:40:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ static int		init_filler(char *name)
 	app->name = name;
 	app->window->bg_color = COLOR(50, 50, 50, 0);
 	app->show_guide = FALSE;
-	app->rows = 20;
-	app->cols = 33;
 	app->num_players = 2;
+	app->is_finished = FALSE;
 	app->info_bounds = (t_rect){
 			.w = app->window->screen_width * 1 / 4 - 10,
 			.h = app->window->screen_height - 20,
@@ -50,14 +49,16 @@ static int		init_filler(char *name)
 			.h = app->window->screen_height * 3 / 4,
 			.x = 10,
 			.y = 10};
-	app->cell_size = (app->grid_bounds.w / app->cols >
+	if (!serialize_board(app))
+		return (FALSE);
+	app->cell_size = (app->grid_bounds.w / app->board->height >
 		app->grid_bounds.h / app->rows ?
 			app->grid_bounds.h / app->rows :
-				app->grid_bounds.w / app->cols) - 1;
+				app->grid_bounds.w / app->board->width) - 1;
 	app->player_1_cell_y = app->info_bounds.y + 100;
 	app->player_2_cell_y = app->info_bounds.y + 100 + app->cell_size + 1;
 	hook_app(app);
-	return (1);
+	return (TRUE);
 }
 
 int				main(int argc, char **argv)

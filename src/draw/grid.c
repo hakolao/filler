@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:35:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 17:15:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 15:29:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static void			draw_grid(t_app *app)
 
 	rows = -1;
 	cell_bounds.y = app->grid_bounds.y;
-	while (++rows < app->rows)
+	while (++rows < app->board->height)
 	{
 		cols = -1;
 		cell_bounds.x = app->grid_bounds.x - app->cell_size;
-		while (++cols < app->cols)
+		while (++cols < app->board->width)
 		{
 			cell_bounds = (t_rect){.w = app->cell_size, .h = app->cell_size,
 				.x = cell_bounds.x + app->cell_size + 1, .y = cell_bounds.y};
@@ -76,11 +76,11 @@ static void			draw_player_cells(t_app *app, int player_i)
 
 	rows = -1;
 	cell_bounds.y = app->grid_bounds.y;
-	while (++rows < app->rows)
+	while (++rows < app->board->height)
 	{
 		cols = -1;
 		cell_bounds.x = app->grid_bounds.x - app->cell_size;
-		while (++cols < app->cols)
+		while (++cols < app->board->width)
 		{
 			cell_bounds = (t_rect){.w = app->cell_size, .h = app->cell_size,
 				.x = cell_bounds.x + app->cell_size + 1, .y = cell_bounds.y};
@@ -117,7 +117,7 @@ void				draw_game(t_app *app)
 {
 	int		i;
 	
-	if (app->cols <= 0 || app->rows <= 0 ||
+	if (app->board->width <= 0 || app->board->height <= 0 ||
 		app->grid_bounds.y <= 0 || app->grid_bounds.x <= 0)
 		return (void)(log_err("Invalid grid draw input", strerror(5)));
 	draw_grid(app);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/09 13:16:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 15:40:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct		s_cell
 	int				x;
 	int				y;
 	int				color;
-	// t_cell			**neighbors;
+	int				player_i;
 }					t_cell;
 
 typedef struct		s_piece
@@ -146,6 +146,8 @@ typedef struct		s_app
 	int					player_2_cell_y;
 	char				*player1_id;
 	char				*player2_id;
+	int					is_player1;
+	int					is_finished;
 	t_board				*board;
 	t_rect				grid_bounds;
 	t_rect				info_bounds;
