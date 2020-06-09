@@ -6,33 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:35:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/09 15:29:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 16:11:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-
-static void			draw_grid(t_app *app)
-{
-	int		cols;
-	int		rows;
-	t_rect	cell_bounds;
-
-	rows = -1;
-	cell_bounds.y = app->grid_bounds.y;
-	while (++rows < app->board->height)
-	{
-		cols = -1;
-		cell_bounds.x = app->grid_bounds.x - app->cell_size;
-		while (++cols < app->board->width)
-		{
-			cell_bounds = (t_rect){.w = app->cell_size, .h = app->cell_size,
-				.x = cell_bounds.x + app->cell_size + 1, .y = cell_bounds.y};
-			draw_rectangle(app, &cell_bounds, COLOR(100, 100, 100, 0));
-		}
-		cell_bounds.y += app->cell_size + 1;
-	}
-}
 
 static void			draw_player_cell(t_app *app,
 					t_rect *cell_bounds, int player_i)
@@ -68,23 +46,26 @@ static void			draw_player_cell(t_app *app,
 	}
 }
 
-static void			draw_player_cells(t_app *app, int player_i)
+static void			draw_cells(t_app *app, int player_i)
 {
-	int		cols;
-	int		rows;
+	int		x;
+	int		y;
 	t_rect	cell_bounds;
 
-	rows = -1;
+	y = -1;
 	cell_bounds.y = app->grid_bounds.y;
-	while (++rows < app->board->height)
+	while (++y < app->board->height)
 	{
-		cols = -1;
+		x = -1;
 		cell_bounds.x = app->grid_bounds.x - app->cell_size;
-		while (++cols < app->board->width)
+		while (++x < app->board->width)
 		{
 			cell_bounds = (t_rect){.w = app->cell_size, .h = app->cell_size,
 				.x = cell_bounds.x + app->cell_size + 1, .y = cell_bounds.y};
-			draw_player_cell(app, &cell_bounds, player_i);
+			if (app->board->cells[y][x].player_i == EMPTY)
+				draw_rectangle(app, &cell_bounds, app->board->cells[y][x].color);
+			else
+				draw_player_cell(app, &cell_bounds, app->board->cells[y][x].player_i);
 		}
 		cell_bounds.y += app->cell_size + 1;
 	}
@@ -100,12 +81,12 @@ static void				draw_player_cached_cell(t_app *app, int player_i)
 	x = app->info_bounds.x + 10;
 	if (player_i == 0)
 	{
-		color = COLOR(255, 0, 0, 0);
+		color = PLAYER_1_COLOR;
 		y = app->player_1_cell_y;
 	}
 	else
 	{
-		color = COLOR(0, 255, 0, 0);
+		color = PLAYER_2_COLOR;
 		y = app->player_2_cell_y;
 	}
 	cell_bounds = (t_rect){.w = app->cell_size, .h = app->cell_size,
@@ -120,12 +101,11 @@ void				draw_game(t_app *app)
 	if (app->board->width <= 0 || app->board->height <= 0 ||
 		app->grid_bounds.y <= 0 || app->grid_bounds.x <= 0)
 		return (void)(log_err("Invalid grid draw input", strerror(5)));
-	draw_grid(app);
 	i = 0;
 	while (i < app->num_players)
 	{
 		draw_player_cached_cell(app, i);
-		draw_player_cells(app, i);
 		i++;
 	}
+	draw_cells(app, i);
 }

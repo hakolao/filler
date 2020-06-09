@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/09 16:05:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 16:10:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@
 
 # define PLAYER_1_COLOR COLOR(255, 0, 0, 0)
 # define PLAYER_2_COLOR COLOR(0, 255, 0, 0)
+# define EMPTY_COLOR COLOR(100, 100, 100, 0)
 
 
 typedef struct		s_thread_params

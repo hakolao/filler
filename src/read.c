@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/09 16:02:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 16:10:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	init_board(t_app *app, int width, int height)
 		x = 0;
 		while (x < width)
 		{
-			board->cells[y][x].color = COLOR(100, 100, 100, 0);
+			board->cells[y][x].color = EMPTY_COLOR;
 			board->cells[y][x].x = x;
 			board->cells[y][x].y = y;
 			board->cells[y][x].player_i = EMPTY;
@@ -101,7 +101,7 @@ static int	init_piece(t_app *app, int width, int height)
 		x = 0;
 		while (x < width)
 		{
-			app->current_piece->cells[y][x].color = COLOR(100, 100, 100, 0);
+			app->current_piece->cells[y][x].color = EMPTY_COLOR;
 			app->current_piece->cells[y][x].x = x;
 			app->current_piece->cells[y][x].y = y;
 			app->current_piece->cells[y][x].player_i = EMPTY;
