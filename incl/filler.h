@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 17:11:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 13:16:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ typedef struct		s_rect
 
 typedef struct		s_app
 {
+	char				*name;
 	t_window			*window;
 	void				*mlx;
 	int					show_guide;
@@ -143,6 +144,9 @@ typedef struct		s_app
 	int					num_players;
 	int					player_1_cell_y;
 	int					player_2_cell_y;
+	char				*player1_id;
+	char				*player2_id;
+	t_board				*board;
 	t_rect				grid_bounds;
 	t_rect				info_bounds;
 	t_thread_params		**thread_params;
@@ -161,7 +165,16 @@ typedef struct		s_triangle
 	t_point			c;
 }					t_triangle;
 
+/*
+**	Window
+*/
 t_window				*new_window(t_app *app);
+
+/*
+** Read
+*/
+int					*serialize_board(t_app *app);
+
 
 /*
 ** UI

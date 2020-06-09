@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 17:14:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 13:14:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void		hook_app(t_app *app)
 	mlx_loop(app->mlx);
 }
 
-static int		init_filler()
+static int		init_filler(char *name)
 {
 	t_app		*app;
 
@@ -34,6 +34,7 @@ static int		init_filler()
 		!(app->thread_params = thread_params(app))) &&
 		log_err("Failed to init app", strerror(5)))
 		return (0);
+	app->name = name;
 	app->window->bg_color = COLOR(50, 50, 50, 0);
 	app->show_guide = FALSE;
 	app->rows = 20;
@@ -61,10 +62,7 @@ static int		init_filler()
 
 int				main(int argc, char **argv)
 {
-	(void)argv;
-	if (argc < 2)
-	{
-		return (log_guide() && init_filler());
-	}
-	return (1);
+	if (argc > 1)
+		return (log_guide());
+	return (init_filler(argv[0]));
 }
