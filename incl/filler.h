@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/09 15:40:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 16:05:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,15 @@
 # define ASPECT_RATIO WIDTH / HEIGHT
 # define THREADS 8
 
+# define EMPTY -1
+# define PLAYER_1 0
+# define PLAYER_2 1
+# define UNPLACED 2
+
+# define PLAYER_1_COLOR COLOR(255, 0, 0, 0)
+# define PLAYER_2_COLOR COLOR(0, 255, 0, 0)
+
+
 typedef struct		s_thread_params
 {
 	int					thread_i;
@@ -110,11 +119,9 @@ typedef struct		s_cell
 
 typedef struct		s_piece
 {
-	int				pos_x;
-	int				pos_y;
 	int				width;
 	int				height;
-	t_cell			**parts;
+	t_cell			**cells;
 }					t_piece;
 
 typedef struct		s_board
@@ -148,6 +155,7 @@ typedef struct		s_app
 	char				*player2_id;
 	int					is_player1;
 	int					is_finished;
+	t_piece				*current_piece;
 	t_board				*board;
 	t_rect				grid_bounds;
 	t_rect				info_bounds;
@@ -183,7 +191,7 @@ int					*serialize_board(t_app *app);
 */
 void				draw_paragraph(t_app *app, char *text, int xpos,
 					int ypos);
-void				draw_ui(t_app *app);
+void				draw_texts(t_app *app);
 char				*guide(void);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/09 15:40:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 16:02:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static int	init_board(t_app *app, int width, int height)
 {
 	t_board		*board;
 	int			y;
+	int			x;
 
 	if (!(board = malloc(sizeof(*board))))
 		return (FALSE);
@@ -65,7 +66,46 @@ static int	init_board(t_app *app, int width, int height)
 	while (y < height)
 	{
 		if (!(board->cells[y] = malloc(sizeof(**board->cells) * width)))
-			return (NULL);
+			return (FALSE);
+		x = 0;
+		while (x < width)
+		{
+			board->cells[y][x].color = COLOR(100, 100, 100, 0);
+			board->cells[y][x].x = x;
+			board->cells[y][x].y = y;
+			board->cells[y][x].player_i = EMPTY;
+		}
+		y++;
+	}
+	return (TRUE);
+}
+
+static int	init_piece(t_app *app, int width, int height)
+{
+	int			y;
+	int			x;
+
+	if (app->current_piece->cells != NULL)
+		free(app->current_piece->cells);
+	app->current_piece->width = width;
+	app->current_piece->height = height;
+	if (!(app->current_piece->cells =
+		malloc(sizeof(*app->current_piece->cells) * height)))
+		return (FALSE);
+	y = 0;
+	while (y < height)
+	{
+		if (!(app->current_piece->cells[y] =
+			malloc(sizeof(**app->current_piece->cells) * width)))
+			return (FALSE);
+		x = 0;
+		while (x < width)
+		{
+			app->current_piece->cells[y][x].color = COLOR(100, 100, 100, 0);
+			app->current_piece->cells[y][x].x = x;
+			app->current_piece->cells[y][x].y = y;
+			app->current_piece->cells[y][x].player_i = EMPTY;
+		}
 		y++;
 	}
 	return (TRUE);
@@ -105,17 +145,69 @@ static int	read_map_line(t_app *app, char *line)
 		x = 4;
 		while (line[x])
 		{
-			app->board->cells[y][x].x = x;
-			app->board->cells[y][x].y = y;
 			if (line[x] == '.')
-				app->board->cells[y][x].player_i = -1;
+				app->board->cells[y][x].player_i = EMPTY;
 			else if (line[x] == 'o' || line[x] == 'O')
-				app->board->cells[y][x].player_i = 0;
+			{
+				app->board->cells[y][x].player_i = PLAYER_1;
+				app->board->cells[y][x].color = PLAYER_1_COLOR;
+			}
 			else if (line[x] == 'x' || line[x] == 'X')
-				app->board->cells[y][x].player_i = 1;
+			{
+				app->board->cells[y][x].player_i = PLAYER_2;
+				app->board->cells[y][x].color = PLAYER_2_COLOR;
+			}
 			x++;
 		}
 	}
+	return (TRUE);
+}
+
+static int	read_piece_line(t_app *app, char *line)
+{
+	int	has_width;
+	int	width;
+	int	height;
+	int	x;
+	int	y;
+
+	y = 0;
+	if (line[0] == 'P')
+	{
+		has_width = FALSE;
+		x = 0;
+		while (line[x])
+		{
+			if (ft_isdigit(line[x]))
+			{
+				if (!has_width)
+				{
+					width = ft_atoi(line);
+					has_width = TRUE;	
+				} else
+					height = ft_atoi(line);
+			}
+			x++;
+		}
+		if (!init_piece(app, width, height))
+			return (FALSE);
+	} else
+	{
+		y = ft_atoi(line);
+		x = 0;
+		while (line[x])
+		{
+			if (line[x] == '*')
+				app->current_piece->cells[y][x].player_i = UNPLACED;
+			x++;
+		}
+	}
+	return (TRUE);
+}
+
+static int	read_game_end(t_app *app, char *line)
+{
+	app->is_finished = TRUE;
 	return (TRUE);
 }
 
@@ -154,7 +246,7 @@ static int	read_stdout(t_app *app)
 			return (FALSE);
 		if (is_parsing_piece && !read_piece_line(app, line))
 			return (FALSE);
-		if (is_parsing_end && !read_end_line(app, line))
+		if (is_parsing_end && !read_game_end(app, line))
 			return (FALSE);
 		ft_strdel(&line);
 	}

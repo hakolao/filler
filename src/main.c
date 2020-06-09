@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/09 15:40:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/09 15:43:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static int		init_filler(char *name)
 	if ((!(app = malloc(sizeof(*app))) ||
 		!(app->mlx = mlx_init()) ||
 		!(app->window = new_window(app)) ||
-		!(app->thread_params = thread_params(app))) &&
+		!(app->thread_params = thread_params(app)) ||
+		!(app->current_piece = malloc(sizeof(*app->current_piece)))) &&
 		log_err("Failed to init app", strerror(5)))
 		return (0);
 	app->name = name;
