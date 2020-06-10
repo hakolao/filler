@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:27:49 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 14:35:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 15:11:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,36 @@ static void		parse_dimensions(int *width, int *height, int i, char *line)
 	*height = ft_atoi(line + i);
 }
 
-int				parse_board_line(t_app *app, char *line)
+int				parse_board(t_app *app)
 {
-	int	y;
-	int	i;
-	int	x;
+	int		y;
+	int		i;
+	int		x;
+	char	*line;
 
-	y = ft_atoi(line);
-	i = 4;
-	x = 0;
-	while (line[i])
+	get_next_line(0, &line);
+	ft_strdel(&line);
+	while (get_next_line(0, &line) > 0 && y < app->board->height)
 	{
-		if (line[i] == 'o' || line[i] == 'O')
+		y = ft_atoi(line);
+		i = 4;
+		x = 0;
+		while (line[i])
 		{
-			app->board->cells[y][x].player_i = PLAYER_1;
-			app->board->cells[y][x].color = PLAYER_1_COLOR;
+			if (line[i] == 'o' || line[i] == 'O')
+			{
+				app->board->cells[y][x].player_i = PLAYER_1;
+				app->board->cells[y][x].color = PLAYER_1_COLOR;
+			}
+			else if (line[i] == 'x' || line[i] == 'X')
+			{
+				app->board->cells[y][x].player_i = PLAYER_2;
+				app->board->cells[y][x].color = PLAYER_2_COLOR;
+			}
+			i++;
+			x++;
 		}
-		else if (line[i] == 'x' || line[i] == 'X')
-		{
-			app->board->cells[y][x].player_i = PLAYER_2;
-			app->board->cells[y][x].color = PLAYER_2_COLOR;
-		}
-		i++;
-		x++;
+		ft_strdel(&line);
 	}
 	return (TRUE);
 }
@@ -61,17 +68,21 @@ int				init_new_board(t_app *app, char *line)
 	int			x;
 
 	parse_dimensions(&app->board->width, &app->board->height, 8, line);
-	if (!(app->board = malloc(sizeof(*app->board))))
-		return (FALSE);
-	if (!(app->board->cells = malloc(sizeof(*app->board->cells) *
-		app->board->height)))
-		return (FALSE);
+	if (app->board == NULL)
+	{
+		if (!(app->board = malloc(sizeof(*app->board))) || 
+			!(app->board->cells = malloc(sizeof(*app->board->cells) *
+			app->board->height)))
+			return (FALSE);
+		y = -1;
+		while (++y < app->board->height)
+			if (!(app->board->cells[y] =
+				malloc(sizeof(**app->board->cells) * app->board->width)))
+			return (FALSE);
+	}
 	y = -1;
 	while (++y < app->board->height)
 	{
-		if (!(app->board->cells[y] =
-			malloc(sizeof(**app->board->cells) * app->board->width)))
-			return (FALSE);
 		x = -1;
 		while (++x < app->board->width)
 			init_new_cell(&app->board->cells[y][x], x, y);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 15:01:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 15:14:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,46 +36,39 @@ static int		parse_player_2(t_app *app, char *line)
 	return (TRUE);
 }
 
-static int		parse_piece_line(t_app *app, char *line)
+static int		parse_piece(t_app *app)
 {
-	static int	y;
+	int			y;
 	int			x;
-
-	y = y > 0 ? y : 0;
-	x = -1;
-	while (line[++x] && y < app->current_piece->height)
-		if (line[x] == '*')
-			app->board->cells[y][x].player_i = UNPLACED;
-	if (y == app->current_piece->height)
-		y = 0;
+	char		*line;
+	
+	y = 0;
+	while (get_next_line(0, &line) > 0 && y < app->current_piece->height)
+	{
+		x = -1;
+		while (line[++x] && y < app->current_piece->height)
+			if (line[x] == '*')
+				app->board->cells[y][x].player_i = UNPLACED;
+	}
 	return (TRUE);
 }
 
 static int		read_stdin(t_app *app)
 {
 	char		*line;
-	static int	is_parsing_board;
 
-	is_parsing_board = is_parsing_board ? TRUE : FALSE;
 	while (get_next_line(0, &line) > 0)
 	{
 		if ((ft_match(line, "p1") && !parse_player_1(app, line)) ||
 			(ft_match(line, "p2") && !parse_player_2(app, line)))
 			return (FALSE);
-		else if (app->board == NULL &&
-				ft_match(line, "Plateau") && !init_new_board(app, line))
-			return (FALSE);
-		else if (ft_match(line, "Piece") &&
-			is_parsing_board && (is_parsing_board = FALSE))
+		else if (ft_match(line, "Plateau"))
+		{
+			if (!init_new_board(app, line) || !parse_board(app) ||
+				!init_new_piece(app, line) || !parse_piece(app))
+				return (FALSE);
 			return (TRUE);
-		else if (ft_match(line, "Piece") && !init_new_piece(app, line))
-			return (FALSE);
-		else if (ft_isdigit(line[0]) && (is_parsing_board = TRUE) &&
-			!parse_board_line(app, line))
-			return (FALSE);
-		else if ((line[0] == '.' || line[0] == '*') &&
-			!parse_piece_line(app, line))
-			return (FALSE);
+		}
 		else if (ft_match(line, "== 0"))
 			app->player1_score = ft_atoi(line + 10);
 		else if (ft_match(line, "== X") &&

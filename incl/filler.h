@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 14:33:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 15:05:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int					read_filler_input(t_app *app);
 */
 int					init_new_piece(t_app *app, char *line);
 int					init_new_board(t_app *app, char *line);
-int					parse_board_line(t_app *app, char *line);
+int					parse_board(t_app *app);
 
 /*
 ** UI
