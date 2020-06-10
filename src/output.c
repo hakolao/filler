@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 16:40:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 17:00:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void		place_piece(t_app *app)
 	max_x = app->board->width - app->current_piece->width;
 	min_y = -app->current_piece->height;
 	max_y = app->board->height - app->current_piece->height;
-
 	if (app->strategy == find_first)
 	{
 		y = min_y - 1;

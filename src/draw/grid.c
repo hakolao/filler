@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:35:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 15:21:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 17:11:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void				draw_game(t_app *app)
 	draw_cells(app);
 }
 
-void				set_grid_cell_render_dimensions(t_app *app)
+int					set_grid_cell_render_dimensions(t_app *app)
 {
 	app->cell_size = (app->grid_bounds.w / app->board->width >
 	app->grid_bounds.h / app->board->height ?
@@ -117,4 +117,5 @@ void				set_grid_cell_render_dimensions(t_app *app)
 			app->grid_bounds.w / app->board->width) - 1;
 	app->player_1_cell_y = app->info_bounds.y + 100;
 	app->player_2_cell_y = app->info_bounds.y + 100 + app->cell_size + 1;
+	return (TRUE);
 }

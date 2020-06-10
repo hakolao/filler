@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 16:41:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 17:11:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ t_window			*new_window(t_app *app);
 ** Input
 */
 
-int					read_filler_input(t_app *app);
+int					update_map(t_app *app);
 
 /*
 ** Output
@@ -229,7 +229,7 @@ void				draw_triangle(t_app *app, t_triangle *rect, int color);
 void				draw_pyramid_shape(t_app *app, t_rect *rect, int color);
 void				draw_info_panel(t_app *app);
 void				draw_game(t_app *app);
-void				set_grid_cell_render_dimensions(t_app *app);
+int					set_grid_cell_render_dimensions(t_app *app);
 
 /*
 ** Events

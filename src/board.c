@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:27:49 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 15:22:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 17:23:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ static void		init_new_cell(t_cell *cell, int x, int y)
 	cell->player_i = EMPTY;
 }
 
-static void		parse_dimensions(int *width, int *height, int i, char *line)
+static int		parse_dimensions(int *width, int *height, int i, char *line)
 {
 	*width = ft_atoi(line + i);
 	while (!ft_isdigit(line[i]))
 		i++;
 	*height = ft_atoi(line + i);
+	return (TRUE);
 }
 
 int				parse_board(t_app *app)
@@ -67,11 +68,12 @@ int				init_new_board(t_app *app, char *line)
 	int			y;
 	int			x;
 
-	parse_dimensions(&app->board->width, &app->board->height, 8, line);
-	set_grid_cell_render_dimensions(app);
 	if (app->board == NULL)
 	{
 		if (!(app->board = malloc(sizeof(*app->board))) || 
+			!parse_dimensions(&app->board->width,
+				&app->board->height, 8, line) ||
+			!set_grid_cell_render_dimensions(app) ||
 			!(app->board->cells = malloc(sizeof(*app->board->cells) *
 			app->board->height)))
 			return (FALSE);
@@ -96,13 +98,19 @@ int				init_new_piece(t_app *app, char *line)
 	int			y;
 	int			x;
 
+	if (app->current_piece == NULL)
+	{
+		if (!(app->current_piece = malloc(sizeof(*app->current_piece))))
+		return (FALSE);
+		app->current_piece->cells = NULL;
+	}
 	parse_dimensions(&app->current_piece->width,
 		&app->current_piece->height, 6, line);
 	if (app->current_piece->cells != NULL)
 		free(app->current_piece->cells);
 	if (!(app->current_piece->cells =
 			malloc(sizeof(*app->current_piece->cells) *
-			app->current_piece->height)))
+				app->current_piece->height)))
 		return (FALSE);
 	y = -1;
 	while (++y < app->current_piece->height)

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 16:15:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 17:19:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static t_app	*app_new()
 	if ((!(app = malloc(sizeof(*app))) ||
 		!(app->mlx = mlx_init()) ||
 		!(app->window = new_window(app)) ||
-		!(app->thread_params = thread_params(app)) ||
-		!(app->current_piece = malloc(sizeof(*app->current_piece)))) &&
+		!(app->thread_params = thread_params(app))) &&
 		log_err("Failed to init app", strerror(5)))
 		return (NULL);
 	return (app);
@@ -56,6 +55,7 @@ static t_app	*init_app_data(char *name)
 	app->player1_name = NULL;
 	app->player2_name = NULL;
 	app->strategy = find_first;
+	app->current_piece = NULL;
 	app->info_bounds = (t_rect){
 			.w = app->window->screen_width * 1 / 4 - 10,
 			.h = app->window->screen_height - 20,
