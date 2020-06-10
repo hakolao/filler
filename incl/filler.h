@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/09 16:38:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 14:33:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,10 +152,10 @@ typedef struct		s_app
 	int					num_players;
 	int					player_1_cell_y;
 	int					player_2_cell_y;
-	char				*player1_id;
-	char				*player2_id;
 	int					player1_score;
 	int					player2_score;
+	char				*player1_name;
+	char				*player2_name;
 	int					is_player1;
 	int					is_finished;
 	t_piece				*current_piece;
@@ -186,8 +186,15 @@ t_window			*new_window(t_app *app);
 /*
 ** Read
 */
-int					update_board(t_app *app);
+int					read_filler_input(t_app *app);
 
+
+/*
+** Board
+*/
+int					init_new_piece(t_app *app, char *line);
+int					init_new_board(t_app *app, char *line);
+int					parse_board_line(t_app *app, char *line);
 
 /*
 ** UI

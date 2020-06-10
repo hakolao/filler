@@ -6,12 +6,12 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:58:30 by ohakola           #+#    #+#              #
-#    Updated: 2020/06/09 16:17:56 by ohakola          ###   ########.fr        #
+#    Updated: 2020/06/10 13:29:19 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-NAME = filler
+NAME = ohakola.filler
 LIBFT = ./lib/libft
 LIBMLX = ./lib/libmlx
 DIR_SRC = src
@@ -26,6 +26,7 @@ SOURCES = main.c \
 			thread.c \
 			window.c \
 			read.c \
+			board.c \
 			draw/info.c \
 			draw/grid.c \
 			draw/draw.c \
@@ -73,8 +74,5 @@ norm:
 	norminette $(HEADERS) $(LIBFT) $(DIR_SRC)
 
 re: fclean all
-
-run: all
-	bash test/filler_vm -f $(1) -p1 $(2) -p2 $(name)
 
 .PHONY: all, $(DIR_OBJ), clean, fclean, norm
