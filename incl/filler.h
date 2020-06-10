@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 15:57:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 16:41:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,11 @@ typedef struct		s_thread_params
 	int					thread_i;
 }					t_thread_params;
 
+enum				e_strategy
+{
+	find_first
+};
+
 /*
 ** Scene contains all data the application needs inside its loop
 */
@@ -158,6 +163,7 @@ typedef struct		s_app
 	char				*player2_name;
 	int					is_player1;
 	int					is_finished;
+	enum e_strategy		strategy;
 	t_piece				*current_piece;
 	t_board				*board;
 	t_rect				grid_bounds;
@@ -194,7 +200,7 @@ int					read_filler_input(t_app *app);
 ** Output
 */
 
-void				print_output(t_app *app);
+void				place_piece(t_app *app);
 
 /*
 ** Board

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 16:02:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 16:15:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static t_app	*init_app_data(char *name)
 	app->player2_score = 0;
 	app->player1_name = NULL;
 	app->player2_name = NULL;
+	app->strategy = find_first;
 	app->info_bounds = (t_rect){
 			.w = app->window->screen_width * 1 / 4 - 10,
 			.h = app->window->screen_height - 20,
