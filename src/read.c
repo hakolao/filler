@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 14:33:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 14:50:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,22 @@ static int		parse_piece_line(t_app *app, char *line)
 static int		read_stdin(t_app *app)
 {
 	char		*line;
-	int			ret;
 
-	while ((ret = get_next_line(0, &line)) > 0)
+	while (get_next_line(0, &line) > 0)
 	{
-		if ((ft_match(line, "p1") && !parse_player_1(app, line)) ||
-			(ft_match(line, "p2") && !parse_player_2(app, line)) ||
-			(app->board == NULL && ft_match(line, "Plateau") &&
-				!init_new_board(app, line)) ||
-			(ft_match(line, "Piece") && !init_new_piece(app, line)) ||
-			(ft_isdigit(line[0]) && !parse_board_line(app, line)) ||
-			((line[0] == '.' || line[0] == '*') &&
-			!parse_piece_line(app, line)) )
+		if (ft_match(line, "p1") && !parse_player_1(app, line))
+			return (FALSE);
+		else if (ft_match(line, "p2") && !parse_player_2(app, line))
+			return (FALSE);
+		else if (app->board == NULL && ft_match(line, "Plateau") &&
+				!init_new_board(app, line))
+			return (FALSE);
+		else if (ft_match(line, "Piece") && !init_new_piece(app, line))
+			return (FALSE);
+		else if (ft_isdigit(line[0]) && !parse_board_line(app, line))
+			return (FALSE);
+		else if ((line[0] == '.' || line[0] == '*') &&
+			!parse_piece_line(app, line))
 			return (FALSE);
 		else if (ft_match(line, "== 0"))
 			app->player1_score = ft_atoi(line + 10);

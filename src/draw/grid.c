@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:35:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/09 16:38:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 14:39:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,8 @@ void				draw_game(t_app *app)
 {
 	int		i;
 	
-	if (app->board->width <= 0 || app->board->height <= 0 ||
-		app->grid_bounds.y <= 0 || app->grid_bounds.x <= 0)
-		return (void)(log_err("Invalid grid draw input", strerror(5)));
+	if (app->board == NULL)
+		return ;
 	i = 0;
 	while (i < app->num_players)
 	{
