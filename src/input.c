@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read.c                                             :+:      :+:    :+:   */
+/*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 15:37:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 16:02:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,6 @@ static int		read_stdin(t_app *app)
 			(app->player2_score = ft_atoi(line + 10)))
 		{
 			app->is_finished = TRUE;
-			ft_strdel(&line);
-			return (TRUE);
-		}
-		else if (!line[0])
-		{
 			ft_strdel(&line);
 			return (TRUE);
 		}

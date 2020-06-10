@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 15:19:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 16:02:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static int		init_filler(char *name)
 
 	if (!(app = init_app_data(name)))
 		return (FALSE);
+	draw(app);
 	hook_app(app);
 	return (TRUE);
 }
