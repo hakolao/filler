@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 14:34:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 15:19:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,6 @@ static int		init_filler(char *name)
 
 	if (!(app = init_app_data(name)))
 		return (FALSE);
-	if (!read_filler_input(app))
-		return (FALSE);
-	app->cell_size = (app->grid_bounds.w / app->board->height >
-		app->grid_bounds.h / app->rows ?
-			app->grid_bounds.h / app->rows :
-				app->grid_bounds.w / app->board->width) - 1;
-	app->player_1_cell_y = app->info_bounds.y + 100;
-	app->player_2_cell_y = app->info_bounds.y + 100 + app->cell_size + 1;
 	hook_app(app);
 	return (TRUE);
 }

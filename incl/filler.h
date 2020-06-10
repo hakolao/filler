@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 15:05:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 15:39:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,17 +181,25 @@ typedef struct		s_triangle
 /*
 **	Window
 */
+
 t_window			*new_window(t_app *app);
 
 /*
-** Read
+** Input
 */
+
 int					read_filler_input(t_app *app);
 
+/*
+** Output
+*/
+
+void				print_output(t_app *app);
 
 /*
 ** Board
 */
+
 int					init_new_piece(t_app *app, char *line);
 int					init_new_board(t_app *app, char *line);
 int					parse_board(t_app *app);
@@ -199,6 +207,7 @@ int					parse_board(t_app *app);
 /*
 ** UI
 */
+
 void				draw_paragraph(t_app *app, char *text, int xpos,
 					int ypos);
 void				draw_texts(t_app *app);
@@ -207,15 +216,19 @@ char				*guide(void);
 /*
 ** Draw
 */
+
 int					draw(t_app *app);
 void				draw_rectangle(t_app *app, t_rect *rect, int color);
 void				draw_triangle(t_app *app, t_triangle *rect, int color);
 void				draw_pyramid_shape(t_app *app, t_rect *rect, int color);
 void				draw_info_panel(t_app *app);
 void				draw_game(t_app *app);
+void				set_grid_cell_render_dimensions(t_app *app);
+
 /*
 ** Events
 */
+
 int					handle_key_press(int key, void *param);
 int					handle_key_release(int key, void *param);
 int					handle_mouse_button_press(int key, int x, int y,
@@ -229,6 +242,7 @@ int					handle_exit_event(void *params);
 /*
 ** Logging
 */
+
 int					log_err(char *str, char *strerror);
 int					log_perr(char *str);
 int					log_guide(void);
@@ -236,6 +250,7 @@ int					log_guide(void);
 /*
 ** Threads
 */
+
 void				work_parallel(int num_threads, void **thread_params,
 					void (*worker_f)(void *params));
 t_thread_params		**thread_params(t_app *app);

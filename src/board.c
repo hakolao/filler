@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:27:49 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 15:11:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 15:22:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int				init_new_board(t_app *app, char *line)
 	int			x;
 
 	parse_dimensions(&app->board->width, &app->board->height, 8, line);
+	set_grid_cell_render_dimensions(app);
 	if (app->board == NULL)
 	{
 		if (!(app->board = malloc(sizeof(*app->board))) || 

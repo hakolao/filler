@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 15:14:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 15:37:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int		parse_piece(t_app *app)
 static int		read_stdin(t_app *app)
 {
 	char		*line;
-
+	
 	while (get_next_line(0, &line) > 0)
 	{
 		if ((ft_match(line, "p1") && !parse_player_1(app, line)) ||
@@ -67,13 +67,23 @@ static int		read_stdin(t_app *app)
 			if (!init_new_board(app, line) || !parse_board(app) ||
 				!init_new_piece(app, line) || !parse_piece(app))
 				return (FALSE);
+			ft_strdel(&line);
 			return (TRUE);
 		}
 		else if (ft_match(line, "== 0"))
 			app->player1_score = ft_atoi(line + 10);
 		else if (ft_match(line, "== X") &&
 			(app->player2_score = ft_atoi(line + 10)))
+		{
 			app->is_finished = TRUE;
+			ft_strdel(&line);
+			return (TRUE);
+		}
+		else if (!line[0])
+		{
+			ft_strdel(&line);
+			return (TRUE);
+		}
 		ft_strdel(&line);
 	}
 	return (TRUE);
@@ -90,6 +100,8 @@ int				read_filler_input(t_app *app)
 	p2_score = 0;
 	if (!read_stdin(app))
 		return (FALSE);
+	if (app->board == NULL)
+		return (TRUE);
 	y = -1;
 	while (++y < app->board->height)
 	{
