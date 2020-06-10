@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 14:50:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/10 15:01:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,30 +54,33 @@ static int		parse_piece_line(t_app *app, char *line)
 static int		read_stdin(t_app *app)
 {
 	char		*line;
+	static int	is_parsing_board;
 
+	is_parsing_board = is_parsing_board ? TRUE : FALSE;
 	while (get_next_line(0, &line) > 0)
 	{
-		if (ft_match(line, "p1") && !parse_player_1(app, line))
+		if ((ft_match(line, "p1") && !parse_player_1(app, line)) ||
+			(ft_match(line, "p2") && !parse_player_2(app, line)))
 			return (FALSE);
-		else if (ft_match(line, "p2") && !parse_player_2(app, line))
+		else if (app->board == NULL &&
+				ft_match(line, "Plateau") && !init_new_board(app, line))
 			return (FALSE);
-		else if (app->board == NULL && ft_match(line, "Plateau") &&
-				!init_new_board(app, line))
-			return (FALSE);
+		else if (ft_match(line, "Piece") &&
+			is_parsing_board && (is_parsing_board = FALSE))
+			return (TRUE);
 		else if (ft_match(line, "Piece") && !init_new_piece(app, line))
 			return (FALSE);
-		else if (ft_isdigit(line[0]) && !parse_board_line(app, line))
+		else if (ft_isdigit(line[0]) && (is_parsing_board = TRUE) &&
+			!parse_board_line(app, line))
 			return (FALSE);
 		else if ((line[0] == '.' || line[0] == '*') &&
 			!parse_piece_line(app, line))
 			return (FALSE);
 		else if (ft_match(line, "== 0"))
 			app->player1_score = ft_atoi(line + 10);
-		else if (ft_match(line, "== X"))
-		{
-			app->player2_score = ft_atoi(line + 10);
+		else if (ft_match(line, "== X") &&
+			(app->player2_score = ft_atoi(line + 10)))
 			app->is_finished = TRUE;
-		}
 		ft_strdel(&line);
 	}
 	return (TRUE);
