@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 17:08:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/11 17:20:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int		parse_piece(t_app *app)
 	y = 0;
 	while (get_next_line(0, &line) > 0)
 	{
+		ft_dprintf(2, "Token parsing: %s\n", line);
 		x = 0;
 		while (line[x] && x < app->current_piece->width)
 		{
@@ -82,8 +83,8 @@ static int		set_score(t_app *app)
 				p2_score++;
 		}
 	}
-	app->player1_score = p1_score;
-	app->player2_score = p2_score;
+	app->player1_score = p1_score - 1;
+	app->player2_score = p2_score - 1;
 	return (TRUE);
 }
 
@@ -93,7 +94,7 @@ static int		read_stdin(t_app *app)
 	
 	while (get_next_line(0, &line) > 0)
 	{
-		ft_dprintf(2, "Hello %s\n", line);
+		ft_dprintf(2, "Tryna read %s\n", line);
 		if ((ft_strstr(line, "p1") && !parse_player_1(app, line)) ||
 			(ft_strstr(line, "p2") && !parse_player_2(app, line)))
 			return (FALSE);
@@ -107,9 +108,9 @@ static int		read_stdin(t_app *app)
 		{
 			if (!init_new_piece(app, line) || !parse_piece(app))
 				return (FALSE);
-			ft_strdel(&line);
 			set_score(app);
 			place_piece(app);
+			ft_strdel(&line);
 			return (TRUE);
 		}
 		else if (ft_strstr(line, "== 0"))
