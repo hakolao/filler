@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 13:53:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/11 16:40:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,16 @@ static int		read_stdin(t_app *app)
 			if (!init_new_piece(app, line) || !parse_piece(app))
 				return (FALSE);
 			ft_strdel(&line);
-			debug_board(app->board);
 			set_score(app);
 			place_piece(app);
 			return (TRUE);
 		}
 		else if (ft_strstr(line, "== 0"))
 			app->player1_score = ft_atoi(line + 10);
-		else if (ft_strstr(line, "== X") &&
+		else if (ft_strstr(line, "<got") ||
+			(ft_strstr(line, "== X") &&
 			(app->player2_score = ft_atoi(line + 10)) &&
-			(app->is_finished = TRUE))
+			(app->is_finished = TRUE)))
 		{
 			ft_strdel(&line);
 			return (TRUE);

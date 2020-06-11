@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 13:48:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/11 16:43:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static int		piece_fits(t_app *app, int board_x, int board_y)
 	int	y;
 	int	overlaps_by_one;
 
-	y = -1;
+	y = 0;
 	overlaps_by_one = FALSE;
-	while (++y < app->current_piece->height)
+	while (y < app->current_piece->height)
 	{
-		x = -1;
-		while (++x < app->current_piece->width)
+		x = 0;
+		while (x < app->current_piece->width)
 		{
 			if (!overlaps_by_one && app->is_player1 &&
 					app->current_piece->cells[y][x].player_i == UNPLACED &&
@@ -37,7 +37,9 @@ static int		piece_fits(t_app *app, int board_x, int board_y)
 					app->current_piece->cells[y][x].player_i == UNPLACED &&
 						app->board->cells[board_y + y][board_x + x].player_i != EMPTY)
 				return (FALSE);
+			x++;
 		}
+		y++;
 	}
 	return (overlaps_by_one);
 }
@@ -119,26 +121,15 @@ void		place_piece(t_app *app)
 	min_y = -height_extra(app->current_piece, left);
 	max_y = app->board->height - app->current_piece->height -
 		height_extra(app->current_piece, right);
-	ft_dprintf(2, "%d %d %d %d\n", min_x, max_x, min_y, max_y);
-	debug_app(app);
-	debug_board(app->board);
 	if (app->strategy == find_first)
 	{
-		y = min_y;
-		while (y < max_y)
+		y = min_y - 1;
+		while (++y < max_y)
 		{
-			x = min_x;
-			while (x < max_x)
-			{
-				if (piece_fits(app, x, y))
-				{
-					ft_dprintf(2, "Fits %d %d\n", x, y);
-					ft_printf("%d %d", x, y);
-					break ;
-				}
-				x++;
-			}
+			x = min_x - 1;
+			while (++x < max_x)
+				if (piece_fits(app, x, y) && ft_printf("%d %d\n", x, y))
+					return ;
 		}
-		y++;
 	}
 }
