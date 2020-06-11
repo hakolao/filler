@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 17:11:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/11 13:10:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,7 +252,8 @@ int					handle_exit_event(void *params);
 int					log_err(char *str, char *strerror);
 int					log_perr(char *str);
 int					log_guide(void);
-
+void				debug_app(t_app *app);
+void				debug_piece(t_piece *piece);
 /*
 ** Threads
 */

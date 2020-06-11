@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 17:26:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/11 13:12:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,18 @@ static int		parse_piece(t_app *app)
 	int			x;
 	char		*line;
 	
-	y = -1;
-	while (++y < app->current_piece->height && get_next_line(0, &line) > 0)
+	y = 0;
+	while (y < app->current_piece->height && get_next_line(0, &line) > 0)
 	{
-		x = -1;
-		while (line[++x] && y < app->current_piece->height)
+		x = 0;
+		while (line[x] && x < app->current_piece->width)
+		{
 			if (line[x] == '*')
-				app->board->cells[y][x].player_i = UNPLACED;
+				app->current_piece->cells[y][x].player_i = UNPLACED;
+			x++;
+		}
+		y++;
 	}
-	ft_dprintf(2, "Hello\n");
 	return (TRUE);
 }
 

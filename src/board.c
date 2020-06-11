@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:27:49 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 17:23:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/11 12:48:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void		init_new_cell(t_cell *cell, int x, int y)
 static int		parse_dimensions(int *width, int *height, int i, char *line)
 {
 	*width = ft_atoi(line + i);
+	while (ft_isdigit(line[i]))
+		i++;
 	while (!ft_isdigit(line[i]))
 		i++;
 	*height = ft_atoi(line + i);
@@ -104,8 +106,8 @@ int				init_new_piece(t_app *app, char *line)
 		return (FALSE);
 		app->current_piece->cells = NULL;
 	}
-	parse_dimensions(&app->current_piece->width,
-		&app->current_piece->height, 6, line);
+	parse_dimensions(&app->current_piece->height,
+		&app->current_piece->width, 6, line);
 	if (app->current_piece->cells != NULL)
 		free(app->current_piece->cells);
 	if (!(app->current_piece->cells =
