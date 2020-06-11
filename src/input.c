@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 16:40:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/11 17:08:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int		parse_piece(t_app *app)
 	char		*line;
 	
 	y = 0;
-	while (y < app->current_piece->height && get_next_line(0, &line) > 0)
+	while (get_next_line(0, &line) > 0)
 	{
 		x = 0;
 		while (line[x] && x < app->current_piece->width)
@@ -52,6 +52,8 @@ static int		parse_piece(t_app *app)
 				app->current_piece->cells[y][x].player_i = UNPLACED;
 			x++;
 		}
+		if (y == app->current_piece->height - 1)
+			return (TRUE);
 		y++;
 	}
 	return (TRUE);
@@ -91,12 +93,16 @@ static int		read_stdin(t_app *app)
 	
 	while (get_next_line(0, &line) > 0)
 	{
+		ft_dprintf(2, "Hello %s\n", line);
 		if ((ft_strstr(line, "p1") && !parse_player_1(app, line)) ||
 			(ft_strstr(line, "p2") && !parse_player_2(app, line)))
 			return (FALSE);
-		else if (ft_strstr(line, "Plateau") &&
-			(!init_new_board(app, line) || !parse_board(app)))
-			return (FALSE);
+		else if (ft_strstr(line, "Plateau"))
+		{
+			if (!init_new_board(app, line) || !parse_board(app))
+				return (FALSE);
+			return (TRUE);
+		}
 		else if (ft_strstr(line, "Piece"))
 		{
 			if (!init_new_piece(app, line) || !parse_piece(app))
@@ -108,10 +114,9 @@ static int		read_stdin(t_app *app)
 		}
 		else if (ft_strstr(line, "== 0"))
 			app->player1_score = ft_atoi(line + 10);
-		else if (ft_strstr(line, "<got") ||
-			(ft_strstr(line, "== X") &&
+		else if (ft_strstr(line, "== X") &&
 			(app->player2_score = ft_atoi(line + 10)) &&
-			(app->is_finished = TRUE)))
+			(app->is_finished = TRUE))
 		{
 			ft_strdel(&line);
 			return (TRUE);
@@ -123,5 +128,6 @@ static int		read_stdin(t_app *app)
 
 int				update_map(t_app *app)
 {
+	app->window->redraw = TRUE;
 	return (read_stdin(app));
 }

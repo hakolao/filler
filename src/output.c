@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 16:43:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/11 16:58:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,12 @@ void		place_piece(t_app *app)
 		{
 			x = min_x - 1;
 			while (++x < max_x)
-				if (piece_fits(app, x, y) && ft_printf("%d %d\n", x, y))
+				if (piece_fits(app, x, y))
+				{
+					ft_printf("%d %d\n", x, y);
+					ft_printf("%d %d\n", x, y);
 					return ;
+				}
 		}
 	}
 }
