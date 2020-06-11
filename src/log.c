@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 12:21:55 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 13:10:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/11 13:49:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ void			debug_app(t_app *app)
 		"Board Width: %d, Board Height %d\n"
 		"p1 name: %s, p2 name: %s\n"
 		"Token Width: %d, Token Height: %d\n"
-		"p1 score: %d, p2 score: %d\n",
+		"p1 score: %d, p2 score: %d\n"
+		"is_player1: %s\n",
 		app->board->width, app->board->height,
 		app->player1_name, app->player2_name,
 		app->current_piece->width, app->current_piece->height,
-		app->player1_score, app->player2_score
+		app->player1_score, app->player2_score,
+		app->is_player1 ? "TRUE" : "FALSE"
 	);
 }
 
@@ -63,7 +65,7 @@ void			debug_piece(t_piece *piece)
 
 	if (piece == NULL)
 	{
-		ft_dprintf(2, "Piecec is NULL\n");
+		ft_dprintf(2, "Piece is NULL\n");
 		return ;
 	}
 	y = -1;
@@ -74,6 +76,33 @@ void			debug_piece(t_piece *piece)
 		{
 			if (piece->cells[y][x].player_i == UNPLACED)
 				ft_dprintf(2, "*");
+			else
+				ft_dprintf(2, ".");
+		}
+		ft_dprintf(2, "\n");
+	}
+}
+
+void			debug_board(t_board *board)
+{
+	int		x;
+	int		y;
+
+	if (board == NULL)
+	{
+		ft_dprintf(2, "Board is NULL\n");
+		return ;
+	}
+	y = -1;
+	while (++y < board->height)
+	{
+		x = -1;
+		while (++x < board->width)
+		{
+			if (board->cells[y][x].player_i == PLAYER_1)
+				ft_dprintf(2, "o");
+			else if (board->cells[y][x].player_i == PLAYER_2)
+				ft_dprintf(2, "x");
 			else
 				ft_dprintf(2, ".");
 		}

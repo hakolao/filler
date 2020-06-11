@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 13:10:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/11 13:30:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,12 @@ typedef struct		s_thread_params
 enum				e_strategy
 {
 	find_first
+};
+
+enum				e_alignment
+{
+	left,
+	right
 };
 
 /*
@@ -254,6 +260,7 @@ int					log_perr(char *str);
 int					log_guide(void);
 void				debug_app(t_app *app);
 void				debug_piece(t_piece *piece);
+void				debug_board(t_board *board);
 /*
 ** Threads
 */

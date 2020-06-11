@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:27:49 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 12:48:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/11 13:35:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				parse_board(t_app *app)
 
 	get_next_line(0, &line);
 	ft_strdel(&line);
-	while (get_next_line(0, &line) > 0 && y < app->board->height)
+	while (get_next_line(0, &line) > 0)
 	{
 		y = ft_atoi(line);
 		i = 4;
@@ -61,6 +61,8 @@ int				parse_board(t_app *app)
 			x++;
 		}
 		ft_strdel(&line);
+		if (y == app->board->height - 1)
+			break ;
 	}
 	return (TRUE);
 }
@@ -73,8 +75,8 @@ int				init_new_board(t_app *app, char *line)
 	if (app->board == NULL)
 	{
 		if (!(app->board = malloc(sizeof(*app->board))) || 
-			!parse_dimensions(&app->board->width,
-				&app->board->height, 8, line) ||
+			!parse_dimensions(&app->board->height,
+				&app->board->width, 8, line) ||
 			!set_grid_cell_render_dimensions(app) ||
 			!(app->board->cells = malloc(sizeof(*app->board->cells) *
 			app->board->height)))

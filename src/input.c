@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 13:12:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/11 13:53:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,41 +57,7 @@ static int		parse_piece(t_app *app)
 	return (TRUE);
 }
 
-static int		read_stdin(t_app *app)
-{
-	char		*line;
-	
-	while (get_next_line(0, &line) > 0)
-	{
-		if ((ft_strstr(line, "p1") && !parse_player_1(app, line)) ||
-			(ft_strstr(line, "p2") && !parse_player_2(app, line)))
-			return (FALSE);
-		else if (ft_strstr(line, "Plateau") &&
-			(!init_new_board(app, line) || !parse_board(app)))
-			return (FALSE);
-		else if (ft_strstr(line, "Piece"))
-		{
-			if (!init_new_piece(app, line) || !parse_piece(app))
-				return (FALSE);
-			ft_strdel(&line);
-			place_piece(app);
-			return (TRUE);
-		}
-		else if (ft_strstr(line, "== 0"))
-			app->player1_score = ft_atoi(line + 10);
-		else if (ft_strstr(line, "== X") &&
-			(app->player2_score = ft_atoi(line + 10)) &&
-			(app->is_finished = TRUE))
-		{
-			ft_strdel(&line);
-			return (TRUE);
-		}
-		ft_strdel(&line);
-	}
-	return (TRUE);
-}
-
-int				set_score(t_app *app)
+static int		set_score(t_app *app)
 {
 	int	p1_score;
 	int	p2_score;
@@ -114,10 +80,48 @@ int				set_score(t_app *app)
 				p2_score++;
 		}
 	}
+	app->player1_score = p1_score;
+	app->player2_score = p2_score;
+	return (TRUE);
+}
+
+static int		read_stdin(t_app *app)
+{
+	char		*line;
+	
+	while (get_next_line(0, &line) > 0)
+	{
+		if ((ft_strstr(line, "p1") && !parse_player_1(app, line)) ||
+			(ft_strstr(line, "p2") && !parse_player_2(app, line)))
+			return (FALSE);
+		else if (ft_strstr(line, "Plateau") &&
+			(!init_new_board(app, line) || !parse_board(app)))
+			return (FALSE);
+		else if (ft_strstr(line, "Piece"))
+		{
+			if (!init_new_piece(app, line) || !parse_piece(app))
+				return (FALSE);
+			ft_strdel(&line);
+			debug_board(app->board);
+			set_score(app);
+			place_piece(app);
+			return (TRUE);
+		}
+		else if (ft_strstr(line, "== 0"))
+			app->player1_score = ft_atoi(line + 10);
+		else if (ft_strstr(line, "== X") &&
+			(app->player2_score = ft_atoi(line + 10)) &&
+			(app->is_finished = TRUE))
+		{
+			ft_strdel(&line);
+			return (TRUE);
+		}
+		ft_strdel(&line);
+	}
 	return (TRUE);
 }
 
 int				update_map(t_app *app)
 {
-	return (read_stdin(app) && set_score(app));
+	return (read_stdin(app));
 }
