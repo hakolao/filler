@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:27:49 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 17:12:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 12:15:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int				parse_board(t_app *app)
 	ft_strdel(&line);
 	while (get_next_line(0, &line) > 0)
 	{
-		ft_dprintf(2, "Board parsing: %s\n", line);
 		y = ft_atoi(line);
 		i = 4;
 		x = 0;

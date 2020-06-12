@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 12:21:55 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 13:49:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 12:16:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void			debug_board(t_board *board)
 	while (++y < board->height)
 	{
 		x = -1;
+		ft_dprintf(2, "Debug: ");
 		while (++x < board->width)
 		{
 			if (board->cells[y][x].player_i == PLAYER_1)

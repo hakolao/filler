@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   output.c                                           :+:      :+:    :+:   */
+/*   place.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 16:58:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 12:13:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,8 @@ void		place_piece(t_app *app)
 			while (++x < max_x)
 				if (piece_fits(app, x, y))
 				{
-					ft_printf("%d %d\n", x, y);
-					ft_printf("%d %d\n", x, y);
+					ft_dprintf(2, "Placing at: Y: %d X: %d\n", y, x);
+					ft_printf("%d %d\n", y, x);
 					return ;
 				}
 		}

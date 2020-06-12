@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 17:20:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 12:15:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int		parse_piece(t_app *app)
 	y = 0;
 	while (get_next_line(0, &line) > 0)
 	{
-		ft_dprintf(2, "Token parsing: %s\n", line);
 		x = 0;
 		while (line[x] && x < app->current_piece->width)
 		{
@@ -102,6 +101,7 @@ static int		read_stdin(t_app *app)
 		{
 			if (!init_new_board(app, line) || !parse_board(app))
 				return (FALSE);
+			debug_board(app->board);
 			return (TRUE);
 		}
 		else if (ft_strstr(line, "Piece"))
