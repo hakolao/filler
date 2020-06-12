@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 12:21:55 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 12:47:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 15:15:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,46 @@ void			debug_board(t_board *board)
 		}
 		ft_dprintf(2, "\n");
 	}
+}
+
+void			debug_board_piece_placing(t_board *board, t_piece *piece,
+				int board_x, int board_y)
+{
+	int		x;
+	int		y;
+	int		piece_x;
+	int		piece_y;
+
+	if (board == NULL)
+	{
+		ft_dprintf(2, "Board is NULL\n");
+		return ;
+	}
+	y = -1;
+	piece_y = 0;
+	while (++y < board->height)
+	{
+		x = -1;
+		piece_x = 0;
+		ft_dprintf(2, "Debug piece placement: ");
+		while (++x < board->width)
+		{
+			if ((y >= board_y && y < board_y + piece->height) &&
+				(x >= board_x && x < board_x + piece->width) &&
+				piece->cells[piece_y][piece_x].player_i == UNPLACED)
+				ft_dprintf(2, "*");
+			else if (board->cells[y][x].player_i == PLAYER_1)
+				ft_dprintf(2, "O");
+			else if (board->cells[y][x].player_i == PLAYER_2)
+				ft_dprintf(2, "X");
+			else
+				ft_dprintf(2, ".");
+			if (x >= board_x && x < board_x + piece->width)
+				piece_x++;
+		}
+		if (y >= board_y && y < board_y + piece->height)
+			piece_y++;
+		ft_dprintf(2, "\n");
+	}
+	ft_dprintf(2, "\n");
 }

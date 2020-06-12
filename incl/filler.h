@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 14:32:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 14:55:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,9 @@ int					log_guide(void);
 void				debug_app(t_app *app);
 void				debug_piece(t_piece *piece);
 void				debug_board(t_board *board);
+void				debug_board_piece_placing(t_board *board, t_piece *piece,
+					int board_x, int board_y);
+
 /*
 ** Threads
 */
