@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 12:21:55 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 12:16:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 12:47:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void			debug_piece(t_piece *piece)
 	y = -1;
 	while (++y < piece->height)
 	{
+		ft_dprintf(2, "Debug: ");
 		x = -1;
 		while (++x < piece->width)
 		{
@@ -101,9 +102,9 @@ void			debug_board(t_board *board)
 		while (++x < board->width)
 		{
 			if (board->cells[y][x].player_i == PLAYER_1)
-				ft_dprintf(2, "o");
+				ft_dprintf(2, "O");
 			else if (board->cells[y][x].player_i == PLAYER_2)
-				ft_dprintf(2, "x");
+				ft_dprintf(2, "X");
 			else
 				ft_dprintf(2, ".");
 		}

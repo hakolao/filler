@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:27:49 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 12:15:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 13:06:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ static void		init_new_cell(t_cell *cell, int x, int y)
 	cell->player_i = EMPTY;
 }
 
-static int		parse_dimensions(int *width, int *height, int i, char *line)
+static int		parse_dimensions(int *height, int *width, int i, char *line)
 {
-	*width = ft_atoi(line + i);
+	*height = ft_atoi(line + i);
 	while (ft_isdigit(line[i]))
 		i++;
 	while (!ft_isdigit(line[i]))
 		i++;
-	*height = ft_atoi(line + i);
+	*width = ft_atoi(line + i);
 	return (TRUE);
 }
 
@@ -62,7 +62,7 @@ int				parse_board(t_app *app)
 		}
 		ft_strdel(&line);
 		if (y == app->board->height - 1)
-			return (TRUE);
+			break ;
 	}
 	return (TRUE);
 }
@@ -83,18 +83,27 @@ int				init_new_board(t_app *app, char *line)
 			return (FALSE);
 		y = -1;
 		while (++y < app->board->height)
+		{
 			if (!(app->board->cells[y] =
 				malloc(sizeof(**app->board->cells) * app->board->width)))
 			return (FALSE);
-	}
-	y = -1;
-	while (++y < app->board->height)
-	{
-		x = -1;
-		while (++x < app->board->width)
-			init_new_cell(&app->board->cells[y][x], x, y);
+			x = -1;
+			while (++x < app->board->width)
+				init_new_cell(&app->board->cells[y][x], x, y);
+		}
 	}
 	return (TRUE);
+}
+
+void			destroy_current_piece_cells(t_app *app)
+{
+	int		y;
+
+	y = -1;
+	while (++y < app->current_piece->height)
+		free(app->current_piece->cells[y]);
+	free(app->current_piece->cells);
+	app->current_piece->cells = NULL;
 }
 
 int				init_new_piece(t_app *app, char *line)
@@ -105,13 +114,13 @@ int				init_new_piece(t_app *app, char *line)
 	if (app->current_piece == NULL)
 	{
 		if (!(app->current_piece = malloc(sizeof(*app->current_piece))))
-		return (FALSE);
+			return (FALSE);
 		app->current_piece->cells = NULL;
 	}
+	if (app->current_piece->cells != NULL)
+		destroy_current_piece_cells(app);
 	parse_dimensions(&app->current_piece->height,
 		&app->current_piece->width, 6, line);
-	if (app->current_piece->cells != NULL)
-		free(app->current_piece->cells);
 	if (!(app->current_piece->cells =
 			malloc(sizeof(*app->current_piece->cells) *
 				app->current_piece->height)))
@@ -124,8 +133,8 @@ int				init_new_piece(t_app *app, char *line)
 				app->current_piece->width)))
 			return (FALSE);
 		x = -1;
-		while (++x < app->board->width)
-			init_new_cell(&app->board->cells[y][x], x, y);
+		while (++x < app->current_piece->width)
+			init_new_cell(&app->current_piece->cells[y][x], x, y);
 	}
 	return (TRUE);
 }

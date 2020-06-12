@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 13:30:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 14:32:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,9 @@ enum				e_strategy
 enum				e_alignment
 {
 	left,
-	right
+	right,
+	top,
+	down
 };
 
 /*
@@ -206,7 +208,7 @@ int					update_map(t_app *app);
 ** Output
 */
 
-void				place_piece(t_app *app);
+int					place_piece(t_app *app);
 
 /*
 ** Board

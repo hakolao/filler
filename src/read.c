@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 12:15:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 13:09:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,17 @@ static int		read_stdin(t_app *app)
 			return (FALSE);
 		else if (ft_strstr(line, "Plateau"))
 		{
-			if (!init_new_board(app, line) || !parse_board(app))
+			if ((!init_new_board(app, line) || !parse_board(app)))
 				return (FALSE);
-			debug_board(app->board);
+			set_score(app);
 			return (TRUE);
 		}
 		else if (ft_strstr(line, "Piece"))
 		{
 			if (!init_new_piece(app, line) || !parse_piece(app))
 				return (FALSE);
-			set_score(app);
-			place_piece(app);
+			if (!place_piece(app))
+				ft_dprintf(2, "Could not place piece\n");
 			ft_strdel(&line);
 			return (TRUE);
 		}
