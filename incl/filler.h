@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 14:55:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 16:39:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ typedef struct		s_cell
 	int				x;
 	int				y;
 	int				color;
-	int				player_i;
+	int				id;
 }					t_cell;
 
 typedef struct		s_piece
@@ -162,7 +162,6 @@ typedef struct		s_app
 	int					rows;
 	int					cols;
 	int					cell_size;
-	int					num_players;
 	int					player_1_cell_y;
 	int					player_2_cell_y;
 	int					player1_score;
@@ -226,6 +225,7 @@ void				draw_paragraph(t_app *app, char *text, int xpos,
 					int ypos);
 void				draw_texts(t_app *app);
 char				*guide(void);
+void				draw_scores(t_app *app);
 
 /*
 ** Draw
@@ -259,7 +259,6 @@ int					handle_exit_event(void *params);
 
 int					log_err(char *str, char *strerror);
 int					log_perr(char *str);
-int					log_guide(void);
 void				debug_app(t_app *app);
 void				debug_piece(t_piece *piece);
 void				debug_board(t_board *board);

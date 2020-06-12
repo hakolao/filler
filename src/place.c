@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 15:21:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 16:39:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,14 @@ static int		piece_fits(t_app *app, int board_x, int board_y)
 		while (x < app->current_piece->width)
 		{
 			piece_cell = app->current_piece->cells[y][x];
-			if (piece_cell.player_i == UNPLACED)
+			if (piece_cell.id == UNPLACED)
 			{
 				board_cell = app->board->cells[board_y + y][board_x + x];
 				if (!overlaps_by_one &&
-					(((app->is_player1 && board_cell.player_i == PLAYER_1) ||
-					(!app->is_player1 && board_cell.player_i == PLAYER_2))))
+					(((app->is_player1 && board_cell.id == PLAYER_1) ||
+					(!app->is_player1 && board_cell.id == PLAYER_2))))
 					overlaps_by_one = TRUE;
-				else if (overlaps_by_one &&
-					(board_cell.player_i == PLAYER_1 ||
-					board_cell.player_i == PLAYER_2))
+				else if (overlaps_by_one && board_cell.id != EMPTY)
 					return (FALSE);
 			}
 			x++;
@@ -61,7 +59,7 @@ static int	width_extra(t_piece *piece, enum e_alignment alignment)
 		{
 			y = -1;
 			while (++y < piece->height)
-				if (piece->cells[y][x].player_i == UNPLACED)
+				if (piece->cells[y][x].id == UNPLACED)
 					found = TRUE;
 			if (found)
 				return (x);
@@ -72,7 +70,7 @@ static int	width_extra(t_piece *piece, enum e_alignment alignment)
 	{
 		y = piece->height;
 		while (--y >= 0)
-			if (piece->cells[y][x].player_i == UNPLACED)
+			if (piece->cells[y][x].id == UNPLACED)
 				found = TRUE;
 		if (found)
 			return (piece->width - x);
@@ -94,7 +92,7 @@ static int	height_extra(t_piece *piece, enum e_alignment alignment)
 		{
 			x = -1;
 			while (++x < piece->width)
-				if (piece->cells[y][x].player_i == UNPLACED)
+				if (piece->cells[y][x].id == UNPLACED)
 					return (y);
 		}
 	}
@@ -103,7 +101,7 @@ static int	height_extra(t_piece *piece, enum e_alignment alignment)
 	{
 		x = piece->width;
 		while (--x >= 0)
-			if (piece->cells[y][x].player_i == UNPLACED)
+			if (piece->cells[y][x].id == UNPLACED)
 				return (piece->height - y);
 	}
 	return (y);

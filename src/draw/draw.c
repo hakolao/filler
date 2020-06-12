@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:03:22 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 15:47:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 15:49:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,18 @@ int					draw(t_app *app)
 {
 	mlx_clear_window(app->mlx, app->window->mlx_wdw);
 	clear_frame(app);
-	// Draw here
 	draw_info_panel(app);
-	if (!app->is_finished)
-		draw_game(app);
-	else
-		draw_finish(app);
-	//
+	if (app->board != NULL)
+	{
+		if (!app->is_finished)
+			draw_game(app);
+		else
+			draw_finish(app);
+	}
 	draw_frame(app);
 	draw_texts(app);
+	if (app->board != NULL)
+		draw_scores(app);
 	app->window->redraw = FALSE;
 	return (1);
 }

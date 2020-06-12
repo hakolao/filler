@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:35:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/10 17:11:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 16:39:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ static void			draw_cells(t_app *app)
 		{
 			cell_bounds = (t_rect){.w = app->cell_size, .h = app->cell_size,
 				.x = cell_bounds.x + app->cell_size + 1, .y = cell_bounds.y};
-			if (app->board->cells[y][x].player_i == EMPTY)
+			if (app->board->cells[y][x].id == EMPTY)
 				draw_rectangle(app, &cell_bounds, app->board->cells[y][x].color);
 			else
-				draw_player_cell(app, &cell_bounds, app->board->cells[y][x].player_i);
+				draw_player_cell(app, &cell_bounds, app->board->cells[y][x].id);
 		}
 		cell_bounds.y += app->cell_size + 1;
 	}
@@ -101,7 +101,7 @@ void				draw_game(t_app *app)
 	if (app->board == NULL)
 		return ;
 	i = 0;
-	while (i < app->num_players)
+	while (i < 2)
 	{
 		draw_player_cached_cell(app, i);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/11 17:15:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 16:34:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static t_app	*init_app_data(char *name)
 	app->name = name;
 	app->window->bg_color = COLOR(50, 50, 50, 0);
 	app->show_guide = FALSE;
-	app->num_players = 2;
 	app->is_finished = FALSE;
 	app->is_player1 = FALSE;
 	app->player1_score = 0;
@@ -80,6 +79,6 @@ static int		init_filler(char *name)
 int				main(int argc, char **argv)
 {
 	if (argc > 1)
-		return (log_guide());
+		return (0);
 	return (init_filler(argv[0]));
 }
