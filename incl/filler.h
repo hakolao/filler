@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 16:39:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 17:03:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@
 # define ASPECT_RATIO WIDTH / HEIGHT
 # define THREADS 8
 
-# define EMPTY -1
-# define PLAYER_1 0
-# define PLAYER_2 1
-# define UNPLACED 2
+# define EMPTY '.'
+# define PLAYER_1 'O'
+# define PLAYER_2 'X'
+# define UNPLACED '*'
 
 # define PLAYER_1_COLOR COLOR(255, 0, 0, 0)
 # define PLAYER_2_COLOR COLOR(0, 255, 0, 0)
@@ -128,7 +128,7 @@ typedef struct		s_cell
 	int				x;
 	int				y;
 	int				color;
-	int				id;
+	char			id;
 }					t_cell;
 
 typedef struct		s_piece

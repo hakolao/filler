@@ -6,14 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:35:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 16:39:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 17:11:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
 static void			draw_player_cell(t_app *app,
-					t_rect *cell_bounds, int player_i)
+					t_rect *cell_bounds, int id)
 {
 	int		pixel;
 	int		cache_pixel;
@@ -23,7 +23,7 @@ static void			draw_player_cell(t_app *app,
 	int		cache_y;
 
 	y = cell_bounds->y;
-	cache_y = player_i == 0 ? app->player_1_cell_y : app->player_2_cell_y;
+	cache_y = id == PLAYER_1 ? app->player_1_cell_y : app->player_2_cell_y;
 	while (y < cell_bounds->y + cell_bounds->h &&
 			y >= 0 && y < app->window->screen_height)
 	{

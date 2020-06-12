@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 16:39:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/12 17:12:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int		piece_fits(t_app *app, int board_x, int board_y)
 			if (piece_cell.id == UNPLACED)
 			{
 				board_cell = app->board->cells[board_y + y][board_x + x];
+				ft_dprintf(2, "x: %d, y: %d\n", board_x + x, board_y + y);
 				if (!overlaps_by_one &&
 					(((app->is_player1 && board_cell.id == PLAYER_1) ||
 					(!app->is_player1 && board_cell.id == PLAYER_2))))
@@ -131,12 +132,14 @@ int			place_piece(t_app *app)
 		{
 			x = min_x - 1;
 			while (++x < max_x)
+			{
 				if (piece_fits(app, x, y))
 				{
 					ft_dprintf(2, "Placing at: Y: %d X: %d\n", y, x);
 					ft_printf("%d %d\n", y, x);
 					return (TRUE);
 				}
+			}
 		}
 	}
 	ft_printf("Can't place\n");
