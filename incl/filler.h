@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 17:57:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:10:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,24 +195,18 @@ typedef struct		s_triangle
 t_window			*new_window(t_app *app);
 
 /*
-** Input
+** Input & Output
 */
 
 int					update_map(t_app *app);
-
-/*
-** Output
-*/
-
 int					place_piece(t_app *app);
-
-/*
-** Board
-*/
-
 int					init_new_piece(t_app *app, char *line);
 int					init_new_board(t_app *app, char *line);
 int					parse_board(t_app *app);
+int					parse_piece(t_app *app);
+int					parse_dimensions(int *height, int *width,
+					int i, char *line);
+void				init_new_cell(t_cell *cell, int x, int y);
 
 /*
 ** UI

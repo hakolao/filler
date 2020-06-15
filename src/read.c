@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 17:59:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:07:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,6 @@ static int		parse_player(t_app *app, char *line)
 {
 	if (ft_strstr(line, "p1"))
 		app->is_player1 = TRUE;
-	return (TRUE);
-}
-
-static int		parse_piece(t_app *app)
-{
-	int			y;
-	int			x;
-	char		*line;
-	
-	y = 0;
-	while (get_next_line(0, &line) > 0)
-	{
-		x = 0;
-		while (line[x] && x < app->current_piece->width)
-		{
-			if (line[x] == UNPLACED)
-				app->current_piece->cells[y][x].id = UNPLACED;
-			x++;
-		}
-		if (y >= app->current_piece->height - 1)
-			return (TRUE);
-		y++;
-	}
 	return (TRUE);
 }
 
