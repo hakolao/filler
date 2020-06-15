@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 17:12:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 13:18:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static int		piece_fits(t_app *app, int board_x, int board_y)
 {
 	int		x;
 	int		y;
-	int		overlaps_by_one;
+	int		*overlaps;
 	t_cell	piece_cell;
 	t_cell	board_cell;
 
 	y = 0;
-	overlaps_by_one = FALSE;
+	overlaps = (int[2]){0, 0};
 	while (y < app->current_piece->height)
 	{
 		x = 0;
@@ -31,19 +31,20 @@ static int		piece_fits(t_app *app, int board_x, int board_y)
 			if (piece_cell.id == UNPLACED)
 			{
 				board_cell = app->board->cells[board_y + y][board_x + x];
-				ft_dprintf(2, "x: %d, y: %d\n", board_x + x, board_y + y);
-				if (!overlaps_by_one &&
-					(((app->is_player1 && board_cell.id == PLAYER_1) ||
-					(!app->is_player1 && board_cell.id == PLAYER_2))))
-					overlaps_by_one = TRUE;
-				else if (overlaps_by_one && board_cell.id != EMPTY)
-					return (FALSE);
+				if (app->is_player1 && board_cell.id == PLAYER_1)
+					overlaps[0]++;
+				else if (!app->is_player1 && board_cell.id == PLAYER_2)
+					overlaps[0]++;
+				else if (app->is_player1 && board_cell.id == PLAYER_2)
+					overlaps[1]++;
+				else if (!app->is_player1 && board_cell.id == PLAYER_1)
+					overlaps[1]++;
 			}
 			x++;
 		}
 		y++;
 	}
-	return (overlaps_by_one);
+	return (overlaps[0] == 1 && overlaps[1] == 0);
 }
 
 static int	width_extra(t_piece *piece, enum e_alignment alignment)
