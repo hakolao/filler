@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 23:33:34 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 16:30:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:37:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static double	sign(t_triangle *triangle)
 {
-	return (triangle->a.x - triangle->c.x) * (triangle->b.y - triangle->c.y) -
-			(triangle->b.x - triangle->c.x) * (triangle->a.y - triangle->c.y);
+	return ((triangle->a.x - triangle->c.x) * (triangle->b.y - triangle->c.y) -
+			(triangle->b.x - triangle->c.x) * (triangle->a.y - triangle->c.y));
 }
 
 int				point_in_triangle(t_point *point, t_triangle *triangle)

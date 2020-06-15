@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:58:30 by ohakola           #+#    #+#              #
-#    Updated: 2020/06/15 18:11:04 by ohakola          ###   ########.fr        #
+#    Updated: 2020/06/15 18:42:47 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,12 +23,12 @@ LIBFTFLAGS = -L$(LIBFT) -lft
 SOURCES = main.c \
 			log.c \
 			window.c \
+			ui.c \
 			read.c \
 			read_utils.c \
 			place.c \
 			board.c \
 			piece.c \
-			draw/info.c \
 			draw/grid.c \
 			draw/draw.c \
 			draw/rectangle.c \
@@ -36,9 +36,7 @@ SOURCES = main.c \
 			events/keys.c \
 			events/mouse.c \
 			events/loop.c \
-			events/exit.c \
-			ui/ui.c \
-			ui/guide.c
+			events/exit.c
 
 SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
@@ -54,7 +52,6 @@ $(NAME): $(OBJS)
 $(DIR_OBJ):
 	@mkdir -p temp
 	@mkdir -p temp/draw
-	@mkdir -p temp/ui
 	@mkdir -p temp/events
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c

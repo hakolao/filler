@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:07:02 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:20:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:31:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int					parse_piece(t_app *app)
 	int			y;
 	int			x;
 	char		*line;
-	
+
 	y = 0;
 	while (get_next_line(0, &line) > 0)
 	{

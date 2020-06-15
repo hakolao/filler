@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 14:42:13 by ohakola           #+#    #+#             */
-/*   Updated: 2020/04/23 18:43:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:26:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include "ft_printf.h"
-
-typedef enum { false, true } bool;
 
 typedef struct	s_list
 {

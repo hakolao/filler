@@ -6,11 +6,23 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:12:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:42:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
+
+static void		increment_overlaps(t_app *app, int *overlaps, char id)
+{
+	if (app->is_player1 && id == PLAYER_1)
+		overlaps[0]++;
+	else if (!app->is_player1 && id == PLAYER_2)
+		overlaps[0]++;
+	else if (app->is_player1 && id == PLAYER_2)
+		overlaps[1]++;
+	else if (!app->is_player1 && id == PLAYER_1)
+		overlaps[1]++;
+}
 
 static int		piece_fits(t_app *app, int board_x, int board_y)
 {
@@ -31,14 +43,7 @@ static int		piece_fits(t_app *app, int board_x, int board_y)
 			if (piece_cell.id == UNPLACED)
 			{
 				board_cell = app->board->cells[board_y + y][board_x + x];
-				if (app->is_player1 && board_cell.id == PLAYER_1)
-					overlaps[0]++;
-				else if (!app->is_player1 && board_cell.id == PLAYER_2)
-					overlaps[0]++;
-				else if (app->is_player1 && board_cell.id == PLAYER_2)
-					overlaps[1]++;
-				else if (!app->is_player1 && board_cell.id == PLAYER_1)
-					overlaps[1]++;
+				increment_overlaps(app, overlaps, board_cell.id);
 			}
 			x++;
 		}
@@ -47,7 +52,7 @@ static int		piece_fits(t_app *app, int board_x, int board_y)
 	return (overlaps[0] == 1 && overlaps[1] == 0);
 }
 
-static int	width_extra(t_piece *piece, enum e_alignment alignment)
+static int		width_extra(t_piece *piece, enum e_alignment alignment)
 {
 	int		x;
 	int		y;
@@ -80,7 +85,7 @@ static int	width_extra(t_piece *piece, enum e_alignment alignment)
 	return (x);
 }
 
-static int	height_extra(t_piece *piece, enum e_alignment alignment)
+static int		height_extra(t_piece *piece, enum e_alignment alignment)
 {
 	int		x;
 	int		y;
@@ -109,11 +114,10 @@ static int	height_extra(t_piece *piece, enum e_alignment alignment)
 	return (y);
 }
 
-int			place_piece(t_app *app)
+int				place_piece(t_app *app)
 {
 	int		min_x;
 	int		max_x;
-	int		min_y;
 	int		max_y;
 	int		x;
 	int		y;
@@ -121,12 +125,11 @@ int			place_piece(t_app *app)
 	min_x = -width_extra(app->current_piece, left);
 	max_x = app->board->width - app->current_piece->width +
 		width_extra(app->current_piece, right);
-	min_y = -height_extra(app->current_piece, top);
 	max_y = app->board->height - app->current_piece->height +
 		height_extra(app->current_piece, down);
 	if (app->strategy == find_first)
 	{
-		y = min_y - 1;
+		y = -height_extra(app->current_piece, top) - 1;
 		while (++y < max_y)
 		{
 			x = min_x - 1;

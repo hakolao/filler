@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:07:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:31:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int		parse_player(t_app *app, char *line)
 static int		read_stdin(t_app *app)
 {
 	char		*line;
-	
+
 	if (app->is_finished)
 		return (FALSE);
 	while (get_next_line(0, &line) > 0)

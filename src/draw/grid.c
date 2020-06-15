@@ -6,17 +6,27 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:35:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 16:59:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:30:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
+static void			set_frame_pixel_from_cache(t_app *app,
+					int pixel, int cache_pixel)
+{
+	app->window->frame_buf[pixel] = app->window->frame_buf[cache_pixel];
+	app->window->frame_buf[pixel + 1] =
+		app->window->frame_buf[cache_pixel + 1];
+	app->window->frame_buf[pixel + 2] =
+		app->window->frame_buf[cache_pixel + 2];
+	app->window->frame_buf[pixel + 3] =
+		app->window->frame_buf[cache_pixel + 3];
+}
+
 static void			draw_player_cell(t_app *app,
 					t_rect *cell_bounds, int id)
 {
-	int		pixel;
-	int		cache_pixel;
 	int		y;
 	int		x;
 	int		cache_x;
@@ -32,12 +42,9 @@ static void			draw_player_cell(t_app *app,
 		while (x < cell_bounds->x + cell_bounds->w &&
 				x >= 0 && x < app->window->screen_width)
 		{
-			pixel = y * app->window->line_bytes + x * 4;
-			cache_pixel = cache_y * app->window->line_bytes + cache_x * 4;
-			app->window->frame_buf[pixel] = app->window->frame_buf[cache_pixel];
-			app->window->frame_buf[pixel + 1] = app->window->frame_buf[cache_pixel + 1];
-			app->window->frame_buf[pixel + 2] = app->window->frame_buf[cache_pixel + 2];
-			app->window->frame_buf[pixel + 3] = app->window->frame_buf[cache_pixel + 3];
+			set_frame_pixel_from_cache(app,
+				y * app->window->line_bytes + x * 4,
+				cache_y * app->window->line_bytes + cache_x * 4);
 			x++;
 			cache_x++;
 		}
@@ -63,7 +70,8 @@ static void			draw_cells(t_app *app)
 			cell_bounds = (t_rect){.w = app->cell_size, .h = app->cell_size,
 				.x = cell_bounds.x + app->cell_size + 1, .y = cell_bounds.y};
 			if (app->board->cells[y][x].id == EMPTY)
-				draw_rectangle(app, &cell_bounds, app->board->cells[y][x].color);
+				draw_rectangle(app, &cell_bounds,
+					app->board->cells[y][x].color);
 			else
 				draw_player_cell(app, &cell_bounds, app->board->cells[y][x].id);
 		}
@@ -71,7 +79,7 @@ static void			draw_cells(t_app *app)
 	}
 }
 
-static void				draw_player_cached_cell(t_app *app, int player_i)
+static void			draw_player_cached_cell(t_app *app, int player_i)
 {
 	int		color;
 	int		x;
@@ -97,7 +105,7 @@ static void				draw_player_cached_cell(t_app *app, int player_i)
 void				draw_game(t_app *app)
 {
 	int		i;
-	
+
 	if (app->board == NULL)
 		return ;
 	i = 0;
@@ -107,15 +115,4 @@ void				draw_game(t_app *app)
 		i++;
 	}
 	draw_cells(app);
-}
-
-int					set_grid_cell_render_dimensions(t_app *app)
-{
-	app->cell_size = (app->grid_bounds.w / app->board->width >
-	app->grid_bounds.h / app->board->height ?
-		app->grid_bounds.h / app->board->height :
-			app->grid_bounds.w / app->board->width) - 1;
-	app->player_1_cell_y = app->info_bounds.y + 100;
-	app->player_2_cell_y = app->info_bounds.y + 100 + app->cell_size + 1;
-	return (TRUE);
 }

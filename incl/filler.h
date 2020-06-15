@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:10:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:38:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@
 # define PLAYER_1_COLOR COLOR(255, 0, 0, 0)
 # define PLAYER_2_COLOR COLOR(0, 255, 0, 0)
 # define EMPTY_COLOR COLOR(100, 100, 100, 0)
-
 
 typedef struct		s_thread_params
 {
@@ -225,9 +224,7 @@ int					draw(t_app *app);
 void				draw_rectangle(t_app *app, t_rect *rect, int color);
 void				draw_triangle(t_app *app, t_triangle *rect, int color);
 void				draw_pyramid_shape(t_app *app, t_rect *rect, int color);
-void				draw_info_panel(t_app *app);
 void				draw_game(t_app *app);
-int					set_grid_cell_render_dimensions(t_app *app);
 
 /*
 ** Events
@@ -248,11 +245,5 @@ int					handle_exit_event(void *params);
 */
 
 int					log_err(char *str, char *strerror);
-int					log_perr(char *str);
-void				debug_app(t_app *app);
-void				debug_piece(t_piece *piece);
-void				debug_board(t_board *board);
-void				debug_board_piece_placing(t_board *board, t_piece *piece,
-					int board_x, int board_y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:03:22 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 17:56:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:22:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int					draw(t_app *app)
 {
 	mlx_clear_window(app->mlx, app->window->mlx_wdw);
 	clear_frame(app);
-	draw_info_panel(app);
+	draw_rectangle(app, &app->info_bounds, COLOR(150, 150, 255, 0));
 	if (app->board != NULL)
 		draw_game(app);
 	if (app->is_finished)

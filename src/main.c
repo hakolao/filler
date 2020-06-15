@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 17:54:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:33:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@ static t_app	*app_new(int is_visual)
 	return (app);
 }
 
+static void		set_app_ui_bounds(t_app *app)
+{
+	app->info_bounds = (t_rect){
+		.w = app->window->screen_width * 1 / 4 - 10,
+		.h = app->window->screen_height - 20,
+		.x = app->window->screen_width * 3 / 4, .y = 10};
+	app->grid_bounds = (t_rect){
+		.w = app->window->screen_width * 3 / 4 - 10,
+		.h = app->window->screen_height * 3 / 4,
+		.x = 10, .y = 10};
+}
+
 static t_app	*init_app_data(char **argv, int is_visual)
 {
 	t_app	*app;
@@ -56,16 +68,7 @@ static t_app	*init_app_data(char **argv, int is_visual)
 	app->strategy = find_first;
 	app->current_piece = NULL;
 	if (is_visual)
-	{
-		app->info_bounds = (t_rect){
-			.w = app->window->screen_width * 1 / 4 - 10,
-			.h = app->window->screen_height - 20,
-			.x = app->window->screen_width * 3 / 4, .y = 10};
-		app->grid_bounds = (t_rect){
-			.w = app->window->screen_width * 3 / 4 - 10,
-			.h = app->window->screen_height * 3 / 4,
-			.x = 10, .y = 10};
-	}
+		set_app_ui_bounds(app);
 	return (app);
 }
 
@@ -82,14 +85,14 @@ int				main(int argc, char **argv)
 		is_visual = ft_strequ(argv[1], "visual");
 		if (!is_visual)
 			return (log_err("Argument must be empty or 'visual'",
-			strerror(5)));
+					strerror(5)));
 	}
-		if (!(app = init_app_data(argv, is_visual)))
-			return (FALSE);
-		if (is_visual)
-			hook_app_to_loop(app);
-		else
-			while (update_map(app))
-				;
+	if (!(app = init_app_data(argv, is_visual)))
+		return (FALSE);
+	if (is_visual)
+		hook_app_to_loop(app);
+	else
+		while (update_map(app))
+			;
 	return (TRUE);
 }
