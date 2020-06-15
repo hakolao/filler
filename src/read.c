@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 16:39:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 17:33:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,5 @@ static int		read_stdin(t_app *app)
 
 int				update_map(t_app *app)
 {
-	app->window->redraw = TRUE;
 	return (read_stdin(app));
 }
