@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:03:22 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 17:24:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 17:56:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,5 @@ int					draw(t_app *app)
 		finish_colors(app);
 	draw_frame(app);
 	draw_texts(app);
-	app->window->redraw = FALSE;
 	return (1);
 }

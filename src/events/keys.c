@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 18:22:18 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/04 22:41:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 17:53:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ int				handle_key_press(int key, void *param)
 	t_app		*app;
 
 	app = (t_app*)param;
-	if (key == KEY_G)
-	{
-		app->show_guide = !app->show_guide;
-		app->window->redraw = TRUE;
-	}
 	if (key == KEY_ESC)
 		handle_exit_event(app);
 	return (0);

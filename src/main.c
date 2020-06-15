@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 17:41:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 17:54:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static t_app	*init_app_data(char **argv, int is_visual)
 	app->window->bg_color = COLOR(50, 50, 50, 0);
 	app->player1_color = PLAYER_1_COLOR;
 	app->player2_color = PLAYER_2_COLOR;
-	app->show_guide = FALSE;
 	app->is_finished = FALSE;
 	app->is_player1 = FALSE;
 	app->player1_score = 0;
@@ -58,39 +57,22 @@ static t_app	*init_app_data(char **argv, int is_visual)
 	app->current_piece = NULL;
 	if (is_visual)
 	{
-	app->info_bounds = (t_rect){
-		.w = app->window->screen_width * 1 / 4 - 10,
-		.h = app->window->screen_height - 20,
-		.x = app->window->screen_width * 3 / 4, .y = 10};
-	app->grid_bounds = (t_rect){
-		.w = app->window->screen_width * 3 / 4 - 10,
-		.h = app->window->screen_height * 3 / 4,
-		.x = 10, .y = 10};
+		app->info_bounds = (t_rect){
+			.w = app->window->screen_width * 1 / 4 - 10,
+			.h = app->window->screen_height - 20,
+			.x = app->window->screen_width * 3 / 4, .y = 10};
+		app->grid_bounds = (t_rect){
+			.w = app->window->screen_width * 3 / 4 - 10,
+			.h = app->window->screen_height * 3 / 4,
+			.x = 10, .y = 10};
 	}
 	return (app);
 }
 
-static int		init_filler(char **argv, int is_visual)
-{
-	t_app		*app;
-	static int	ret;
-
-	if (!(app = init_app_data(argv, is_visual)))
-		return (FALSE);
-	if (is_visual)
-		hook_app_to_loop(app);
-	else
-	{
-		ret = FALSE;
-		while (update_map(app))
-			;
-	}
-	return (TRUE);
-}
-
 int				main(int argc, char **argv)
 {
-	int		is_visual;
+	int			is_visual;
+	t_app		*app;
 
 	if (argc > 2)
 		return (0);
@@ -99,7 +81,15 @@ int				main(int argc, char **argv)
 	{
 		is_visual = ft_strequ(argv[1], "visual");
 		if (!is_visual)
-			return (log_err("Argument must be empty or 'visual'", strerror(5)));
+			return (log_err("Argument must be empty or 'visual'",
+			strerror(5)));
 	}
-	return (init_filler(argv, is_visual));
+		if (!(app = init_app_data(argv, is_visual)))
+			return (FALSE);
+		if (is_visual)
+			hook_app_to_loop(app);
+		else
+			while (update_map(app))
+				;
+	return (TRUE);
 }

@@ -6,21 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 22:09:12 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 15:21:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 17:54:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-
-char			*guide(void)
-{
-	char	*guide;
-
-	if ((guide = ft_strdup("USAGE Keys:\n"
-			"----------\nESC: Exit all\n(x): Exit window\n")) == NULL)
-		return (NULL);
-	return (guide);
-}
 
 void			draw_paragraph(t_app *app, char *text, int xpos,
 				int ypos)

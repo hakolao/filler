@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 17:06:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 17:57:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,18 +109,17 @@ enum				e_alignment
 
 typedef struct		s_window
 {
-	int					id;
-	void				*mlx_wdw;
-	void				*frame;
-	char				*frame_buf;
-	int					screen_width;
-	int					screen_height;
-	int					pixel_bits;
-	int					line_bytes;
-	int					pixel_endian;
-	int					redraw;
-	int					ui_color;
-	int					bg_color;
+	int				id;
+	void			*mlx_wdw;
+	void			*frame;
+	char			*frame_buf;
+	int				screen_width;
+	int				screen_height;
+	int				pixel_bits;
+	int				line_bytes;
+	int				pixel_endian;
+	int				ui_color;
+	int				bg_color;
 }					t_window;
 
 typedef struct		s_cell
@@ -155,28 +154,25 @@ typedef struct		s_rect
 
 typedef struct		s_app
 {
-	char				*name;
-	t_window			*window;
-	void				*mlx;
-	int					show_guide;
-	int					rows;
-	int					cols;
-	int					cell_size;
-	int					player_1_cell_y;
-	int					player_2_cell_y;
-	int					player1_score;
-	int					player2_score;
-	int					player1_color;
-	int					player2_color;
-	char				*player1_name;
-	char				*player2_name;
-	int					is_player1;
-	int					is_finished;
-	enum e_strategy		strategy;
-	t_piece				*current_piece;
-	t_board				*board;
-	t_rect				grid_bounds;
-	t_rect				info_bounds;
+	char			*name;
+	t_window		*window;
+	void			*mlx;
+	int				cell_size;
+	int				player_1_cell_y;
+	int				player_2_cell_y;
+	int				player1_score;
+	int				player2_score;
+	int				player1_color;
+	int				player2_color;
+	char			*player1_name;
+	char			*player2_name;
+	int				is_player1;
+	int				is_finished;
+	enum e_strategy	strategy;
+	t_piece			*current_piece;
+	t_board			*board;
+	t_rect			grid_bounds;
+	t_rect			info_bounds;
 }					t_app;
 
 typedef struct		s_point
@@ -225,7 +221,6 @@ int					parse_board(t_app *app);
 void				draw_paragraph(t_app *app, char *text, int xpos,
 					int ypos);
 void				draw_texts(t_app *app);
-char				*guide(void);
 void				draw_scores(t_app *app);
 
 /*

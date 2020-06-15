@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:03:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 17:23:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 17:55:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,10 @@ void			draw_scores(t_app *app)
 
 void				draw_texts(t_app *app)
 {
-	char	*guidestr;
-
 	if (app->board != NULL)
 		draw_scores(app);
 	if (app->is_finished)
 		draw_paragraph(app, "GAME OVER!",
 		app->info_bounds.x + 10 + app->cell_size + 10,
 		app->player_2_cell_y + 2 * app->cell_size);
-	if (!app->show_guide)
-		return ;
-	if (!(guidestr = guide()))
-		return ;
-	draw_paragraph(app, guidestr, 10, 30);
-	ft_strdel(&guidestr);
 }

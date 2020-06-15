@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 17:09:43 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/08 16:34:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 17:56:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int					scene_render_params(t_app *app, t_window *window)
 	window->pixel_bits = 32;
 	window->line_bytes = window->screen_width * 4;
 	window->pixel_endian = TRUE;
-	window->redraw = TRUE;
 	window->ui_color = UI_COLOR;
 	if (!(window->frame =
 		mlx_new_image(app->mlx, window->screen_width, window->screen_height)) ||
