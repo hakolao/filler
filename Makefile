@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:58:30 by ohakola           #+#    #+#              #
-#    Updated: 2020/06/12 12:03:28 by ohakola          ###   ########.fr        #
+#    Updated: 2020/06/15 16:24:06 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ HEADERS = incl
 FLAGS = -Wall -Wextra -Werror -O2
 LIBMLXFLAGS = -L$(LIBMLX) -lmlx -framework OpenGL -framework Appkit
 LIBFTFLAGS = -L$(LIBFT) -lft
-THREADFLAGS = -lpthread
 SOURCES = main.c \
 			log.c \
 			thread.c \
@@ -49,7 +48,7 @@ all: $(DIR_OBJ) $(NAME)
 $(NAME): $(OBJS)
 	@make -C $(LIBFT)
 	@make -C $(LIBMLX)
-	$(CC) $(FLAGS) $(LIBFTFLAGS) $(LIBMLXFLAGS) $(THREADFLAGS) -o $@ $^
+	$(CC) $(FLAGS) $(LIBFTFLAGS) $(LIBMLXFLAGS) -o $@ $^
 
 $(DIR_OBJ):
 	@mkdir -p temp

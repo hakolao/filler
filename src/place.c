@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 13:18:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 16:24:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,6 @@ int			place_piece(t_app *app)
 	min_y = -height_extra(app->current_piece, top);
 	max_y = app->board->height - app->current_piece->height +
 		height_extra(app->current_piece, down);
-	ft_dprintf(2, "max indices: min_x: %d, max_x: %d, min_y: %d, max_y: %d\n", min_x, max_x, min_y, max_y);
-	debug_board(app->board);
 	if (app->strategy == find_first)
 	{
 		y = min_y - 1;
@@ -136,13 +134,11 @@ int			place_piece(t_app *app)
 			{
 				if (piece_fits(app, x, y))
 				{
-					ft_dprintf(2, "Placing at: Y: %d X: %d\n", y, x);
 					ft_printf("%d %d\n", y, x);
 					return (TRUE);
 				}
 			}
 		}
 	}
-	ft_printf("Can't place\n");
 	return (FALSE);
 }
