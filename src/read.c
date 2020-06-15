@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 17:33:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 17:59:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,18 @@ static int		read_stdin(t_app *app)
 		return (FALSE);
 	while (get_next_line(0, &line) > 0)
 	{
-		if (ft_strlen(line) == 0)
-			return (TRUE);
 		if ((ft_strstr(line, app->name) && !parse_player(app, line)))
 			return (FALSE);
 		else if (ft_strstr(line, "Plateau"))
 		{
-			if ((!init_new_board(app, line) || !parse_board(app)))
+			if (!init_new_board(app, line) || !parse_board(app))
 				return (FALSE);
 			return (TRUE);
 		}
 		else if (ft_strstr(line, "Piece"))
 		{
-			if (!init_new_piece(app, line) || !parse_piece(app))
-				return (FALSE);
-			if (!place_piece(app))
+			if (!init_new_piece(app, line) || !parse_piece(app) ||
+				!place_piece(app))
 				return (FALSE);
 			ft_strdel(&line);
 			return (TRUE);

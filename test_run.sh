@@ -92,12 +92,16 @@ for m in $MAPS; do
 		rm temp.txt
 		echo "O: $O" >> results.txt
 		echo "X: $X" >> results.txt
+		SEED=$(cat filler.trace | head -n 1 | cut -d " " -f 3)
 		if [ $1 == "p2" ]; then
-			REPEAT="./$FILLER_VM -f $m -p2 $ME -p1 $p"
+			REPEAT="./$FILLER_VM -f $m -p2 $ME -p1 $p -s $SEED"
+			REPEAT_VISUAL="./$FILLER_VM -f $m -p2 \"$ME visual\" -p1 $p -s $SEED"
 		else
-			REPEAT="./$FILLER_VM -f $m -p1 $ME -p1 $p"
+			REPEAT="./$FILLER_VM -f $m -p1 $ME -p2 $p -s $SEED"
+			REPEAT_VISUAL="./$FILLER_VM -f $m -p1 \"$ME visual\" -p2 $p -s $SEED"
 		fi
 		echo "===== Repeat: make && $REPEAT" >> results.txt
+		echo "===== Repeat visual: make && $REPEAT_VISUAL" >> results.txt
 	done;
 	if [ $2 == "quick" ]; then
 		break ;
