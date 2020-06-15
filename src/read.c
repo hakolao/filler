@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 17:25:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 16:39:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ static int		read_stdin(t_app *app)
 {
 	char		*line;
 	
+	if (app->is_finished)
+		return (FALSE);
 	while (get_next_line(0, &line) > 0)
 	{
-		ft_dprintf(2, "line: %s\n", line);
 		if (ft_strlen(line) == 0)
 			return (TRUE);
 		if ((ft_strstr(line, app->name) && !parse_player(app, line)))
@@ -64,7 +65,7 @@ static int		read_stdin(t_app *app)
 			if (!init_new_piece(app, line) || !parse_piece(app))
 				return (FALSE);
 			if (!place_piece(app))
-				ft_dprintf(2, "Could not place piece\n");
+				return (FALSE);
 			ft_strdel(&line);
 			return (TRUE);
 		}

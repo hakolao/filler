@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:35:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 17:11:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 16:59:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ static void				draw_player_cached_cell(t_app *app, int player_i)
 	x = app->info_bounds.x + 10;
 	if (player_i == 0)
 	{
-		color = PLAYER_1_COLOR;
+		color = app->player1_color;
 		y = app->player_1_cell_y;
 	}
 	else
 	{
-		color = PLAYER_2_COLOR;
+		color = app->player2_color;
 		y = app->player_2_cell_y;
 	}
 	cell_bounds = (t_rect){.w = app->cell_size, .h = app->cell_size,

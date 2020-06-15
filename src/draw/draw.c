@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:03:22 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 15:49:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 17:24:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,30 @@ static void			clear_frame(t_app *app)
 		app->window->bg_color);
 }
 
-static void			draw_finish(t_app *app)
+static void			finish_colors(t_app *app)
 {
-	(void)app;
-	return ;
+	int		pixel;
+	int		y;
+	int		x;
+
+	y = 0;
+	while (y < app->window->screen_height)
+	{
+		x = 0;
+		while (x < app->window->screen_width)
+		{
+			pixel = y * app->window->line_bytes + x * 4;
+			app->window->frame_buf[pixel] =
+				app->window->frame_buf[pixel] * 5 / 3 % 255;
+			app->window->frame_buf[pixel + 1] =
+				app->window->frame_buf[pixel + 1] * 5 / 3 % 255;
+			app->window->frame_buf[pixel + 2] =
+				app->window->frame_buf[pixel + 2] * 5 / 3 % 255;
+			app->window->frame_buf[pixel + 3] = 0;
+			x++;
+		}
+		y++;
+	}
 }
 
 int					draw(t_app *app)
@@ -38,16 +58,11 @@ int					draw(t_app *app)
 	clear_frame(app);
 	draw_info_panel(app);
 	if (app->board != NULL)
-	{
-		if (!app->is_finished)
-			draw_game(app);
-		else
-			draw_finish(app);
-	}
+		draw_game(app);
+	if (app->is_finished)
+		finish_colors(app);
 	draw_frame(app);
 	draw_texts(app);
-	if (app->board != NULL)
-		draw_scores(app);
 	app->window->redraw = FALSE;
 	return (1);
 }

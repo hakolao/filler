@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 17:03:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 17:06:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,8 @@ typedef struct		s_app
 	int					player_2_cell_y;
 	int					player1_score;
 	int					player2_score;
+	int					player1_color;
+	int					player2_color;
 	char				*player1_name;
 	char				*player2_name;
 	int					is_player1;
@@ -175,7 +177,6 @@ typedef struct		s_app
 	t_board				*board;
 	t_rect				grid_bounds;
 	t_rect				info_bounds;
-	t_thread_params		**thread_params;
 }					t_app;
 
 typedef struct		s_point
@@ -264,13 +265,5 @@ void				debug_piece(t_piece *piece);
 void				debug_board(t_board *board);
 void				debug_board_piece_placing(t_board *board, t_piece *piece,
 					int board_x, int board_y);
-
-/*
-** Threads
-*/
-
-void				work_parallel(int num_threads, void **thread_params,
-					void (*worker_f)(void *params));
-t_thread_params		**thread_params(t_app *app);
 
 #endif

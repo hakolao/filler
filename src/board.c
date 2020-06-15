@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:27:49 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 17:11:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 16:59:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int				parse_board(t_app *app)
 		{
 			app->board->cells[y][x].id = line[i];
 			if (line[i] == PLAYER_1)
-				app->board->cells[y][x].color = PLAYER_1_COLOR;
+				app->board->cells[y][x].color = app->player1_color;
 			else if (line[i] == PLAYER_2)
-				app->board->cells[y][x].color = PLAYER_2_COLOR;
+				app->board->cells[y][x].color = app->player2_color;
 			i++;
 			x++;
 		}

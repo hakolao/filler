@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 16:34:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 16:59:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ static t_app	*app_new()
 
 	if ((!(app = malloc(sizeof(*app))) ||
 		!(app->mlx = mlx_init()) ||
-		!(app->window = new_window(app)) ||
-		!(app->thread_params = thread_params(app))) &&
+		!(app->window = new_window(app))) &&
 		log_err("Failed to init app", strerror(5)))
 		return (NULL);
 	return (app);
@@ -46,6 +45,8 @@ static t_app	*init_app_data(char *name)
 	app->board = NULL;
 	app->name = name;
 	app->window->bg_color = COLOR(50, 50, 50, 0);
+	app->player1_color = PLAYER_1_COLOR;
+	app->player2_color = PLAYER_2_COLOR;
 	app->show_guide = FALSE;
 	app->is_finished = FALSE;
 	app->is_player1 = FALSE;

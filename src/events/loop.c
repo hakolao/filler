@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 18:23:34 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/12 12:08:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 17:24:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 int				handle_loop(void *params)
 {
 	t_app		*app;
+	static int	ret;
 
 	app = (t_app*)params;
-	if (!update_map(app) &&
-		log_perr("Something went wrong in input reading"))
-		handle_exit_event(app);
+	ret = FALSE;
+	ret = app->is_finished ? ret : update_map(app);
+	if (ret == FALSE)
+		app->is_finished = TRUE;
 	if (app->window->redraw == TRUE)
 		draw(app);
 	return (0);

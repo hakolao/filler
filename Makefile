@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:58:30 by ohakola           #+#    #+#              #
-#    Updated: 2020/06/15 16:24:06 by ohakola          ###   ########.fr        #
+#    Updated: 2020/06/15 16:26:26 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ LIBMLXFLAGS = -L$(LIBMLX) -lmlx -framework OpenGL -framework Appkit
 LIBFTFLAGS = -L$(LIBFT) -lft
 SOURCES = main.c \
 			log.c \
-			thread.c \
 			window.c \
 			read.c \
 			place.c \

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 16:24:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 16:38:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ int			place_piece(t_app *app)
 				}
 			}
 		}
+		ft_printf("%d %d\n", 0, 0);
 	}
 	return (FALSE);
 }
