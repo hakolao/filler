@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 23:33:34 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:37:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:58:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,79 +34,39 @@ int				point_in_triangle(t_point *point, t_triangle *triangle)
 	return (!(has_neg && has_pos));
 }
 
-void			draw_triangle(t_app *app, t_triangle *triangle, int color)
+void			set_pixel(t_app *app, int pixel, int color)
 {
-	int		pixel;
-	int		y_min;
-	int		y_max;
-	int		x_min;
-	int		x_max;
-	int		y;
-	int		x;
-
-	y_min = ft_min_double((double[3]){triangle->a.y,
-		triangle->b.y, triangle->c.y}, 3);
-	y_max = ft_max_double((double[3]){triangle->a.y,
-		triangle->b.y, triangle->c.y}, 3);
-	x_min = ft_min_double((double[3]){triangle->a.x,
-			triangle->b.x, triangle->c.x}, 3);
-	x_max = ft_max_double((double[3]){triangle->a.x,
-		triangle->b.x, triangle->c.x}, 3);
-	y = y_min;
-	while (y < y_min + y_max && y >= 0 && y < app->window->screen_height)
-	{
-		x = x_min;
-		while (x < x_min + x_max && x >= 0 && x < app->window->screen_width)
-		{
-			if (point_in_triangle(&(t_point){.x = x, .y = y}, triangle))
-			{
-				pixel = y * app->window->line_bytes + x * 4;
-				app->window->frame_buf[pixel] = BLUE(color);
-				app->window->frame_buf[pixel + 1] = GREEN(color);
-				app->window->frame_buf[pixel + 2] = RED(color);
-				app->window->frame_buf[pixel + 3] = ALPHA(color);
-			}
-			x++;
-		}
-		y++;
-	}
+	app->window->frame_buf[pixel] = BLUE(color);
+	app->window->frame_buf[pixel + 1] = GREEN(color);
+	app->window->frame_buf[pixel + 2] = RED(color);
+	app->window->frame_buf[pixel + 3] = ALPHA(color);
 }
 
-void			draw_triangle_on_buf(char *buf, t_app *app,
-				t_triangle *triangle, int color)
+void			draw_triangle(t_app *app, t_triangle *triangle, int color)
 {
-	int		pixel;
-	int		y_min;
-	int		y_max;
-	int		x_min;
-	int		x_max;
+	int		*minmaxes;
 	int		y;
 	int		x;
 
-	y_min = ft_min_double((double[3]){triangle->a.y,
-		triangle->b.y, triangle->c.y}, 3);
-	y_max = ft_max_double((double[3]){triangle->a.y,
-		triangle->b.y, triangle->c.y}, 3);
-	x_min = ft_min_double((double[3]){triangle->a.x,
-			triangle->b.x, triangle->c.x}, 3);
-	x_max = ft_max_double((double[3]){triangle->a.x,
-		triangle->b.x, triangle->c.x}, 3);
-	y = y_min;
-	while (y < y_min + y_max && y >= 0 && y < app->cell_size)
+	minmaxes = (int[4]){
+		ft_min_double((double[3]){triangle->a.y,
+			triangle->b.y, triangle->c.y}, 3),
+		ft_max_double((double[3]){triangle->a.y,
+		triangle->b.y, triangle->c.y}, 3),
+		ft_min_double((double[3]){triangle->a.x,
+			triangle->b.x, triangle->c.x}, 3),
+		ft_max_double((double[3]){triangle->a.x,
+		triangle->b.x, triangle->c.x}, 3)
+	};
+	y = minmaxes[0];
+	while (y < minmaxes[0] + minmaxes[1] &&
+		y >= 0 && y < app->window->screen_height)
 	{
-		x = x_min;
-		while (x < x_min + x_max && x >= 0 && x < app->cell_size)
-		{
+		x = minmaxes[2] - 1;
+		while (++x < minmaxes[2] + minmaxes[3] &&
+			x >= 0 && x < app->window->screen_width)
 			if (point_in_triangle(&(t_point){.x = x, .y = y}, triangle))
-			{
-				pixel = y * app->window->line_bytes + x * 4;
-				buf[pixel] = BLUE(color);
-				buf[pixel + 1] = GREEN(color);
-				buf[pixel + 2] = RED(color);
-				buf[pixel + 3] = ALPHA(color);
-			}
-			x++;
-		}
+				set_pixel(app, y * app->window->line_bytes + x * 4, color);
 		y++;
 	}
 }

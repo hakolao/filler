@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:42:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:46:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ static int		width_extra(t_piece *piece, enum e_alignment alignment)
 {
 	int		x;
 	int		y;
-	int		found;
 
-	found = FALSE;
 	if (alignment == left)
 	{
 		x = -1;
@@ -67,9 +65,7 @@ static int		width_extra(t_piece *piece, enum e_alignment alignment)
 			y = -1;
 			while (++y < piece->height)
 				if (piece->cells[y][x].id == UNPLACED)
-					found = TRUE;
-			if (found)
-				return (x);
+					return (x);
 		}
 	}
 	x = piece->width;
@@ -78,9 +74,7 @@ static int		width_extra(t_piece *piece, enum e_alignment alignment)
 		y = piece->height;
 		while (--y >= 0)
 			if (piece->cells[y][x].id == UNPLACED)
-				found = TRUE;
-		if (found)
-			return (piece->width - x);
+				return (piece->width - x);
 	}
 	return (x);
 }
@@ -89,9 +83,7 @@ static int		height_extra(t_piece *piece, enum e_alignment alignment)
 {
 	int		x;
 	int		y;
-	int		found;
 
-	found = FALSE;
 	if (alignment == top)
 	{
 		y = -1;
