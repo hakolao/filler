@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:58:30 by ohakola           #+#    #+#              #
-#    Updated: 2020/06/15 16:26:26 by ohakola          ###   ########.fr        #
+#    Updated: 2020/06/15 17:45:11 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,18 @@ fclean: clean
 norm:
 	norminette $(HEADERS) $(LIBFT) $(DIR_SRC)
 
+test_quick_p1:
+	./test_run.sh p1 quick
+
+test_slow_p1:
+	./test_run.sh p1 thorough
+
+test_quick_p2:
+	./test_run.sh p2 quick
+
+test_slow_p2:
+	./test_run.sh p2 thorough
+
 re: fclean all
 
-.PHONY: all, $(DIR_OBJ), clean, fclean, norm
+.PHONY: all, $(DIR_OBJ), clean, fclean, norm, test_quick_p1, test_quick_p2, test_slow_p1, test_slow_p2
