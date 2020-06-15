@@ -6,11 +6,20 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:27:49 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:09:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:20:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
+
+static void		set_cell_colors(t_app *app, int x, int y, char cell)
+{
+	app->board->cells[y][x].id = cell;
+	if (cell == PLAYER_1)
+		app->board->cells[y][x].color = app->player1_color;
+	else if (cell == PLAYER_2)
+		app->board->cells[y][x].color = app->player2_color;
+}
 
 int				parse_board(t_app *app)
 {
@@ -28,11 +37,7 @@ int				parse_board(t_app *app)
 		x = 0;
 		while (line[i])
 		{
-			app->board->cells[y][x].id = line[i];
-			if (line[i] == PLAYER_1)
-				app->board->cells[y][x].color = app->player1_color;
-			else if (line[i] == PLAYER_2)
-				app->board->cells[y][x].color = app->player2_color;
+			set_cell_colors(app, x, y, line[i]);
 			i++;
 			x++;
 		}

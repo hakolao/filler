@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:07:02 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:08:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:20:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,24 @@ static void			destroy_current_piece_cells(t_app *app)
 	app->current_piece->cells = NULL;
 }
 
-int					init_new_piece(t_app *app, char *line)
+static int			init_first_piece_if_needed(t_app *app)
 {
-	int			y;
-	int			x;
-
 	if (app->current_piece == NULL)
 	{
 		if (!(app->current_piece = malloc(sizeof(*app->current_piece))))
 			return (FALSE);
 		app->current_piece->cells = NULL;
 	}
+	return (TRUE);
+}
+
+int					init_new_piece(t_app *app, char *line)
+{
+	int			y;
+	int			x;
+
+	if (!init_first_piece_if_needed(app))
+		return (FALSE);
 	if (app->current_piece->cells != NULL)
 		destroy_current_piece_cells(app);
 	parse_dimensions(&app->current_piece->height,
