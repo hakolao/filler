@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 16:43:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 17:15:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/16 17:17:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-static void	set_score(t_app *app, int o_count, int x_count)
+static void		set_score(t_app *app, int o_count, int x_count)
 {
 	if (o_count > app->player1_count)
 	{
@@ -29,7 +29,7 @@ static void	set_score(t_app *app, int o_count, int x_count)
 		app->i_won = TRUE;
 }
 
-void		calculate_score(t_app *app)
+void			calculate_score(t_app *app)
 {
 	int				x_count;
 	int				o_count;

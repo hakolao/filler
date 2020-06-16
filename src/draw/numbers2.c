@@ -6,11 +6,24 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 16:24:20 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 16:24:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/16 17:18:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
+
+void		number_5(int letters[10][9][6])
+{
+	assign_ints(letters[5][0], (int[6]){1, 1, 1, 1, 1, 1});
+	assign_ints(letters[5][1], (int[6]){1, 0, 0, 0, 0, 0});
+	assign_ints(letters[5][2], (int[6]){1, 0, 0, 0, 0, 0});
+	assign_ints(letters[5][3], (int[6]){1, 0, 0, 0, 0, 0});
+	assign_ints(letters[5][4], (int[6]){0, 1, 1, 1, 0, 0});
+	assign_ints(letters[5][5], (int[6]){0, 0, 0, 0, 1, 0});
+	assign_ints(letters[5][6], (int[6]){0, 0, 0, 0, 0, 1});
+	assign_ints(letters[5][7], (int[6]){0, 0, 0, 0, 0, 1});
+	assign_ints(letters[5][8], (int[6]){1, 1, 1, 1, 1, 0});
+}
 
 void		number_6(int letters[10][9][6])
 {
