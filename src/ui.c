@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:03:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 14:46:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/16 17:13:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,14 @@ void				draw_texts(t_app *app)
 	if (app->board != NULL)
 		draw_scores(app);
 	if (app->is_finished)
-		draw_paragraph(app, "GAME OVER!",
-		app->info_bounds.x + 10 + app->cell_size + 10,
-		app->player_2_cell_y + 2 * app->cell_size);
+	{
+		if (app->i_won)
+			draw_paragraph(app, "I WON!",
+				app->info_bounds.x + 10 + app->cell_size + 10,
+				app->player_2_cell_y + 2 * app->cell_size);
+		else
+			draw_paragraph(app, "I LOST!",
+				app->info_bounds.x + 10 + app->cell_size + 10,
+				app->player_2_cell_y + 2 * app->cell_size);
+	}
 }

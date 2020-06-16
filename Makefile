@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:58:30 by ohakola           #+#    #+#              #
-#    Updated: 2020/06/16 16:29:12 by ohakola          ###   ########.fr        #
+#    Updated: 2020/06/16 16:43:45 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SOURCES = main.c \
 			place.c \
 			board.c \
 			piece.c \
+			score.c \
 			draw/grid.c \
 			draw/score.c \
 			draw/draw.c \

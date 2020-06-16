@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 16:26:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/16 17:16:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@
 # define UI_COLOR COLOR(255, 255, 255, 0)
 # define BACKGROUND_COLOR COLOR(0, 0, 0, 0)
 
-# define WIDTH 1200
-# define HEIGHT 1200
+# define WIDTH 1280
+# define HEIGHT 768
 # define ASPECT_RATIO WIDTH / HEIGHT
 # define THREADS 8
 
@@ -154,7 +154,9 @@ typedef struct		s_app
 	int				cell_size;
 	int				player_1_cell_y;
 	int				player_2_cell_y;
+	int				player1_count;
 	int				player1_score;
+	int				player2_count;
 	int				player2_score;
 	int				player1_color;
 	int				player2_color;
@@ -162,6 +164,7 @@ typedef struct		s_app
 	char			*player2_name;
 	int				is_player1;
 	int				is_finished;
+	int				i_won;
 	t_piece			*current_piece;
 	t_board			*board;
 	t_rect			grid_bounds;
@@ -254,5 +257,10 @@ int					handle_exit_event(void *params);
 */
 
 int					log_err(char *str, char *strerror);
+
+/*
+** Score
+*/
+void				calculate_score(t_app *app);
 
 #endif

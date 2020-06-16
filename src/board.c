@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:27:49 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 14:36:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/16 16:45:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int				parse_board(t_app *app)
 		if (y == app->board->height - 1)
 			break ;
 	}
+	calculate_score(app);
 	return (TRUE);
 }
 

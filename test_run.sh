@@ -81,10 +81,10 @@ for m in $MAPS; do
 		if ! [[ $X =~ $RE ]]; then
 			X=0
 		fi
-		if [[ $O -ge $X ]]; then
+		if [[ $O -gt $X ]]; then
 			P1WINS=$(( P1WINS + 1 ))
 		fi
-		if [[ $X -ge $O ]]; then
+		if [[ $X -gt $O ]]; then
 			P2WINS=$(( P2WINS + 1 ))
 		fi
 		let COUNT++

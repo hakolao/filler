@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 14:43:56 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 16:28:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/16 17:05:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void			draw_letter(t_app *app, int x_pos, int y_pos, char digit)
 	int		c_height;
 	int		c_width;
 
+	if (!ft_isdigit(digit))
+		return ;
 	gen_letters(letters);
 	y = 0;
 	c_height = app->cell_size / 9;
@@ -47,7 +49,7 @@ static void			draw_letter(t_app *app, int x_pos, int y_pos, char digit)
 				draw_rectangle(app, &(t_rect){
 					.w = c_width, .h = c_height,
 					.x = x_pos + x * c_width, .y = y_pos + y * c_height
-				}, COLOR(0, 0, 0, 0));
+				}, COLOR(255, 255, 255, 0));
 			x++;
 		}
 		y++;
@@ -102,7 +104,7 @@ void				draw_scores(t_app *app)
 	draw_score(app, 
 		app->info_bounds.x + 10 + app->cell_size + 10,
 		app->player_2_cell_y,
-		score1);
+		score2);
 	ft_strdel(&score1);
 	ft_strdel(&score2);
 }
