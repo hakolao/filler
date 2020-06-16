@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:46:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/16 14:33:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,17 +119,20 @@ int				place_piece(t_app *app)
 		width_extra(app->current_piece, right);
 	max_y = app->board->height - app->current_piece->height +
 		height_extra(app->current_piece, down);
-	if (app->strategy == find_first)
+	y = -height_extra(app->current_piece, top) - 1;
+	while (++y < max_y)
 	{
-		y = -height_extra(app->current_piece, top) - 1;
-		while (++y < max_y)
-		{
-			x = min_x - 1;
-			while (++x < max_x)
-				if (piece_fits(app, x, y))
-					return (ft_printf("%d %d\n", y, x) && TRUE);
-		}
-		ft_printf("%d %d\n", 0, 0);
+		x = min_x - 1;
+		while (++x < max_x)
+			if (piece_fits(app, x, y))
+			{
+				if (app->is_player1)
+					app->player1_score++;
+				else
+					app->player2_score++;
+				return (ft_printf("%d %d\n", y, x) && TRUE);
+			}
 	}
+	ft_printf("%d %d\n", 0, 0);
 	return (FALSE);
 }

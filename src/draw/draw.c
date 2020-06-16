@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:03:22 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:22:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/16 14:37:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ static void			finish_colors(t_app *app)
 		{
 			pixel = y * app->window->line_bytes + x * 4;
 			app->window->frame_buf[pixel] =
-				app->window->frame_buf[pixel] * 5 / 3 % 255;
+				app->window->frame_buf[pixel] * 2 / 3;
 			app->window->frame_buf[pixel + 1] =
-				app->window->frame_buf[pixel + 1] * 5 / 3 % 255;
+				app->window->frame_buf[pixel + 1] * 2 / 3;
 			app->window->frame_buf[pixel + 2] =
-				app->window->frame_buf[pixel + 2] * 5 / 3 % 255;
+				app->window->frame_buf[pixel + 2] * 2 / 3;
 			app->window->frame_buf[pixel + 3] = 0;
 			x++;
 		}

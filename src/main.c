@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:33:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/16 14:19:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static t_app	*init_app_data(char **argv, int is_visual)
 	app->player2_score = 0;
 	app->player1_name = NULL;
 	app->player2_name = NULL;
-	app->strategy = find_first;
 	app->current_piece = NULL;
 	if (is_visual)
 		set_app_ui_bounds(app);
