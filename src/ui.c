@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:03:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:36:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/16 14:46:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,6 @@ void				draw_paragraph(t_app *app, char *text, int xpos,
 		ft_strdel(&split_text[i++]);
 	}
 	free(split_text);
-}
-
-void				draw_scores(t_app *app)
-{
-	char	*p1;
-	char	*p1_score;
-	char	*p2;
-	char	*p2_score;
-	char	*temp;
-
-	if (!(p1_score = ft_itoa(app->player1_score)) ||
-		!(p2_score = ft_itoa(app->player2_score)) ||
-		!(p1 = ft_strdup("P1: ")) ||
-		!(p2 = ft_strdup("P2: ")))
-		return ;
-	if (!(temp = ft_strjoin(p1, p1_score)))
-		return ;
-	draw_paragraph(app, temp, app->info_bounds.x + 10 + app->cell_size + 10,
-		app->player_1_cell_y + app->cell_size / 2);
-	ft_strdel(&temp);
-	if (!(temp = ft_strjoin(p2, p2_score)))
-		return ;
-	draw_paragraph(app, temp, app->info_bounds.x + 10 + app->cell_size + 10,
-		app->player_2_cell_y + app->cell_size / 2);
-	ft_strdel(&temp);
-	ft_strdel(&p1);
-	ft_strdel(&p2);
-	ft_strdel(&p1_score);
-	ft_strdel(&p2_score);
 }
 
 void				draw_texts(t_app *app)

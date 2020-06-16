@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:03:22 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 14:37:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/16 15:54:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int					draw(t_app *app)
 	draw_rectangle(app, &app->info_bounds, COLOR(150, 150, 255, 0));
 	if (app->board != NULL)
 		draw_game(app);
+	if (app->board != NULL)
+		draw_scores(app);
 	if (app->is_finished)
 		finish_colors(app);
 	draw_frame(app);

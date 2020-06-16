@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 14:19:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/16 16:26:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,21 @@ typedef struct		s_triangle
 t_window			*new_window(t_app *app);
 
 /*
+** Pixel numbers
+*/
+void				number_0(int letters[10][9][6]);
+void				number_1(int letters[10][9][6]);
+void				number_2(int letters[10][9][6]);
+void				number_3(int letters[10][9][6]);
+void				number_4(int letters[10][9][6]);
+void				number_5(int letters[10][9][6]);
+void				number_6(int letters[10][9][6]);
+void				number_7(int letters[10][9][6]);
+void				number_8(int letters[10][9][6]);
+void				number_9(int letters[10][9][6]);
+void				assign_ints(int ints[6], int *arr);
+
+/*
 ** Input & Output
 */
 
@@ -208,7 +223,6 @@ void				init_new_cell(t_cell *cell, int x, int y);
 void				draw_paragraph(t_app *app, char *text, int xpos,
 					int ypos);
 void				draw_texts(t_app *app);
-void				draw_scores(t_app *app);
 
 /*
 ** Draw
@@ -219,6 +233,7 @@ void				draw_rectangle(t_app *app, t_rect *rect, int color);
 void				draw_triangle(t_app *app, t_triangle *rect, int color);
 void				draw_pyramid_shape(t_app *app, t_rect *rect, int color);
 void				draw_game(t_app *app);
+void				draw_scores(t_app *app);
 
 /*
 ** Events

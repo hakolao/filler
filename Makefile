@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:58:30 by ohakola           #+#    #+#              #
-#    Updated: 2020/06/15 18:42:47 by ohakola          ###   ########.fr        #
+#    Updated: 2020/06/16 16:29:12 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,12 @@ SOURCES = main.c \
 			board.c \
 			piece.c \
 			draw/grid.c \
+			draw/score.c \
 			draw/draw.c \
 			draw/rectangle.c \
 			draw/triangle.c \
+			draw/numbers1.c \
+			draw/numbers2.c \
 			events/keys.c \
 			events/mouse.c \
 			events/loop.c \
