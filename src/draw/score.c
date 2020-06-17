@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 14:43:56 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 15:46:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 17:15:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static void			draw_letter(t_app *app, int x_pos, int y_pos, char digit)
 		return ;
 	gen_letters(letters);
 	y = -1;
-	c_height = app->cell_size / 9;
-	c_width = app->cell_size / 6;
+	c_height = app->cell_size * 2 / 9;
+	c_width = app->cell_size * 2 / 6;
 	while (++y < 9)
 	{
 		x = -1;
@@ -64,16 +64,16 @@ static void			draw_score(t_app *app, int x_pos, int y_pos, char *score)
 	len = ft_strlen(score);
 	i = 0;
 	y = y_pos;
-	while (y < y_pos + app->cell_size)
+	while (y < y_pos + app->cell_size * 2)
 	{
 		x = x_pos;
-		while (x < x_pos + app->cell_size * len)
+		while (x < x_pos + app->cell_size * len * 2)
 		{
 			draw_letter(app, x, y, score[i]);
 			i++;
-			x += app->cell_size;
+			x += app->cell_size * 2;
 		}
-		y += app->cell_size;
+		y += app->cell_size * 2;
 	}
 }
 

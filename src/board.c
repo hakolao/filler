@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:27:49 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 16:45:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 17:08:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int		set_grid_cell_render_dimensions(t_app *app)
 		app->grid_bounds.h / app->board->height :
 			app->grid_bounds.w / app->board->width) - 1;
 	app->player_1_cell_y = app->info_bounds.y + 100;
-	app->player_2_cell_y = app->info_bounds.y + 100 + app->cell_size + 1;
+	app->player_2_cell_y = app->info_bounds.y + 100 + app->cell_size * 2 + 1;
 	return (TRUE);
 }
 
