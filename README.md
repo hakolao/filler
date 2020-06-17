@@ -27,12 +27,7 @@ git clone https://github.com/hakolao/filler.git && cd filler && make
 ```
 
 ## Strategy
-A very simplistic strategy where:
-1. Check where token fits
-2. Check which out of those locations is closest to enemy center of mass
-3. Place there
-
-Currently wins about 80% of games.
+TBD
 
 ## Test script
 Run test scripts with test maps and check results after. You'll see how many of the games were won.
