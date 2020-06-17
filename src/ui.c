@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:03:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 17:13:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:13:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,17 @@ void				draw_paragraph(t_app *app, char *text, int xpos,
 	free(split_text);
 }
 
-void				draw_texts(t_app *app)
+void				draw_finish_text(t_app *app)
 {
-	if (app->board != NULL)
-		draw_scores(app);
 	if (app->is_finished)
 	{
 		if (app->i_won)
-			draw_paragraph(app, "I WON!",
-				app->info_bounds.x + 10 + app->cell_size + 10,
-				app->player_2_cell_y + 2 * app->cell_size);
+			draw_paragraph(app, "YOU WON!",
+				app->window->screen_width / 2 - 50,
+				app->window->screen_height / 2);
 		else
-			draw_paragraph(app, "I LOST!",
-				app->info_bounds.x + 10 + app->cell_size + 10,
-				app->player_2_cell_y + 2 * app->cell_size);
+			draw_paragraph(app, "YOU LOST!",
+				app->window->screen_width / 2 - 50,
+				app->window->screen_height / 2);
 	}
 }

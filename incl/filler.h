@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 17:16:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:14:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,11 @@
 # define B(b) CLAMP_0_255(b) & 255
 # define A(a) (CLAMP_0_255(a) & 255) << 24
 # define COLOR(r, g, b, a) A(a) | R(r) | G(g) | B(b)
-# define UI_COLOR COLOR(255, 255, 255, 0)
+# define UI_COLOR COLOR(0, 0, 0, 0)
 # define BACKGROUND_COLOR COLOR(0, 0, 0, 0)
 
-# define WIDTH 1280
-# define HEIGHT 768
-# define ASPECT_RATIO WIDTH / HEIGHT
+# define WIDTH 1200
+# define HEIGHT 1000
 # define THREADS 8
 
 # define EMPTY '.'
@@ -225,7 +224,7 @@ void				init_new_cell(t_cell *cell, int x, int y);
 
 void				draw_paragraph(t_app *app, char *text, int xpos,
 					int ypos);
-void				draw_texts(t_app *app);
+void				draw_finish_text(t_app *app);
 
 /*
 ** Draw

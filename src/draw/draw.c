@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:03:22 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 15:54:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:17:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void			clear_frame(t_app *app)
 		app->window->bg_color);
 }
 
-static void			finish_colors(t_app *app)
+static void			apply_pastel(t_app *app)
 {
 	int		pixel;
 	int		y;
@@ -40,16 +40,37 @@ static void			finish_colors(t_app *app)
 		{
 			pixel = y * app->window->line_bytes + x * 4;
 			app->window->frame_buf[pixel] =
-				app->window->frame_buf[pixel] * 2 / 3;
+				app->window->frame_buf[pixel] * 3 / 4;
 			app->window->frame_buf[pixel + 1] =
-				app->window->frame_buf[pixel + 1] * 2 / 3;
+				app->window->frame_buf[pixel + 1] * 3 / 4;
 			app->window->frame_buf[pixel + 2] =
-				app->window->frame_buf[pixel + 2] * 2 / 3;
+				app->window->frame_buf[pixel + 2] * 3 / 4;
 			app->window->frame_buf[pixel + 3] = 0;
 			x++;
 		}
 		y++;
 	}
+}
+
+static void			draw_finish_panel(t_app *app)
+{
+	int	width;
+	int	height;
+
+	width = 400;
+	height = 200;
+	draw_rectangle(app, &(t_rect){
+		.x = app->window->screen_width / 2 - width / 2 + 10,
+		.y = app->window->screen_height / 2 - height / 2 + 10,
+		.w = width,
+		.h = height
+	}, COLOR(0, 0, 0, 0));
+	draw_rectangle(app, &(t_rect){
+		.x = app->window->screen_width / 2 - width / 2,
+		.y = app->window->screen_height / 2 - height / 2,
+		.w = width,
+		.h = height
+	}, COLOR(150, 150, 255, 0));
 }
 
 int					draw(t_app *app)
@@ -62,8 +83,11 @@ int					draw(t_app *app)
 	if (app->board != NULL)
 		draw_scores(app);
 	if (app->is_finished)
-		finish_colors(app);
+		draw_finish_panel(app);
+	if (app->board)
+		apply_pastel(app);
 	draw_frame(app);
-	draw_texts(app);
+	if (app->is_finished)
+		draw_finish_text(app);
 	return (1);
 }

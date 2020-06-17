@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 16:46:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:00:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,22 +108,23 @@ static int		height_extra(t_piece *piece, enum e_alignment alignment)
 
 int				place_piece(t_app *app)
 {
-	int		min_x;
-	int		max_x;
-	int		max_y;
+	int		*xy_minmaxes;
 	int		x;
 	int		y;
 
-	min_x = -width_extra(app->current_piece, left);
-	max_x = app->board->width - app->current_piece->width +
-		width_extra(app->current_piece, right);
-	max_y = app->board->height - app->current_piece->height +
-		height_extra(app->current_piece, down);
-	y = -height_extra(app->current_piece, top) - 1;
-	while (++y < max_y)
+	xy_minmaxes = (int[4]){
+		-width_extra(app->current_piece, left),
+		app->board->width - app->current_piece->width +
+		width_extra(app->current_piece, right),
+		-height_extra(app->current_piece, top),
+		app->board->height - app->current_piece->height +
+		height_extra(app->current_piece, down)
+	};
+	y = xy_minmaxes[2] - 1;
+	while (++y < xy_minmaxes[3])
 	{
-		x = min_x - 1;
-		while (++x < max_x)
+		x = xy_minmaxes[0] - 1;
+		while (++x < xy_minmaxes[1])
 			if (piece_fits(app, x, y))
 				return (ft_printf("%d %d\n", y, x) && TRUE);
 	}
