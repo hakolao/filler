@@ -38,10 +38,16 @@ prog() {
 	printf "\r\e[K|%-*s| %3d %% %s" "$w" "$dots" "$p" "$*"; 
 }
 
+if test -f results.txt; then
+	rm results.txt
+fi
+
 GAMES=0
 for m in $MAPS; do
 	for p in $PLAYERS; do
-		let GAMES++
+		for i in {0..5}; do
+			let GAMES++
+		done;
 	done;
 	if [ $2 == "quick" ]; then
 		break ;
@@ -53,55 +59,63 @@ P2WINS=0
 COUNT=0
 for m in $MAPS; do
 	for p in $PLAYERS; do
-		if [ $1 == "p2" ]; then
-			./$FILLER_VM -f $m -p2 $ME -p1 $p > temp.txt
-		else
-			./$FILLER_VM -f $m -p1 $ME -p2 $p > temp.txt
-		fi
-		O=$(cat temp.txt | tail -n 2 | head -n 1)
-		X=$(cat temp.txt | tail -n 2 | tail -n 1)
-		# Make sure O and X contain their finish parts, otherwise there's been an error input in the game
-		if [[ $O == *"== O"* ]]; then
-			O=$(echo $O | cut -d " " -f 4)
-		fi
-		if [[ $X == *"== O"* ]]; then
-			O=$(echo $X | cut -d " " -f 4)
-		fi
-		if [[ $X == *"== X"* ]]; then
-			X=$(echo $X | cut -d " " -f 4)
-		fi
-		if [[ $O == *"== X"* ]]; then
-			X=$(echo $O | cut -d " " -f 4)
-		fi
-		# Make sure O and X are numbers, otherwise there's been an error input in the game
-		RE='^[0-9]+$'
-		if ! [[ $O =~ $RE ]]; then
-			O=0
-		fi
-		if ! [[ $X =~ $RE ]]; then
-			X=0
-		fi
-		if [[ $O -gt $X ]]; then
-			P1WINS=$(( P1WINS + 1 ))
-		fi
-		if [[ $X -gt $O ]]; then
-			P2WINS=$(( P2WINS + 1 ))
-		fi
-		let COUNT++
-		prog "$(( (COUNT * 100 / GAMES) ))"
-		rm temp.txt
-		echo "O: $O" >> results.txt
-		echo "X: $X" >> results.txt
-		SEED=$(cat filler.trace | head -n 1 | cut -d " " -f 3)
-		if [ $1 == "p2" ]; then
-			REPEAT="./$FILLER_VM -f $m -p2 $ME -p1 $p -s $SEED"
-			REPEAT_VISUAL="./$FILLER_VM -f $m -p2 \"$ME visual\" -p1 $p -s $SEED"
-		else
-			REPEAT="./$FILLER_VM -f $m -p1 $ME -p2 $p -s $SEED"
-			REPEAT_VISUAL="./$FILLER_VM -f $m -p1 \"$ME visual\" -p2 $p -s $SEED"
-		fi
-		echo "===== Repeat: make && $REPEAT" >> results.txt
-		echo "===== Repeat visual: make && $REPEAT_VISUAL" >> results.txt
+		for i in {0..5}; do
+			if [ $1 == "p2" ]; then
+				./$FILLER_VM -f $m -p2 $ME -p1 $p > temp.txt
+			else
+				./$FILLER_VM -f $m -p1 $ME -p2 $p > temp.txt
+			fi
+			O=$(cat temp.txt | tail -n 2 | head -n 1)
+			X=$(cat temp.txt | tail -n 2 | tail -n 1)
+			# Make sure O and X contain their finish parts, otherwise there's been an error input in the game
+			if [[ $O == *"== O"* ]]; then
+				O=$(echo $O | cut -d " " -f 4)
+			fi
+			if [[ $X == *"== O"* ]]; then
+				O=$(echo $X | cut -d " " -f 4)
+			fi
+			if [[ $X == *"== X"* ]]; then
+				X=$(echo $X | cut -d " " -f 4)
+			fi
+			if [[ $O == *"== X"* ]]; then
+				X=$(echo $O | cut -d " " -f 4)
+			fi
+			# Make sure O and X are numbers, otherwise there's been an error input in the game
+			RE='^[0-9]+$'
+			if ! [[ $O =~ $RE ]]; then
+				O=0
+			fi
+			if ! [[ $X =~ $RE ]]; then
+				X=0
+			fi
+			if [[ $O -gt $X ]]; then
+				P1WINS=$(( P1WINS + 1 ))
+			fi
+			if [[ $X -gt $O ]]; then
+				P2WINS=$(( P2WINS + 1 ))
+			fi
+			let COUNT++
+			prog "$(( (COUNT * 100 / GAMES) ))"
+			rm temp.txt
+			if [ $1 == "p2" ]; then
+				echo "YOU:		$X" >> results.txt
+				echo "ENEMY:	$O" >> results.txt
+			else
+				echo "YOU:		$O" >> results.txt
+				echo "ENEMY:	$X" >> results.txt
+			fi
+			SEED=$(cat filler.trace | head -n 1 | cut -d " " -f 3)
+			if [ $1 == "p2" ]; then
+				REPEAT="./$FILLER_VM -f $m -p2 $ME -p1 $p -s $SEED"
+				REPEAT_VISUAL="./$FILLER_VM -f $m -p2 \"$ME visual\" -p1 $p -s $SEED"
+			else
+				REPEAT="./$FILLER_VM -f $m -p1 $ME -p2 $p -s $SEED"
+				REPEAT_VISUAL="./$FILLER_VM -f $m -p1 \"$ME visual\" -p2 $p -s $SEED"
+			fi
+			echo "Play: make && $REPEAT" >> results.txt
+			echo "Play visual: make && $REPEAT_VISUAL" >> results.txt
+			echo "=======" >> results.txt
+		done;
 	done;
 	if [ $2 == "quick" ]; then
 		break ;
@@ -116,6 +130,13 @@ fi
 
 echo ""
 echo "-------" >> results.txt
-echo "$ME won $RESULT% of $GAMES games played" >> results.txt
-cat results.txt
-rm results.txt
+echo "$ME won $RESULT percent of $GAMES games played" >> results.txt
+RED='\033[0;31m'
+NC='\033[0m'
+GREEN='\033[0;32m'
+RESULT_LINE=$(cat results.txt | tail -n 1)
+if [ $RESULT -gt 50 ]; then
+	printf "${GREEN}${RESULT_LINE}${NC}\nSee results.txt for more information\n"
+else
+	printf "${RED}${RESULT_LINE}${NC}\nSee results.txt for more information\n"
+fi
