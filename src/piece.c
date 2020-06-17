@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:07:02 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:31:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 17:26:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,12 @@ int					parse_piece(t_app *app)
 			x++;
 		}
 		if (y >= app->current_piece->height - 1)
+		{
+			ft_strdel(&line);
 			return (TRUE);
+		}
 		y++;
+		ft_strdel(&line);
 	}
 	return (TRUE);
 }
