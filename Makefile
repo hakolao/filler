@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:58:30 by ohakola           #+#    #+#              #
-#    Updated: 2020/06/16 16:43:45 by ohakola          ###   ########.fr        #
+#    Updated: 2020/06/17 15:38:23 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SOURCES = main.c \
 			read.c \
 			read_utils.c \
 			place.c \
+			place_utils.c \
 			board.c \
 			piece.c \
 			score.c \
