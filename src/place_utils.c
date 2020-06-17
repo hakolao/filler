@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 15:37:24 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 15:38:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:59:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-int		width_extra(t_piece *piece, enum e_alignment alignment)
+int		w_extra(t_piece *piece, enum e_alignment alignment)
 {
 	int		x;
 	int		y;
@@ -39,7 +39,7 @@ int		width_extra(t_piece *piece, enum e_alignment alignment)
 	return (x);
 }
 
-int		height_extra(t_piece *piece, enum e_alignment alignment)
+int		h_extra(t_piece *piece, enum e_alignment alignment)
 {
 	int		x;
 	int		y;
