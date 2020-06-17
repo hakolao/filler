@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 15:00:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:34:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,20 @@ static int		height_extra(t_piece *piece, enum e_alignment alignment)
 	return (y);
 }
 
+int				is_best(t_app *app, int *pos, int *other)
+{
+	(void)app;
+	(void)pos;
+	(void)other;
+	return (TRUE);
+}
+
 int				place_piece(t_app *app)
 {
 	int		*xy_minmaxes;
 	int		x;
 	int		y;
+	int		*best;
 
 	xy_minmaxes = (int[4]){
 		-width_extra(app->current_piece, left),
@@ -121,13 +130,17 @@ int				place_piece(t_app *app)
 		height_extra(app->current_piece, down)
 	};
 	y = xy_minmaxes[2] - 1;
+	best = NULL;
 	while (++y < xy_minmaxes[3])
 	{
 		x = xy_minmaxes[0] - 1;
 		while (++x < xy_minmaxes[1])
-			if (piece_fits(app, x, y))
-				return (ft_printf("%d %d\n", y, x) && TRUE);
+			if (piece_fits(app, x, y) &&
+				(best == NULL ||
+					is_best(app, (int[2]){x, y}, best)))
+				best = (int[2]){x, y};
 	}
-	ft_printf("%d %d\n", 0, 0);
-	return (FALSE);
+	return (best ?
+			ft_printf("%d %d\n", best[1], best[0]) && TRUE : 
+			ft_printf("%d %d\n", 0, 0) && FALSE);
 }
