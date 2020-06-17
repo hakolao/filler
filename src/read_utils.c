@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:10:10 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:10:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:42:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void			init_new_cell(t_cell *cell, int x, int y)
 	cell->y = y;
 	cell->id = EMPTY;
 }
+
+/*
+** Parses either token or board line to save its width and height
+*/
 
 int				parse_dimensions(int *height, int *width, int i, char *line)
 {

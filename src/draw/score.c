@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 14:43:56 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 17:19:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:46:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ void				assign_ints(int ints[6], int *arr)
 	ints[4] = arr[4];
 	ints[5] = arr[5];
 }
+
+/*
+** Draw nice pixelized numbers :)
+*/
 
 void				draw_scores(t_app *app)
 {

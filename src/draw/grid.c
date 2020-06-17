@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:35:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/15 18:30:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:46:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ static void			draw_cells(t_app *app)
 		cell_bounds.y += app->cell_size + 1;
 	}
 }
+
+/*
+** Draw cache cells of pyramid shapes (triangle calculation is heavy so
+** we want to rather copy the pixels to the game board)
+*/
 
 static void			draw_player_cached_cell(t_app *app, int player_i)
 {

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 17:09:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:40:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ static t_app	*app_new(int is_visual)
 	return (app);
 }
 
+/*
+** Sets info panel's & grid area's bounds for visualization
+*/
+
 static void		set_app_ui_bounds(t_app *app)
 {
 	app->info_bounds = (t_rect){
@@ -47,6 +51,10 @@ static void		set_app_ui_bounds(t_app *app)
 		.h = app->window->screen_height * 3 / 4,
 		.x = 10, .y = 10};
 }
+
+/*
+** Inits main app struct data with initial parameters
+*/
 
 static t_app	*init_app_data(char **argv, int is_visual)
 {
@@ -73,6 +81,11 @@ static t_app	*init_app_data(char **argv, int is_visual)
 		set_app_ui_bounds(app);
 	return (app);
 }
+
+/*
+** Run either visual version of the app or
+** non visual based on input parameters
+*/
 
 int				main(int argc, char **argv)
 {

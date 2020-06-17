@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 15:37:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:45:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ int				is_best(t_app *app, int *pos, int *other)
 	(void)other;
 	return (TRUE);
 }
+
+/*
+** 1. Calculate extra bounds based on piece extra space
+** 2. Try placing piece, if fits, check if that is the best location
+** based on strategy
+** 3. If best, print that output. If can't place, print 0 0
+*/
 
 int				place_piece(t_app *app)
 {

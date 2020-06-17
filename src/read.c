@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/16 14:34:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:42:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ static int		read_stdin(t_app *app)
 	}
 	return (TRUE);
 }
+
+/*
+** Read stdin based on input data from filler_vm
+** Above function also sets app data structs based on
+** the read input data.
+*/
 
 int				update_map(t_app *app)
 {
