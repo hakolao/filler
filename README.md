@@ -32,12 +32,12 @@ TBD
 ## Test script
 Run test scripts with test maps and check results after. You'll see how many of the games were won.
 ```
-# Run only on map00 6 games against test all test players where you are player 1
+# Run only on map00 5 games against test all test players where you are player 1
 make test_quick_p1
-# Run all maps 6 games against test all test players where you are player 1
+# Run all maps 5 games against test all test players where you are player 1
 make test_slow_p1
-# Run only on map00 6 games against test all test players where you are player 2
+# Run only on map00 5 games against test all test players where you are player 2
 make test_quick_p2
-# Run all maps 6 games against test all test players where you are player 2
+# Run all maps 5 games against test all test players where you are player 2
 make test_slow_p2
 ```

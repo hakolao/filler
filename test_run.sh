@@ -31,13 +31,6 @@ fi
 
 make > /dev/null 2>&1 
 
-# https://unix.stackexchange.com/questions/415421/linux-how-to-create-simple-progress-bar-in-bash
-prog() {
-	local w=80 p=$1;  shift
-	printf -v dots "%*s" "$(( $p*$w/100 ))" ""; dots=${dots// /.};
-	printf "\r\e[K|%-*s| %3d %% %s" "$w" "$dots" "$p" "$*"; 
-}
-
 if test -f results.txt; then
 	rm results.txt
 fi
@@ -45,7 +38,7 @@ fi
 GAMES=0
 for m in $MAPS; do
 	for p in $PLAYERS; do
-		for i in {0..5}; do
+		for i in {0..4}; do
 			let GAMES++
 		done;
 	done;
@@ -54,12 +47,18 @@ for m in $MAPS; do
 	fi
 done
 
+RED='\033[0;31m'
+NC='\033[0m'
+GREEN='\033[0;32m'
+
 P1WINS=0
 P2WINS=0
 COUNT=0
 for m in $MAPS; do
 	for p in $PLAYERS; do
-		for i in {0..5}; do
+		echo "Map $m Against $p"
+		echo "Map $m Against $p" >> results.txt
+		for i in {0..4}; do
 			if [ $1 == "p2" ]; then
 				./$FILLER_VM -f $m -p2 $ME -p1 $p > temp.txt
 			else
@@ -95,14 +94,33 @@ for m in $MAPS; do
 				P2WINS=$(( P2WINS + 1 ))
 			fi
 			let COUNT++
-			prog "$(( (COUNT * 100 / GAMES) ))"
 			rm temp.txt
 			if [ $1 == "p2" ]; then
-				echo "YOU:		$X" >> results.txt
-				echo "ENEMY:	$O" >> results.txt
+				if [[ $X -gt $O ]]; then
+					printf "${GREEN}Winner: YOU${NC} ${X} to ${O}\n"
+					echo "Winner: YOU $X to $O" >> results.txt
+				else
+					if [[  $X -eq $O ]]; then
+						printf "${GREEN}Even${NC} ${X} to ${O}\n"
+						echo "Even $X to $O" >> results.txt
+					else
+						printf "${RED}Winner: ENEMY${NC} ${O} to ${X}\n"
+						echo "Winner: ENEMY $O to $X" >> results.txt
+					fi
+				fi
 			else
-				echo "YOU:		$O" >> results.txt
-				echo "ENEMY:	$X" >> results.txt
+				if [[ $O -gt $X ]]; then
+					printf "${GREEN}Winner: YOU${NC} ${O} to ${X}\n"
+					echo "Winner: YOU $O to $X" >> results.txt
+				else
+					if [[  $O -eq $X ]]; then
+						printf "${GREEN}Even${NC} ${O} to ${X}\n"
+						echo "Even $O to $X" >> results.txt
+					else
+						printf "${RED}Winner: ENEMY${NC} ${X} to ${O}\n"
+						echo "Winner: ENEMY $X to $O" >> results.txt
+					fi
+				fi
 			fi
 			SEED=$(cat filler.trace | head -n 1 | cut -d " " -f 3)
 			if [ $1 == "p2" ]; then
@@ -114,7 +132,6 @@ for m in $MAPS; do
 			fi
 			echo "Play: make && $REPEAT" >> results.txt
 			echo "Play visual: make && $REPEAT_VISUAL" >> results.txt
-			echo "=======" >> results.txt
 		done;
 	done;
 	if [ $2 == "quick" ]; then
@@ -131,9 +148,6 @@ fi
 echo ""
 echo "-------" >> results.txt
 echo "$ME won $RESULT percent of $GAMES games played" >> results.txt
-RED='\033[0;31m'
-NC='\033[0m'
-GREEN='\033[0;32m'
 RESULT_LINE=$(cat results.txt | tail -n 1)
 if [ $RESULT -gt 50 ]; then
 	printf "${GREEN}${RESULT_LINE}${NC}\nSee results.txt for more information\n"
