@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/22 15:03:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/22 15:35:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,24 @@ static int				piece_fits(t_app *app, int board_x, int board_y)
 	return (overlaps[0] == 1 && overlaps[1] == 0);
 }
 
-/*
-** Token position is better the closer it is to enemy center of mass and
-** the farther it is from corners
-*/
-
 static int				get_fitness(t_app *app, int *pos, int *ecom)
 {
 	int		fitness;
+	int		*player_com;
 
 	fitness = 0;
-	fitness += distance(pos, ecom);
-	fitness += distance(pos, (int[2]){0, 0});
-	fitness += distance(pos, (int[2]){app->board->width - 1, 0});
-	fitness += distance(pos, (int[2]){app->board->width - 1,
-		app->board->height - 1});
-	fitness += distance(pos, (int[2]){0, app->board->height - 1});
+	fitness += -distance(pos, ecom);
+	if (app->board->width > 15 && app->board->height > 15)
+	{
+		fitness += distance(pos, (int[2]){0, 0});
+		fitness += distance(pos, (int[2]){app->board->width - 1, 0});
+		fitness += distance(pos, (int[2]){app->board->width - 1,
+			app->board->height - 1});
+		fitness += distance(pos, (int[2]){0, app->board->height - 1});
+	}
+	player_com = mass_center(app, (int[2]){0},
+		app->is_player1 ? PLAYER_1 : PLAYER_2);
+	fitness += distance(pos, player_com);
 	return (fitness);
 }
 
@@ -97,7 +99,7 @@ int						place_piece(t_app *app)
 	int		*best;
 	int		*com;
 
-	com = enemy_center_of_mass(app, (int[2]){0});
+	com = mass_center(app, (int[2]){0}, app->is_player1 ? PLAYER_2 : PLAYER_1);
 	xy_minmaxes = (int[4]){-w_extra(app->current_piece, left),
 		app->board->width - app->current_piece->width +
 		w_extra(app->current_piece, right), -h_extra(app->current_piece, top),
