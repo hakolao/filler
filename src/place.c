@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/22 13:20:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/22 14:15:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,33 @@ static int		piece_fits(t_app *app, int board_x, int board_y)
 	return (overlaps[0] == 1 && overlaps[1] == 0);
 }
 
-static int		*enemy_center_of_mass(t_app *app, int *com)
+static int		*farthest_corner(t_app *app, int *pos, int *farthest)
 {
-	int		x;
-	int		y;
-	char	enemy;
-	int		count;
+	int		*corners[4];
+	int		max;
+	int		dist;
+	int		*result;
+	int		i;
 
-	enemy = app->is_player1 ? PLAYER_2 : PLAYER_1;
-	y = -1;
-	count = 0;
-	while (++y < app->board->height)
+	corners[0] = (int[2]){0, 0};
+	corners[1] = (int[2]){app->board->width - 1, 0};
+	corners[2] = (int[2]){app->board->width - 1, app->board->height - 1};
+	corners[3] = (int[2]){0, app->board->height - 1};
+	i = -1;
+	dist = distance(pos, corners[0]);
+	max = dist;
+	result = corners[0];
+	while (++i < 4)
 	{
-		x = -1;
-		while (++x < app->board->width)
+		if ((dist = distance(pos, corners[i])) > max)
 		{
-			if (app->board->cells[y][x].id == enemy)
-			{
-				com[0] += x;
-				com[1] += y;
-				count++;
-			}
+			max = dist;
+			result = corners[i];
 		}
 	}
-	com[0] /= count;
-	com[1] /= count;
-	return (com);
+	farthest[0] = result[0];
+	farthest[1] = result[1];
+	return (farthest);
 }
 
 /*
@@ -93,9 +94,7 @@ int				place_piece(t_app *app)
 	int		x;
 	int		y;
 	int		*best;
-	int		*com;
 
-	com = enemy_center_of_mass(app, (int[2]){0});
 	xy_minmaxes = (int[4]){-w_extra(app->current_piece, left),
 		app->board->width - app->current_piece->width +
 		w_extra(app->current_piece, right), -h_extra(app->current_piece, top),
@@ -108,8 +107,9 @@ int				place_piece(t_app *app)
 	{
 		x = xy_minmaxes[0] - 1;
 		while (++x < xy_minmaxes[1])
-			if (piece_fits(app, x, y) &&
-				(best == NULL || is_closer((int[2]){x, y}, best, com)))
+			if (piece_fits(app, x, y) && (best == NULL ||
+					is_closer((int[2]){x, y}, best, farthest_corner(
+					app, (int[2]){x, y}, (int[2]){0, 0}))))
 				best = (int[2]){x, y};
 	}
 	return (best ? ft_printf("%d %d\n", best[1], best[0]) :
