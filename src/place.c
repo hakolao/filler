@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 16:02:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/22 13:20:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int		piece_fits(t_app *app, int board_x, int board_y)
 	return (overlaps[0] == 1 && overlaps[1] == 0);
 }
 
-static void		set_enemy_center_of_mass(t_app *app, int com[2])
+static int		*enemy_center_of_mass(t_app *app, int *com)
 {
 	int		x;
 	int		y;
@@ -77,19 +77,7 @@ static void		set_enemy_center_of_mass(t_app *app, int com[2])
 	}
 	com[0] /= count;
 	com[1] /= count;
-}
-
-/*
-** Pos is better if its distance from enemy center of mass is smaller than
-** other
-*/
-
-static int		is_best(int *pos, int *other, int com[2])
-{
-	return (ft_sqrt((pos[0] - com[0]) * (pos[0] - com[0]) +
-		(pos[1] - com[1]) * (pos[1] - com[1])) <
-		ft_sqrt((other[0] - com[0]) * (other[0] - com[0]) +
-		(other[1] - com[1]) * (other[1] - com[1])));
+	return (com);
 }
 
 /*
@@ -105,9 +93,9 @@ int				place_piece(t_app *app)
 	int		x;
 	int		y;
 	int		*best;
-	int		com[2];
+	int		*com;
 
-	set_enemy_center_of_mass(app, com);
+	com = enemy_center_of_mass(app, (int[2]){0});
 	xy_minmaxes = (int[4]){-w_extra(app->current_piece, left),
 		app->board->width - app->current_piece->width +
 		w_extra(app->current_piece, right), -h_extra(app->current_piece, top),
@@ -121,7 +109,7 @@ int				place_piece(t_app *app)
 		x = xy_minmaxes[0] - 1;
 		while (++x < xy_minmaxes[1])
 			if (piece_fits(app, x, y) &&
-				(best == NULL || is_best((int[2]){x, y}, best, com)))
+				(best == NULL || is_closer((int[2]){x, y}, best, com)))
 				best = (int[2]){x, y};
 	}
 	return (best ? ft_printf("%d %d\n", best[1], best[0]) :

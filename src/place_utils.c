@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 15:37:24 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 15:59:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/22 13:21:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,15 @@ int		h_extra(t_piece *piece, enum e_alignment alignment)
 				return (piece->height - y);
 	}
 	return (y);
+}
+
+int		distance(int *pos, int *target)
+{
+	return (ft_sqrt((pos[0] - target[0]) * (pos[0] - target[0]) +
+		(pos[1] - target[1]) * (pos[1] - target[1])));
+}
+
+int		is_closer(int *pos, int *other, int *target)
+{
+	return (distance(pos, target) < distance(other, target));
 }

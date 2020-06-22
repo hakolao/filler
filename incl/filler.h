@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 15:59:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/22 13:21:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,8 @@ int					parse_dimensions(int *height, int *width,
 void				init_new_cell(t_cell *cell, int x, int y);
 int					w_extra(t_piece *piece, enum e_alignment alignment);
 int					h_extra(t_piece *piece, enum e_alignment alignment);
+int					distance(int *pos, int *target);
+int					is_closer(int *pos, int *other, int *target);
 
 /*
 ** UI
