@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/22 13:21:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/22 14:52:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ int					w_extra(t_piece *piece, enum e_alignment alignment);
 int					h_extra(t_piece *piece, enum e_alignment alignment);
 int					distance(int *pos, int *target);
 int					is_closer(int *pos, int *other, int *target);
+int					*enemy_center_of_mass(t_app *app, int *com);
 
 /*
 ** UI

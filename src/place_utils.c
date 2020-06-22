@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 15:37:24 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/22 13:21:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/22 14:52:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,32 @@ int		distance(int *pos, int *target)
 int		is_closer(int *pos, int *other, int *target)
 {
 	return (distance(pos, target) < distance(other, target));
+}
+
+int		*enemy_center_of_mass(t_app *app, int *com)
+{
+	int		x;
+	int		y;
+	char	enemy;
+	int		count;
+
+	enemy = app->is_player1 ? PLAYER_2 : PLAYER_1;
+	y = -1;
+	count = 0;
+	while (++y < app->board->height)
+	{
+		x = -1;
+		while (++x < app->board->width)
+		{
+			if (app->board->cells[y][x].id == enemy)
+			{
+				com[0] += x;
+				com[1] += y;
+				count++;
+			}
+		}
+	}
+	com[0] /= count;
+	com[1] /= count;
+	return (com);
 }

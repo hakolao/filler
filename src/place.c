@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/22 13:20:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/22 15:03:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-static void		increment_overlaps(t_app *app, int *overlaps, char id)
+static void				increment_overlaps(t_app *app, int *overlaps, char id)
 {
 	if (app->is_player1 && id == PLAYER_1)
 		overlaps[0]++;
@@ -24,7 +24,7 @@ static void		increment_overlaps(t_app *app, int *overlaps, char id)
 		overlaps[1]++;
 }
 
-static int		piece_fits(t_app *app, int board_x, int board_y)
+static int				piece_fits(t_app *app, int board_x, int board_y)
 {
 	int		x;
 	int		y;
@@ -52,32 +52,34 @@ static int		piece_fits(t_app *app, int board_x, int board_y)
 	return (overlaps[0] == 1 && overlaps[1] == 0);
 }
 
-static int		*enemy_center_of_mass(t_app *app, int *com)
-{
-	int		x;
-	int		y;
-	char	enemy;
-	int		count;
+/*
+** Token position is better the closer it is to enemy center of mass and
+** the farther it is from corners
+*/
 
-	enemy = app->is_player1 ? PLAYER_2 : PLAYER_1;
-	y = -1;
-	count = 0;
-	while (++y < app->board->height)
-	{
-		x = -1;
-		while (++x < app->board->width)
-		{
-			if (app->board->cells[y][x].id == enemy)
-			{
-				com[0] += x;
-				com[1] += y;
-				count++;
-			}
-		}
-	}
-	com[0] /= count;
-	com[1] /= count;
-	return (com);
+static int				get_fitness(t_app *app, int *pos, int *ecom)
+{
+	int		fitness;
+
+	fitness = 0;
+	fitness += distance(pos, ecom);
+	fitness += distance(pos, (int[2]){0, 0});
+	fitness += distance(pos, (int[2]){app->board->width - 1, 0});
+	fitness += distance(pos, (int[2]){app->board->width - 1,
+		app->board->height - 1});
+	fitness += distance(pos, (int[2]){0, app->board->height - 1});
+	return (fitness);
+}
+
+static int				is_better(t_app *app, int *pos,
+						int *best_so_far, int *ecom)
+{
+	int		fitness;
+	int		fitness_so_far;
+
+	fitness = get_fitness(app, pos, ecom);
+	fitness_so_far = get_fitness(app, best_so_far, ecom);
+	return (fitness > fitness_so_far);
 }
 
 /*
@@ -87,7 +89,7 @@ static int		*enemy_center_of_mass(t_app *app, int *com)
 ** 3. If best, print that output. If can't place, print 0 0
 */
 
-int				place_piece(t_app *app)
+int						place_piece(t_app *app)
 {
 	int		*xy_minmaxes;
 	int		x;
@@ -109,7 +111,7 @@ int				place_piece(t_app *app)
 		x = xy_minmaxes[0] - 1;
 		while (++x < xy_minmaxes[1])
 			if (piece_fits(app, x, y) &&
-				(best == NULL || is_closer((int[2]){x, y}, best, com)))
+				(best == NULL || is_better(app, (int[2]){x, y}, best, com)))
 				best = (int[2]){x, y};
 	}
 	return (best ? ft_printf("%d %d\n", best[1], best[0]) :
