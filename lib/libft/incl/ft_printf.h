@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:01:12 by ohakola           #+#    #+#             */
-/*   Updated: 2020/04/23 18:44:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/06/26 16:08:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 typedef struct		s_printf
 {
 	va_list		variables;
-	char		*format;
 	char		*spec;
 	char		c;
 	int			spec_len;
@@ -108,8 +107,6 @@ char				*add_chars_to_null_str_begin(char *res, int start,
 /*
 ** Format
 */
-char				*handle_padding(t_printf *data, char *res);
-char				*handle_precision(t_printf *data, char *res);
 char				*handle_formatting(t_printf *data, char *res);
 char				*handle_int_padding(t_printf *data, char *res);
 char				*handle_float_padding(t_printf *data, char *res);
