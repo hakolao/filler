@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:58:30 by ohakola           #+#    #+#              #
-#    Updated: 2020/06/17 15:38:23 by ohakola          ###   ########.fr        #
+#    Updated: 2020/07/06 21:54:42 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ CC = gcc
 NAME = ohakola.filler
 LIBFT = ./lib/libft
 LIBMLX = ./lib/libmlx
-DIR_SRC = src
+DIR_SRC = ./src
 DIR_OBJ = temp
-HEADERS = incl
+HEADERS = ./incl
 FLAGS = -Wall -Wextra -Werror -O2
 LIBMLXFLAGS = -L$(LIBMLX) -lmlx -framework OpenGL -framework Appkit
 LIBFTFLAGS = -L$(LIBFT) -lft
@@ -74,7 +74,7 @@ fclean: clean
 	@make -C $(LIBMLX) fclean
 
 norm:
-	norminette $(HEADERS) $(LIBFT) $(DIR_SRC)
+	norminette $(LIBFT) $(DIR_SRC) $(HEADERS)
 
 test_quick_p1:
 	./test_run.sh p1 quick
