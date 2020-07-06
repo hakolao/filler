@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/22 15:35:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/07/06 21:46:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,12 @@ static int				piece_fits(t_app *app, int board_x, int board_y)
 	return (overlaps[0] == 1 && overlaps[1] == 0);
 }
 
-static int				get_fitness(t_app *app, int *pos, int *ecom)
+static int				get_fitness(t_app *app, int *pos)
 {
 	int		fitness;
-	int		*player_com;
 
 	fitness = 0;
-	fitness += -distance(pos, ecom);
+	fitness += -distance(pos, app->enemy_com);
 	if (app->board->width > 15 && app->board->height > 15)
 	{
 		fitness += distance(pos, (int[2]){0, 0});
@@ -67,20 +66,18 @@ static int				get_fitness(t_app *app, int *pos, int *ecom)
 			app->board->height - 1});
 		fitness += distance(pos, (int[2]){0, app->board->height - 1});
 	}
-	player_com = mass_center(app, (int[2]){0},
-		app->is_player1 ? PLAYER_1 : PLAYER_2);
-	fitness += distance(pos, player_com);
+	fitness += distance(pos, app->player_com);
 	return (fitness);
 }
 
 static int				is_better(t_app *app, int *pos,
-						int *best_so_far, int *ecom)
+						int *best_so_far)
 {
 	int		fitness;
 	int		fitness_so_far;
 
-	fitness = get_fitness(app, pos, ecom);
-	fitness_so_far = get_fitness(app, best_so_far, ecom);
+	fitness = get_fitness(app, pos);
+	fitness_so_far = get_fitness(app, best_so_far);
 	return (fitness > fitness_so_far);
 }
 
@@ -97,9 +94,7 @@ int						place_piece(t_app *app)
 	int		x;
 	int		y;
 	int		*best;
-	int		*com;
 
-	com = mass_center(app, (int[2]){0}, app->is_player1 ? PLAYER_2 : PLAYER_1);
 	xy_minmaxes = (int[4]){-w_extra(app->current_piece, left),
 		app->board->width - app->current_piece->width +
 		w_extra(app->current_piece, right), -h_extra(app->current_piece, top),
@@ -113,7 +108,7 @@ int						place_piece(t_app *app)
 		x = xy_minmaxes[0] - 1;
 		while (++x < xy_minmaxes[1])
 			if (piece_fits(app, x, y) &&
-				(best == NULL || is_better(app, (int[2]){x, y}, best, com)))
+				(best == NULL || is_better(app, (int[2]){x, y}, best)))
 				best = (int[2]){x, y};
 	}
 	return (best ? ft_printf("%d %d\n", best[1], best[0]) :

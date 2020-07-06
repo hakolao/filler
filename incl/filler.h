@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:07:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/26 16:10:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/07/06 21:47:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ typedef struct		s_app
 	t_board			*board;
 	t_rect			grid_bounds;
 	t_rect			info_bounds;
+	int				player_com[2];
+	int				enemy_com[2];
 }					t_app;
 
 typedef struct		s_point
@@ -219,7 +221,6 @@ void				init_new_cell(t_cell *cell, int x, int y);
 int					w_extra(t_piece *piece, enum e_alignment alignment);
 int					h_extra(t_piece *piece, enum e_alignment alignment);
 int					distance(int *pos, int *target);
-int					is_closer(int *pos, int *other, int *target);
 int					*mass_center(t_app *app, int *com, int player);
 
 /*

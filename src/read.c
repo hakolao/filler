@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 17:29:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/07/06 21:45:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,24 @@ static int		parse_player(t_app *app, char *line)
 	return (TRUE);
 }
 
+static void		calculate_center_of_masses(t_app *app)
+{
+	int	*ecom;
+	int	*pcom;
+
+	ecom = mass_center(app,
+		(int[2]){0}, app->is_player1 ? PLAYER_2 : PLAYER_1);
+	pcom = mass_center(app, (int[2]){0},
+		app->is_player1 ? PLAYER_1 : PLAYER_2);
+	app->enemy_com[0] = ecom[0];
+	app->enemy_com[1] = ecom[1];
+	app->player_com[0] = pcom[1];
+	app->player_com[1] = pcom[1];
+}
+
 static int		handle_piece(t_app *app, char *line)
 {
+	calculate_center_of_masses(app);
 	if (!init_new_piece(app, line) || !parse_piece(app) ||
 		!place_piece(app))
 	{
