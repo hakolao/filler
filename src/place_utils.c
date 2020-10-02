@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 15:37:24 by ohakola           #+#    #+#             */
-/*   Updated: 2020/07/06 21:47:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/10/02 15:21:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,31 @@ int		*mass_center(t_app *app, int *com, int player)
 	com[0] /= count;
 	com[1] /= count;
 	return (com);
+}
+
+int		distance_from_enemy(t_app *app, int *pos)
+{
+	int		enemy;
+	int		x;
+	int		y;
+	int		min_dist;
+	int		dist;
+
+	enemy = app->is_player1 ? PLAYER_2 : PLAYER_1;
+	y = -1;
+	min_dist = INT32_MAX;
+	while (++y < app->board->height)
+	{
+		x = -1;
+		while (++x < app->board->width)
+		{
+			if (app->board->cells[y][x].id == enemy)
+			{
+				dist = distance(pos, (int[2]){x, y});
+				if (dist <= min_dist)
+					min_dist = dist;
+			}
+		}
+	}
+	return (min_dist);
 }

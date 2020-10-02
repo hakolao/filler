@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 15:38:35 by ohakola           #+#    #+#             */
-/*   Updated: 2020/07/06 21:46:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/10/02 15:30:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,23 @@ static int				piece_fits(t_app *app, int board_x, int board_y)
 	return (overlaps[0] == 1 && overlaps[1] == 0);
 }
 
+/*
+** Modify fitness calculation to improve strategy. Currently very simple...
+** E.g.:
+** Distance from corners...
+** fitness += distance(pos, (int[2]){app->board->width - 1,
+** app->board->height - 1});
+** Enemy center of mass
+** fitness += -distance(pos, app->enemy_com);
+*/
+
 static int				get_fitness(t_app *app, int *pos)
 {
 	int		fitness;
 
 	fitness = 0;
-	fitness += -distance(pos, app->enemy_com);
-	if (app->board->width > 15 && app->board->height > 15)
-	{
-		fitness += distance(pos, (int[2]){0, 0});
-		fitness += distance(pos, (int[2]){app->board->width - 1, 0});
-		fitness += distance(pos, (int[2]){app->board->width - 1,
-			app->board->height - 1});
-		fitness += distance(pos, (int[2]){0, app->board->height - 1});
-	}
-	fitness += distance(pos, app->player_com);
+	fitness -= distance_from_enemy(app, pos);
+	fitness += distance(pos, app->player_com) * 0.5;
 	return (fitness);
 }
 
