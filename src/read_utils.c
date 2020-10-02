@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:10:10 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 15:42:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/10/02 15:47:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ int				parse_dimensions(int *height, int *width, int i, char *line)
 	while (!ft_isdigit(line[i]))
 		i++;
 	*width = ft_atoi(line + i);
-	return (TRUE);
+	return (true);
 }

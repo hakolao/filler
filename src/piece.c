@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:07:02 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 17:26:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/10/02 15:47:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static int			init_first_piece_if_needed(t_app *app)
 	if (app->current_piece == NULL)
 	{
 		if (!(app->current_piece = malloc(sizeof(*app->current_piece))))
-			return (FALSE);
+			return (false);
 		app->current_piece->cells = NULL;
 	}
-	return (TRUE);
+	return (true);
 }
 
 int					init_new_piece(t_app *app, char *line)
@@ -40,7 +40,7 @@ int					init_new_piece(t_app *app, char *line)
 	int			x;
 
 	if (!init_first_piece_if_needed(app))
-		return (FALSE);
+		return (false);
 	if (app->current_piece->cells != NULL)
 		destroy_current_piece_cells(app);
 	parse_dimensions(&app->current_piece->height,
@@ -48,19 +48,19 @@ int					init_new_piece(t_app *app, char *line)
 	if (!(app->current_piece->cells =
 			malloc(sizeof(*app->current_piece->cells) *
 				app->current_piece->height)))
-		return (FALSE);
+		return (false);
 	y = -1;
 	while (++y < app->current_piece->height)
 	{
 		if (!(app->current_piece->cells[y] =
 				malloc(sizeof(**app->current_piece->cells) *
 				app->current_piece->width)))
-			return (FALSE);
+			return (false);
 		x = -1;
 		while (++x < app->current_piece->width)
 			init_new_cell(&app->current_piece->cells[y][x], x, y);
 	}
-	return (TRUE);
+	return (true);
 }
 
 int					parse_piece(t_app *app)
@@ -82,10 +82,10 @@ int					parse_piece(t_app *app)
 		if (y >= app->current_piece->height - 1)
 		{
 			ft_strdel(&line);
-			return (TRUE);
+			return (true);
 		}
 		y++;
 		ft_strdel(&line);
 	}
-	return (TRUE);
+	return (true);
 }

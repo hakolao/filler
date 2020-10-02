@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 13:27:49 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 17:08:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/10/02 15:47:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int		set_grid_cell_render_dimensions(t_app *app)
 			app->grid_bounds.w / app->board->width) - 1;
 	app->player_1_cell_y = app->info_bounds.y + 100;
 	app->player_2_cell_y = app->info_bounds.y + 100 + app->cell_size * 2 + 1;
-	return (TRUE);
+	return (true);
 }
 
 int				parse_board(t_app *app)
@@ -57,7 +57,7 @@ int				parse_board(t_app *app)
 			break ;
 	}
 	calculate_score(app);
-	return (TRUE);
+	return (true);
 }
 
 int				init_new_board(t_app *app, char *line)
@@ -73,17 +73,17 @@ int				init_new_board(t_app *app, char *line)
 			!set_grid_cell_render_dimensions(app) ||
 			!(app->board->cells = malloc(sizeof(*app->board->cells) *
 			app->board->height)))
-			return (FALSE);
+			return (false);
 		y = -1;
 		while (++y < app->board->height)
 		{
 			if (!(app->board->cells[y] =
 				malloc(sizeof(**app->board->cells) * app->board->width)))
-				return (FALSE);
+				return (false);
 			x = -1;
 			while (++x < app->board->width)
 				init_new_cell(&app->board->cells[y][x], x, y);
 		}
 	}
-	return (TRUE);
+	return (true);
 }

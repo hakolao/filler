@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 13:59:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 15:40:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/10/02 15:48:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ static t_app	*init_app_data(char **argv, int is_visual)
 	app->window->bg_color = COLOR(50, 50, 50, 0);
 	app->player1_color = PLAYER_1_COLOR;
 	app->player2_color = PLAYER_2_COLOR;
-	app->is_finished = FALSE;
-	app->is_player1 = FALSE;
+	app->is_finished = false;
+	app->is_player1 = false;
 	app->player1_score = 0;
 	app->player1_count = 1;
 	app->player2_score = 0;
 	app->player2_count = 1;
-	app->i_won = 0;
+	app->i_won = false;
 	app->player1_name = NULL;
 	app->player2_name = NULL;
 	app->current_piece = NULL;
@@ -94,7 +94,7 @@ int				main(int argc, char **argv)
 
 	if (argc > 2)
 		return (0);
-	is_visual = FALSE;
+	is_visual = false;
 	if (argc == 2)
 	{
 		is_visual = ft_strequ(argv[1], "visual");
@@ -103,11 +103,11 @@ int				main(int argc, char **argv)
 					strerror(5)));
 	}
 	if (!(app = init_app_data(argv, is_visual)))
-		return (FALSE);
+		return (false);
 	if (is_visual)
 		hook_app_to_loop(app);
 	else
 		while (update_map(app))
 			;
-	return (TRUE);
+	return (true);
 }

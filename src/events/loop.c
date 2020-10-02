@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 18:23:34 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 15:41:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/10/02 15:48:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int				handle_loop(void *params)
 	static int	ret;
 
 	app = (t_app*)params;
-	ret = FALSE;
+	ret = false;
 	ret = app->is_finished ? ret : update_map(app);
-	if (ret == FALSE)
-		app->is_finished = TRUE;
+	if (ret == false)
+		app->is_finished = true;
 	draw(app);
 	return (0);
 }

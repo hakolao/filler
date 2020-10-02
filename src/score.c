@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 16:43:11 by ohakola           #+#    #+#             */
-/*   Updated: 2020/06/17 15:43:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/10/02 15:48:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		set_score(t_app *app, int o_count, int x_count)
 	}
 	if ((app->player1_score > app->player2_score && app->is_player1) ||
 		(app->player1_score < app->player2_score && !app->is_player1))
-		app->i_won = TRUE;
+		app->i_won = true;
 }
 
 /*

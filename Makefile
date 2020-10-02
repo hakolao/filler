@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/01 15:58:30 by ohakola           #+#    #+#              #
-#    Updated: 2020/07/06 21:54:42 by ohakola          ###   ########.fr        #
+#    Updated: 2020/10/02 15:45:13 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ SOURCES = main.c \
 
 SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
-INCLUDES = -I./incl/ -I$(LIBFT)/incl -I$(LIBMLX)
+INCLUDES = -I./incl/ -I$(LIBFT)/include -I$(LIBMLX)
 
 all: $(DIR_OBJ) $(NAME)
 

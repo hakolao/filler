@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:56:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/07/06 21:45:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/10/02 15:47:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static int		parse_player(t_app *app, char *line)
 {
 	if (ft_strstr(line, "p1"))
-		app->is_player1 = TRUE;
-	return (TRUE);
+		app->is_player1 = true;
+	return (true);
 }
 
 static void		calculate_center_of_masses(t_app *app)
@@ -41,10 +41,10 @@ static int		handle_piece(t_app *app, char *line)
 		!place_piece(app))
 	{
 		ft_strdel(&line);
-		return (FALSE);
+		return (false);
 	}
 	ft_strdel(&line);
-	return (TRUE);
+	return (true);
 }
 
 static int		read_stdin(t_app *app)
@@ -52,26 +52,26 @@ static int		read_stdin(t_app *app)
 	char		*line;
 
 	if (app->is_finished)
-		return (FALSE);
+		return (false);
 	while (get_next_line(0, &line) > 0)
 	{
 		if ((ft_strstr(line, app->name) && !parse_player(app, line)))
 		{
 			ft_strdel(&line);
-			return (FALSE);
+			return (false);
 		}
 		else if (ft_strstr(line, "Plateau"))
 		{
 			if (!init_new_board(app, line) || !parse_board(app))
-				return (FALSE);
+				return (false);
 			ft_strdel(&line);
-			return (TRUE);
+			return (true);
 		}
 		else if (ft_strstr(line, "Piece"))
 			return (handle_piece(app, line));
 		ft_strdel(&line);
 	}
-	return (TRUE);
+	return (true);
 }
 
 /*
