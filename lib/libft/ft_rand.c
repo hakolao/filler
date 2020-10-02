@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_longl_base.c                               :+:      :+:    :+:   */
+/*   ft_rand.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/27 15:35:06 by ohakola           #+#    #+#             */
-/*   Updated: 2020/03/13 15:43:03 by ohakola          ###   ########.fr       */
+/*   Created: 2020/09/17 19:36:38 by ohakola           #+#    #+#             */
+/*   Updated: 2020/09/18 01:17:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char				*ft_itoa_longl_base(long long int nb, long long int base)
-{
-	return (ft_itoa_intmax_base(nb, base));
-}
+/*
+** https://stackoverflow.com/questions/3062746/
+** special-simple-random-number-generator
+*/
 
-char				*ft_itoa_longl_u_base(unsigned long long int nb,
-					unsigned long long int base)
+uint32_t			ft_rand(uint32_t seed)
 {
-	return (ft_itoa_uintmax_base(nb, base));
+	return ((1103515245 * seed + 12345) % (1 << 31));
 }

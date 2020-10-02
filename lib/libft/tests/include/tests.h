@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_long_base.c                                :+:      :+:    :+:   */
+/*   tests.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/27 15:31:31 by ohakola           #+#    #+#             */
-/*   Updated: 2020/03/13 15:42:57 by ohakola          ###   ########.fr       */
+/*   Created: 2020/08/16 19:23:54 by ohakola           #+#    #+#             */
+/*   Updated: 2020/09/30 02:38:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef TESTS_H
+# define TESTS_H
 
-char				*ft_itoa_long_base(long int nb, long int base)
-{
-	return (ft_itoa_intmax_base(nb, base));
-}
+const char		*test_hash_map_create(void);
+const char		*test_hash_map_add(void);
+const char		*test_hash_map_get(void);
+const char		*test_hash_map_delete(void);
+const char		*test_hash_map_has_key(void);
+const char		*test_hash_map_foreach(void);
 
-char				*ft_itoa_long_u_base(unsigned long int nb,
-					unsigned long int base)
-{
-	return (ft_itoa_uintmax_base(nb, base));
-}
+#endif
